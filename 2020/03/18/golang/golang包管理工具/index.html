@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="zhangyong">
 <meta property="og:description" content="go dep安装执行以下命令安装godep工具。 go get github.com/tools/godep基本命令安装好godep之后，在终端输入godep查看支持的所有命令。 godep save     将依赖项输出并复制到Godeps.json文件中 godep go       使用保存的依赖项运行go工具 godep get      下载并安装具有指定依赖项的包 godep path">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2020/03/18/golang/golang%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/%E5%BC%80%E5%90%AFgomodule.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/18/golang/golang包管理工具/golang%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/%E5%BC%80%E5%90%AFgomodule.png">
 <meta property="og:updated_time" content="2020-04-03T16:13:21.520Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="go包管理工具小结">
 <meta name="twitter:description" content="go dep安装执行以下命令安装godep工具。 go get github.com/tools/godep基本命令安装好godep之后，在终端输入godep查看支持的所有命令。 godep save     将依赖项输出并复制到Godeps.json文件中 godep go       使用保存的依赖项运行go工具 godep get      下载并安装具有指定依赖项的包 godep path">
-<meta name="twitter:image" content="http://yoursite.com/2020/03/18/golang/golang%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/%E5%BC%80%E5%90%AFgomodule.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/18/golang/golang包管理工具/golang%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/%E5%BC%80%E5%90%AFgomodule.png">
   
     <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
   
@@ -244,7 +244,7 @@ indirect表示间接引用</code></pre><h3 id="GOPROXY"><a href="#GOPROXY" class
 <p>如果你不确定你当前的值是什么，可以执行go env命令，查看结果：</p>
 <pre><code>$ go env
 GO111MODULE=&quot;off&quot;</code></pre><p>如果需要对 GO111MODULE 的值进行变更，推荐通过go env命令进行设置：</p>
-<pre><code>$ go env -w GO111MODULE=on</code></pre><h3 id="goland中启用go-module"><a href="#goland中启用go-module" class="headerlink" title="goland中启用go module"></a>goland中启用go module</h3><p><img src="../golang%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/%E5%BC%80%E5%90%AFgomodule.png" alt></p>
+<pre><code>$ go env -w GO111MODULE=on</code></pre><h3 id="goland中启用go-module"><a href="#goland中启用go-module" class="headerlink" title="goland中启用go module"></a>goland中启用go module</h3><p><img src="//yoursite.com/2020/03/18/golang/golang包管理工具/golang%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/%E5%BC%80%E5%90%AFgomodule.png" alt></p>
 <p>代理可以设置为：<code>https://goproxy.cn</code></p>
 <h3 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h3><pre><code>go mod init</code></pre><h3 id="go-mod-文件"><a href="#go-mod-文件" class="headerlink" title="go.mod 文件"></a>go.mod 文件</h3><p>在初始化项目时，会生成一个 go.mod 文件，是启用了 Go modules 项目所必须的最重要的标识.</p>
 <p>示例：</p>

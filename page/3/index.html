@@ -163,76 +163,6 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-mysql/mysql使用存储过程脚本批量插入数据" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/03/18/mysql/mysql使用存储过程脚本批量插入数据/" class="article-date">
-  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/18/mysql/mysql使用存储过程脚本批量插入数据/">
-        使用存储过程脚本批量插入数据
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="使用存储过程脚本批量插入数据"><a href="#使用存储过程脚本批量插入数据" class="headerlink" title="使用存储过程脚本批量插入数据"></a>使用存储过程脚本批量插入数据</h1><h3 id="创建数据库表："><a href="#创建数据库表：" class="headerlink" title="创建数据库表："></a>创建数据库表：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE bigtables (</span><br><span class="line">  `id` bigint(20) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `number` int(20) DEFAULT NULL,</span><br><span class="line">  `name` varchar(100) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建函数："><a href="#创建函数：" class="headerlink" title="创建函数："></a>创建函数：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">delimiter $$</span><br><span class="line">create function rand_string(n int) returns varchar(255)</span><br><span class="line">begin</span><br><span class="line">   declare chars_str varchar(100) default &apos;qwertyuiopasdfghjklzxcvbnm&apos;;</span><br><span class="line">   declare return_str varchar(255) default &apos;&apos;;</span><br><span class="line">   declare i int default 0;   </span><br><span class="line">   while i&lt;n do</span><br><span class="line">   set return_str=concat(return_str,substring(chars_str,floor(1+rand()*52),1));</span><br><span class="line">   set i=i+1;   </span><br><span class="line">   end while;   </span><br><span class="line">   return return_str; </span><br><span class="line">   end $$</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建产生随机的数字的函数"><a href="#创建产生随机的数字的函数" class="headerlink" title="创建产生随机的数字的函数"></a>创建产生随机的数字的函数</h3><p> 删除函数： <code>DROP  FUNCTION rand_num;</code></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">delimiter $$</span><br><span class="line">create <span class="function"><span class="keyword">function</span> <span class="title">rand_num</span><span class="params">()</span> <span class="title">returns</span> <span class="title">int</span><span class="params">(<span class="number">5</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">begin</span></span></span><br><span class="line"><span class="function"><span class="title">declare</span> <span class="title">i</span> <span class="title">int</span> <span class="title">default</span> 0</span>;</span><br><span class="line">set i=floor(<span class="number">100</span>+rand()*<span class="number">10</span>); </span><br><span class="line"><span class="keyword">return</span> i; end $$</span><br></pre></td></tr></table></figure>
-
-<h2 id="创建存储过程"><a href="#创建存储过程" class="headerlink" title="创建存储过程"></a>创建存储过程</h2><p>删除存储过程： <code>drop procedure  insert_bigtables;</code></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">delimiter $$ </span><br><span class="line"><span class="function">create procedure <span class="title">insert_bigtables</span><span class="params">(in start <span class="keyword">int</span>(<span class="number">10</span>),in max_num <span class="keyword">int</span>(<span class="number">10</span>))</span></span></span><br><span class="line"><span class="function">begin </span></span><br><span class="line"><span class="function">declare i <span class="keyword">int</span>  <span class="keyword">default</span> 0</span>;</span><br><span class="line"><span class="built_in">set</span> autocommit = <span class="number">0</span>;</span><br><span class="line">repeat </span><br><span class="line"><span class="built_in">set</span> i = i +<span class="number">1</span>;</span><br><span class="line"><span class="function">insert into <span class="title">bigtables</span><span class="params">(id,number,name)</span> <span class="title">values</span><span class="params">((start+i),rand_num(),rand_string(<span class="number">6</span>))</span></span>;</span><br><span class="line">until i=max_num</span><br><span class="line">end repeat;</span><br><span class="line">commit;</span><br><span class="line">end $$</span><br></pre></td></tr></table></figure>
-
-<h2 id="调用存储过程"><a href="#调用存储过程" class="headerlink" title="调用存储过程"></a><strong>调用存储过程</strong></h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">call <span class="title">insert_bigtables</span><span class="params">(<span class="number">100</span>,<span class="number">10</span>)</span></span>; </span><br><span class="line"><span class="comment">/*number大于100，插入10条数据*/</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="查看存储过程"><a href="#查看存储过程" class="headerlink" title="查看存储过程"></a>查看存储过程</h3><p><code>select name from mysql.proc where db = &#39;insert_bigtables&#39; and type = &#39;PROCEDURE&#39;;</code></p>
-<p><code>SELECT * FROM information_schema.Routines WHERE  ROUTINE_NAME = &#39;insert_bigtables&#39; ;</code></p>
-<p><code>SHOW CREATE PROCEDURE insert_bigtables;</code></p>
-<p><code>SHOW CREATE FUNCTION rand_num;</code></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
     <article id="post-mysql/mysql连接器-分析器-优化器-执行器" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -266,6 +196,488 @@
 <h1 id="1、连接器"><a href="#1、连接器" class="headerlink" title="1、连接器"></a>1、连接器</h1><pre><code>管理用户的连接
 show processlist;</code></pre><h1 id="2、分析器"><a href="#2、分析器" class="headerlink" title="2、分析器"></a>2、分析器</h1><pre><code>词法分析，语法分析</code></pre><p>calcite 开源数据库分析组件。</p>
 <h1 id="3、优化器"><a href="#3、优化器" class="headerlink" title="3、优化器"></a>3、优化器</h1><pre><code>优化sql语句，规定执行流程</code></pre><h1 id="4、执行器"><a href="#4、执行器" class="headerlink" title="4、执行器"></a>4、执行器</h1><pre><code>sql语句实际执行组件</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-mysql/mysql索引" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/18/mysql/mysql索引/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/mysql/mysql索引/">
+        mysql索引
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MYISAM"><a href="#MYISAM" class="headerlink" title="MYISAM"></a>MYISAM</h1><p><a href="https://dev.mysql.com/doc/refman/5.7/en/myisam-storage-engine.html" target="_blank" rel="noopener">MyISAM简介</a></p>
+<p>每个MyISAM表都以三个文件存储在磁盘上。这些文件的名称以表名开头，并具有扩展名以指示文件类型。一个.frm 文件存储表格式。数据文件的 扩展名为.MYD（MYData）。索引文件的扩展名为.MYI （MYIndex）。</p>
+<p>要明确指定要使用MyISAM 表，使用ENGINE表选项进行指示：</p>
+<pre><code>CREATE TABLE t (i INT) ENGINE = MYISAM;</code></pre><p><code>MyISAM</code> 表具有以下特征：</p>
+<ul>
+<li><p>所有数据值都先以低字节存储。这使数据机和操作系统独立。二进制可移植性的唯一要求是机器使用二进制补码带符号整数和IEEE浮点格式。这些要求已在主流机器中广泛使用。二进制兼容性可能不适用于有时具有特殊处理器的嵌入式系统。</p>
+<p>先存储低字节数据没有明显的速度损失；表行中的字节通常是未对齐的，按顺序读取未对齐的字节所需的处理要多于反向顺序。而且，与其他代码相比，服务器中获取列值的代码不是时间紧迫的。</p>
+</li>
+<li><p>所有数字键值都先存储高字节，以实现更好的索引压缩。</p>
+</li>
+<li><p>在支持大文件的文件系统和操作系统上，支持大文件（文件长度最大为63位）。</p>
+</li>
+<li><p>表格中 最多只能 有（2^32）2（1.844E + 19）行<code>MyISAM</code>。</p>
+</li>
+<li><p>每个<code>MyISAM</code> 表的最大索引数为64。</p>
+<p>每个索引的最大列数为16。</p>
+</li>
+<li><p>最大密钥长度为1000个字节。也可以通过更改源代码并重新编译来更改。对于密钥超过250字节的情况，将使用比默认值1024字节更大的密钥块大小。</p>
+</li>
+<li><p>当按排序顺序插入行时（如使用 <code>AUTO_INCREMENT</code>列时），索引树将被拆分，以便高级节点仅包含一个键。这样可以提高索引树中的空间利用率。</p>
+</li>
+<li><p><code>AUTO_INCREMENT</code> 支持每个表 对一列的内部处理。<code>MyISAM</code> 自动更新此列的 <a href="https://dev.mysql.com/doc/refman/5.7/en/insert.html" target="_blank" rel="noopener"><code>INSERT</code></a>和 <a href="https://dev.mysql.com/doc/refman/5.7/en/update.html" target="_blank" rel="noopener"><code>UPDATE</code></a>操作。这样可使 <code>AUTO_INCREMENT</code>列更快（至少10％）。序列顶部的值在删除后不会重复使用。（当一<code>AUTO_INCREMENT</code>列定义为多列索引的最后一列时，确实会重复使用从序列顶部删除的值。）<code>AUTO_INCREMENT</code>可以使用<a href="https://dev.mysql.com/doc/refman/5.7/en/alter-table.html" target="_blank" rel="noopener"><code>ALTER TABLE</code></a>或 <a href="https://dev.mysql.com/doc/refman/5.7/en/myisamchk.html" target="_blank" rel="noopener"><strong>myisamchk</strong></a>重置该 值 。</p>
+</li>
+<li><p>将删除与更新和插入混合在一起时，动态大小的行的碎片化要少得多。通过自动组合相邻的已删除块并通过扩展块（如果删除下一个块）来完成此操作。</p>
+</li>
+<li><p><code>MyISAM</code>支持并发插入：如果表在数据文件的中间没有空闲块，则可以<a href="https://dev.mysql.com/doc/refman/5.7/en/insert.html" target="_blank" rel="noopener"><code>INSERT</code></a>在其他线程从表读取数据 的同时向其中添加新行。由于删除行或使用比当前内容更多的数据更新动态长度行，可能会出现空闲块。当所有可用块用完（填充）时，以后的插入将再次并发。请参见 <a href="https://dev.mysql.com/doc/refman/5.7/en/concurrent-inserts.html" target="_blank" rel="noopener">第8.11.3节“并发插入”</a>。</p>
+</li>
+<li><p>您可以将数据文件和索引文件放在不同物理设备上的不同目录中，以使用<code>DATA DIRECTORY</code>和的<code>INDEX DIRECTORY</code>表选项来提高速度<a href="https://dev.mysql.com/doc/refman/5.7/en/create-table.html" target="_blank" rel="noopener"><code>CREATE TABLE</code></a>。请参见<a href="https://dev.mysql.com/doc/refman/5.7/en/create-table.html" target="_blank" rel="noopener">第13.1.18节“ CREATE TABLE语句”</a>。</p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/refman/5.7/en/blob.html" target="_blank" rel="noopener"><code>BLOB</code></a>并且 <a href="https://dev.mysql.com/doc/refman/5.7/en/blob.html" target="_blank" rel="noopener"><code>TEXT</code></a>列可以建立索引。</p>
+</li>
+<li><p><code>NULL</code>索引列中允许使用值。每个密钥占用0到1个字节。</p>
+</li>
+<li><p>每个字符列可以具有不同的字符集。请参见 <a href="https://dev.mysql.com/doc/refman/5.7/en/charset.html" target="_blank" rel="noopener">第10章，<em>字符集，整理，Unicode</em></a>。</p>
+</li>
+<li><p><code>MyISAM</code>索引文件中 有一个标志，指示表是否已正确关闭。如果 使用系统变量集启动 <a href="https://dev.mysql.com/doc/refman/5.7/en/mysqld.html" target="_blank" rel="noopener"><strong>mysqld</strong></a><a href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_myisam_recover_options" target="_blank" rel="noopener"><code>myisam_recover_options</code></a>，<code>MyISAM</code>则在打开表时会自动对其进行检查，如果未正确关闭表，则会对其进行修复。</p>
+</li>
+<li><p>如果使用该<a href="https://dev.mysql.com/doc/refman/5.7/en/myisamchk-check-options.html#option_myisamchk_update-state" target="_blank" rel="noopener"><code>--update-state</code></a> 选项运行<a href="https://dev.mysql.com/doc/refman/5.7/en/myisamchk.html" target="_blank" rel="noopener"> <strong>myisamchk</strong></a>，则将表标记为已选中。<a href="https://dev.mysql.com/doc/refman/5.7/en/myisamchk.html" target="_blank" rel="noopener"><strong>myisamchk –fast</strong></a>仅检查那些没有此标记的表。</p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/refman/5.7/en/myisamchk.html" target="_blank" rel="noopener"><strong>myisamchk –analyze</strong></a>存储部分键以及整个键的统计信息。</p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/refman/5.7/en/myisampack.html" target="_blank" rel="noopener"><strong>myisampack</strong></a>可以包装<a href="https://dev.mysql.com/doc/refman/5.7/en/blob.html" target="_blank" rel="noopener"><code>BLOB</code></a>和 包装 <a href="https://dev.mysql.com/doc/refman/5.7/en/char.html" target="_blank" rel="noopener"><code>VARCHAR</code></a>。</p>
+<p><code>MyISAM</code> 还支持以下功能：</p>
+</li>
+<li><p>支持真实<a href="https://dev.mysql.com/doc/refman/5.7/en/char.html" target="_blank" rel="noopener"><code>VARCHAR</code></a>类型；一<a href="https://dev.mysql.com/doc/refman/5.7/en/char.html" target="_blank" rel="noopener"><code>VARCHAR</code></a>列开始与存储在一个或两个字节的长度。</p>
+</li>
+<li><p>带<a href="https://dev.mysql.com/doc/refman/5.7/en/char.html" target="_blank" rel="noopener"><code>VARCHAR</code></a>列的表可能具有固定或动态的行长。</p>
+</li>
+<li><p>表格中<a href="https://dev.mysql.com/doc/refman/5.7/en/char.html" target="_blank" rel="noopener"><code>VARCHAR</code></a>和 的长度之 和 <a href="https://dev.mysql.com/doc/refman/5.7/en/char.html" target="_blank" rel="noopener"><code>CHAR</code></a>可能不超过64KB。</p>
+</li>
+<li><p>任意长度限制<code>UNIQUE</code>。</p>
+<h1 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h1></li>
+</ul>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-introduction.html" target="_blank" rel="noopener">InnoDB简介</a><br><code>InnoDB</code>是一种兼顾了高可靠性和高性能的通用存储引擎。在MySQL 5.7中，<code>InnoDB</code>是默认的MySQL存储引擎。除非配置了其他默认存储引擎，否则发出<a href="https://dev.mysql.com/doc/refman/5.7/en/create-table.html" target="_blank" rel="noopener"><code>CREATE TABLE</code></a>不带<code>ENGINE=</code> 子句的语句将创建一个<code>InnoDB</code>表。</p>
+<h3 id="InnoDB的主要优势"><a href="#InnoDB的主要优势" class="headerlink" title="InnoDB的主要优势"></a>InnoDB的主要优势</h3><ul>
+<li>它的<a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_dml" target="_blank" rel="noopener">DML</a>操作遵循 <a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_acid" target="_blank" rel="noopener">ACID</a>模型，并 具有具有 <a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_commit" target="_blank" rel="noopener">提交</a>，<a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_rollback" target="_blank" rel="noopener">回滚</a>和 <a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_crash_recovery" target="_blank" rel="noopener">崩溃恢复</a> 功能的<a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_transaction" target="_blank" rel="noopener">事务</a>， 以保护用户数据。 <a href="https://dev.mysql.com/doc/refman/5.7/en/mysql-acid.html" target="_blank" rel="noopener">第14.2节“ InnoDB和ACID模型”</a>。</li>
+<li>行级<a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_locking" target="_blank" rel="noopener">锁定</a>和Oracle风格的<a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_consistent_read" target="_blank" rel="noopener">一致读取可</a>提高多用户并发性和性能。<a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-locking-transaction-model.html" target="_blank" rel="noopener">第14.7节“ InnoDB锁定和事务模型”</a>。</li>
+<li><code>InnoDB</code>表格将您的数据安排在磁盘上，以基于<a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_primary_key" target="_blank" rel="noopener">主键</a>优化查询 。每个 <code>InnoDB</code>表都有一个称为<a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_clustered_index" target="_blank" rel="noopener">聚集索引</a>的主键索引，该<a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_clustered_index" target="_blank" rel="noopener">索引</a> 组织数据以最小化主键查找的I / O。<a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-index-types.html" target="_blank" rel="noopener">第14.6.2.1节“聚集索引和二级索引”</a>。</li>
+<li>维护数据 <a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_referential_integrity" target="_blank" rel="noopener">完整性</a>， <code>InnoDB</code>支持 <a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_foreign_key" target="_blank" rel="noopener"><code>FOREIGN KEY</code></a>约束。使用外键检查插入，更新和删除，以确保它们不会导致不同表之间的不一致。 <a href="https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html" target="_blank" rel="noopener">第13.1.18.6节“外键约束”</a>。</li>
+</ul>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><p><a href="https://dev.mysql.com/doc/refman/5.7/en/mysql-indexes.html" target="_blank" rel="noopener">How MySQL Uses Indexes</a></p>
+<pre><code>叶子节点放的数据不是实际数据，而是主键值。然后回表。
+查询时是两颗B+树，一颗索引树，一个原来的B+树</code></pre><h2 id="全文索引"><a href="#全文索引" class="headerlink" title="全文索引"></a><a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-search.html" target="_blank" rel="noopener">全文索引</a></h2><ul>
+<li><p>MySQL支持全文索引和搜索：</p>
+<ul>
+<li>MySQL中的全文索引是type的索引 <code>FULLTEXT</code>。</li>
+<li>全文索引只能使用InnoDB或MyISAM表格，并且只能用于创建CHAR，VARCHAR或 TEXT列。</li>
+<li>MySQL提供了一个内置的全文ngram解析器，该解析器支持中文，日文和韩文（CJK），以及一个用于日语的可安装的MeCab全文分析器插件。<a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-search-ngram.html" target="_blank" rel="noopener">第12.9.8节“ ngram全文解析器”</a>和 <a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-search-mecab.html" target="_blank" rel="noopener">第12.9.9节“ MeCab全文解析器插件”</a>中概述了解析差异。</li>
+<li>甲<code>FULLTEXT</code>索引定义可以在被给予CREATE TABLE的语句中创建表时，或者稍后使用添加ALTER TABLE或 CREATE INDEX。</li>
+<li>对于大型数据集，将数据加载到没有<code>FULLTEXT</code>索引的表中然后再创建索引比将数据加载到具有现有<code>FULLTEXT</code>索引的表中要快得多。</li>
+</ul>
+<p>全文搜索分为三种：</p>
+</li>
+<li><p>自然语言搜索将搜索字符串解释为自然人类语言中的短语（自由文本中的短语）。除双引号（“）字符外，没有特殊的运算符。适用停用词列表。有关停用词列表的更多信息，请参见<a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-stopwords.html" target="_blank" rel="noopener">第12.9.4节“全文停用词 “</a>。</p>
+<p>如果指定了<code>IN NATURAL LANGUAGE MODE</code>修饰符或未指定修饰符，则全文搜索是自然语言搜索 。有关更多信息，请参见 <a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-natural-language.html" target="_blank" rel="noopener">第12.9.1节“自然语言全文本搜索”</a>。</p>
+</li>
+<li><p>布尔搜索使用特殊查询语言的规则解释搜索字符串。该字符串包含要搜索的单词。它还可以包含指定要求的运算符，以使匹配行中的单词必须存在或不存在，或者其权重应高于或低于平常。某些常见单词（停用词）将从搜索索引中省略，并且如果出现在搜索字符串中则不匹配。该<code>IN BOOLEAN MODE</code>修饰符指定一个布尔搜索。有关更多信息，请参见 <a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-boolean.html" target="_blank" rel="noopener">第12.9.2节“布尔全文本搜索”</a>。</p>
+</li>
+<li><p>查询扩展搜索是对自然语言搜索的修改。搜索字符串用于执行自然语言搜索。然后，将搜索返回的最相关行中的单词添加到搜索字符串中，然后再次执行搜索。该查询返回第二个搜索中的行。该<code>IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION</code>或<code>WITH QUERY EXPANSION</code>修改指定的查询扩展搜索。有关更多信息，请参见 <a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-query-expansion.html" target="_blank" rel="noopener">第12.9.3节“具有查询扩展的全文本搜索”</a>。</p>
+</li>
+</ul>
+<h2 id="哈希索引"><a href="#哈希索引" class="headerlink" title="哈希索引"></a><a href="https://dev.mysql.com/doc/refman/5.7/en/index-btree-hash.html" target="_blank" rel="noopener">哈希索引</a></h2><p>只有memony引擎显示支持哈希索引</p>
+<ul>
+<li>仅用于使用<code>=</code>or <code>&lt;=&gt;</code> 运算符的相等比较 （但非常快），不用于比较运算符 </li>
+<li>优化器无法使用哈希索引来加快<code>ORDER BY</code>操作速度 </li>
+<li>仅整个键可用于搜索行 </li>
+</ul>
+<h2 id="组合索引"><a href="#组合索引" class="headerlink" title="组合索引"></a>组合索引</h2><p><a href="https://www.jianshu.com/p/35588ecf33c1" target="_blank" rel="noopener">mysql的联合索引的B+树</a></p>
+<h4 id="有number-name-age-adds四个列时，组合索引-number-age-adds"><a href="#有number-name-age-adds四个列时，组合索引-number-age-adds" class="headerlink" title="有number name age adds四个列时，组合索引 (number age adds)"></a>有number name age adds四个列时，组合索引 (number age adds)</h4><p><code>explain select * from bigtables where number = 101 and age &gt;18 and adds =18;</code>走联合索引number的索引,Using index condition</p>
+<pre><code>mysql&gt; explain select * from bigtables where number = 101 and age &gt;18 and adds =18;
++----+-------------+-----------+------------+-------+---------------+------+---------+------+------+----------+-----------------------+
+| id | select_type | table     | partitions | type  | possible_keys | key  | key_len | ref  | rows | filtered | Extra                 |
++----+-------------+-----------+------------+-------+---------------+------+---------+------+------+----------+-----------------------+
+|  1 | SIMPLE      | bigtables | NULL       | range | idx           | idx  | 10      | NULL |  104 |    10.00 | Using index condition |
++----+-------------+-----------+------------+-------+---------------+------+---------+------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)</code></pre><p><code>explain select * from bigtables where number = 101 and age like &#39;1%&#39; and adds =18;</code>走联合索引number的索引</p>
+<pre><code>mysql&gt; explain select * from bigtables where number = 101 and age like &apos;1%&apos; and adds =18;
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-----------------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref   | rows | filtered | Extra                 |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-----------------------+
+|  1 | SIMPLE      | bigtables | NULL       | ref  | idx           | idx  | 5       | const |  106 |     1.11 | Using index condition |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)</code></pre><p><code>explain select * from bigtables where number = 101 and age like &#39;%9&#39; and adds =18;</code>走联合索引number的索引</p>
+<pre><code>mysql&gt; explain select * from bigtables where number = 101 and age like &apos;%9&apos; and adds =18;
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-----------------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref   | rows | filtered | Extra                 |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-----------------------+
+|  1 | SIMPLE      | bigtables | NULL       | ref  | idx           | idx  | 5       | const |  106 |     1.11 | Using index condition |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)</code></pre><p><code>explain select * from bigtables where age like &#39;%9&#39; and adds =18;</code> 不走索引</p>
+<pre><code>mysql&gt; explain select * from bigtables where age like &apos;%9&apos; and adds =18;
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | bigtables | NULL       | ALL  | NULL          | NULL | NULL    | NULL | 1010 |     1.11 | Using where |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)</code></pre><p><code>explain select * from bigtables where adds =18;</code>不走索引</p>
+<pre><code>mysql&gt; explain select * from bigtables where adds =18;
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | bigtables | NULL       | ALL  | NULL          | NULL | NULL    | NULL | 1010 |    10.00 | Using where |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)</code></pre><h2 id="B-tree和B-tree"><a href="#B-tree和B-tree" class="headerlink" title="B tree和B+ tree"></a>B tree和B+ tree</h2><h2 id="单列索引"><a href="#单列索引" class="headerlink" title="单列索引"></a>单列索引</h2><ul>
+<li><p>聚集索引</p>
+</li>
+<li><p>非聚集索引</p>
+</li>
+</ul>
+<h2 id="外键"><a href="#外键" class="headerlink" title="外键"></a>外键</h2><p><a href="https://zhuanlan.zhihu.com/p/62020571" target="_blank" rel="noopener">为什么不推荐使用外键约束</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/foreign-key-optimization.html" target="_blank" rel="noopener">foreign-key-optimization</a></p>
+<h2 id="索引覆盖"><a href="#索引覆盖" class="headerlink" title="索引覆盖"></a><a href="https://dev.mysql.com/doc/refman/5.7/en/index-merge-optimization.html" target="_blank" rel="noopener">索引覆盖</a></h2><p>当sql语句的所求查询字段（select列）和查询条件字段（where子句）全都包含在一个索引中，可以直接使用索引查询而不需要回表。这就是<a href="https://dev.mysql.com/doc/refman/5.7/en/index-merge-optimization.html" target="_blank" rel="noopener">索引覆盖</a>，通过使用覆盖索引，可以减少搜索树的次数，是常用的性能优化手段。</p>
+<pre><code>mysql&gt; explain select number, age, adds from bigtables where  number = 101;
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref   | rows | filtered | Extra       |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------------+
+|  1 | SIMPLE      | bigtables | NULL       | ref  | idx           | idx  | 5       | const |  106 |   100.00 | Using index |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)</code></pre><p>两个单列索引，查询也能触发索引覆盖</p>
+<p>组合索引也可以触发索引覆盖</p>
+<h2 id="索引下推"><a href="#索引下推" class="headerlink" title="索引下推"></a>索引下推</h2><p>对于bigtables表，我们现在有（name,number）联合索引<br> 如果现在有一个需求，查出名称中以“w”开头且number小于等于101的信息，语句如下：</p>
+<pre><code>&quot;select * from bigtables where name like &apos;w%&apos; and number&gt; 10;&quot;.</code></pre><p> 语句有两种执行可能：</p>
+<ul>
+<li><p>1、根据（name,number）联合索引查询所有满足名称以“w”开头的索引，然后回表查询出相应的全行数据，然后再筛选出满足number小于等于101的用户数据。</p>
+</li>
+<li><p>2、根据（name,number）联合索引查询所有满足名称以“w”开头的索引，然后直接再筛选出number小于等于101的索引，之后再回表查询全行数据。 </p>
+</li>
+</ul>
+<p>明显的，第二种方式需要回表查询的全行数据比较少，这就是mysql的索引下推。<br>mysql默认启用索引下推，我们也可以通过修改系统变量optimizer_switch的index_condition_pushdown标志来控制 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET optimizer_switch = &apos;index_condition_pushdown=off&apos;;</span><br></pre></td></tr></table></figure>
+
+<p>注意点：<br> 1、innodb引擎的表，索引下推只能用于二级索引。</p>
+<p>就像之前提到的，innodb的主键索引树叶子结点上保存的是全行数据，所以这个时候索引下推并不会起到减少查询全行数据的效果。</p>
+<p>2、索引下推一般可用于所求查询字段（select列）不是/不全是联合索引的字段，查询条件为多条件查询且查询条件子句（where/order by）字段全是联合索引。</p>
+<p>假设表t有联合索引（a,b）,下面语句可以使用索引下推提高效率<br> select * from t where a &gt; 2 and b &gt; 10;</p>
+<p><a href="https://www.jianshu.com/p/bdc9e57ccf8b" target="_blank" rel="noopener">参考:  mysql索引篇之覆盖索引、联合索引、索引下推</a></p>
+<h2 id="最左匹配"><a href="#最左匹配" class="headerlink" title="最左匹配"></a>最左匹配</h2><h2 id="like会不会走索引"><a href="#like会不会走索引" class="headerlink" title="like会不会走索引"></a>like会不会走索引</h2><p>根据最左匹配原则：</p>
+<p><code>where like &#39;%ssss%&#39; ;</code>不走索引</p>
+<p><code>where like &#39;ssss%&#39;；</code> 走索引</p>
+<p><code>where like &#39;%ssss&#39;；</code> 不走索引</p>
+<h2 id="优化小细节"><a href="#优化小细节" class="headerlink" title="优化小细节"></a>优化小细节</h2><h3 id="数据库操作层面"><a href="#数据库操作层面" class="headerlink" title="数据库操作层面"></a>数据库操作层面</h3><h4 id="1-不要使用表达式"><a href="#1-不要使用表达式" class="headerlink" title="1 不要使用表达式"></a>1 不要使用表达式</h4><p>虽然执行计划中有可能会判断走索引，但是 rows依然是全表扫描了，1010条</p>
+<pre><code>mysql&gt; explain select * from bigtables where number+1  = 103;
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | bigtables | NULL       | ALL  | NULL          | NULL | NULL    | NULL | 1010 |   100.00 | Using where |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql&gt; explain select * from bigtables where number = 103;
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref   | rows | filtered | Extra |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | bigtables | NULL       | ref  | idx           | idx  | 5       | const |   98 |   100.00 | NULL  |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)</code></pre><h4 id="2-使用索引扫描进行排序时"><a href="#2-使用索引扫描进行排序时" class="headerlink" title="2 使用索引扫描进行排序时"></a>2 使用索引扫描进行排序时</h4><p> <a href="https://blog.csdn.net/csdn_kenneth/article/details/82942137" target="_blank" rel="noopener">为排序使用索引Order By优化</a> </p>
+<p>mysql默认的排序是asc。</p>
+<p>多个排序时，一个逆序，其他asc的时候也不会走索引排序，而同时都desc时候，不会走索引排序<br><img src="//yoursite.com/2020/03/18/mysql/mysql索引/..%5Cmysql%E7%B4%A2%E5%BC%95%5C%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%E6%89%AB%E6%8F%8F%E8%BF%9B%E8%A1%8C%E6%8E%92%E5%BA%8F.png" alt="使用索引扫描进行排序"><br>或者一个是desc，也不会走索引排序。<code>Using filesort</code></p>
+<pre><code>mysql&gt; explain select * from abc2 where c &gt;1 order by c desc;
++----+-------------+-------+------------+-------+---------------+---------+---------+------+------+----------+------------------------------------------+
+| id | select_type | table | partitions | type  | possible_keys | key     | key_len | ref  | rows | filtered | Extra                                    |
++----+-------------+-------+------------+-------+---------------+---------+---------+------+------+----------+------------------------------------------+
+|  1 | SIMPLE      | abc2  | NULL       | index | NULL          | idx_abc | 72      | NULL |    3 |    33.33 | Using where; Using index; Using filesort |
++----+-------------+-------+------------+-------+---------------+---------+---------+------+------+----------+------------------------------------------+
+1 row in set, 1 warning (0.00 sec)
+
+ERROR: 
+No query specified</code></pre><h4 id="3-union-all（执行计划分多步执行）-in-or"><a href="#3-union-all（执行计划分多步执行）-in-or" class="headerlink" title="3 union all（执行计划分多步执行）, in, or"></a>3 union all（执行计划分多步执行）, in, or</h4><p>or</p>
+<pre><code>number,age为联合索引：
+mysql&gt; explain select * from bigtables where number = 103 or age = 19;
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | bigtables | NULL       | ALL  | idx           | NULL | NULL    | NULL | 1010 |    19.00 | Using where |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+
+a b c为单列索引：
+mysql&gt; explain select * from abc where b = 2 or c = 3;
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | abc   | NULL       | ALL  | idx_b,idx_c   | NULL | NULL    | NULL |   10 |    23.50 | Using where |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)</code></pre><p>union all执行计划分多步执行</p>
+<pre><code>mysql&gt; explain select * from abc  union all  select * from abc2\G;
+*************************** 1. row ***************************
+           id: 1
+  select_type: PRIMARY
+        table: abc
+   partitions: NULL
+         type: index
+possible_keys: NULL
+          key: idx_abc
+      key_len: 14
+          ref: NULL
+         rows: 3
+     filtered: 100.00
+        Extra: Using index
+*************************** 2. row ***************************
+           id: 2
+  select_type: UNION
+        table: abc2
+   partitions: NULL
+         type: index
+possible_keys: NULL
+          key: idx_abc
+      key_len: 72
+          ref: NULL
+         rows: 3
+     filtered: 100.00
+        Extra: Using index
+2 rows in set, 1 warning (0.00 sec)
+
+ERROR: 
+No query specified</code></pre><p>in </p>
+<pre><code>mysql&gt; explain select * from bigtables where number in (101);
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref   | rows | filtered | Extra |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | bigtables | NULL       | ref  | idx           | idx  | 5       | const |  106 |   100.00 | NULL  |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql&gt; explain select * from bigtables where number in (101,102);
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | bigtables | NULL       | ALL  | idx           | NULL | NULL    | NULL | 1010 |    21.68 | Using where |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)</code></pre><h4 id="4-类型转换可能会造成索引失效"><a href="#4-类型转换可能会造成索引失效" class="headerlink" title="4 类型转换可能会造成索引失效"></a>4 类型转换可能会造成索引失效</h4><p>ex: name 为varchar 时，where name = 123 会造成索引失效</p>
+<p><a href="https://blog.csdn.net/prince_mujia/article/details/104799176" target="_blank" rel="noopener">MySQL小结：锁-3.1.2 行锁变表锁</a></p>
+<h4 id="5-对于数据库中不常用数据可以进行备份或者压缩操作，减少数据库压力"><a href="#5-对于数据库中不常用数据可以进行备份或者压缩操作，减少数据库压力" class="headerlink" title="5 对于数据库中不常用数据可以进行备份或者压缩操作，减少数据库压力"></a>5 对于数据库中不常用数据可以进行备份或者压缩操作，减少数据库压力</h4><h4 id="6-使用explain进行检查"><a href="#6-使用explain进行检查" class="headerlink" title="6 使用explain进行检查"></a>6 使用explain进行检查</h4><p><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html" target="_blank" rel="noopener">EXPLAIN Output Format</a></p>
+<h5 id="rows"><a href="#rows" class="headerlink" title="rows:"></a>rows:</h5><p>官网中有一句话：</p>
+<pre><code>rows (JSON name: rows)
+
+The rows column indicates the number of rows MySQL believes it must examine to execute the query.
+
+For InnoDB tables, this number is an estimate, and may not always be exact.
+//对于InnoDB表，此数字是估计值，可能并不总是准确的。</code></pre><h5 id="type"><a href="#type" class="headerlink" title="type:"></a>type:</h5><table>
+<thead>
+<tr>
+<th>type</th>
+<th>JSON名称</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_id" target="_blank" rel="noopener"><code>id</code></a></td>
+<td><code>select_id</code></td>
+<td>该<code>SELECT</code>标识符</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_select_type" target="_blank" rel="noopener"><code>select_type</code></a></td>
+<td>None</td>
+<td>该<code>SELECT</code>类型</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_table" target="_blank" rel="noopener"><code>table</code></a></td>
+<td><code>table_name</code></td>
+<td>输出行表</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_partitions" target="_blank" rel="noopener"><code>partitions</code></a></td>
+<td><code>partitions</code></td>
+<td>匹配的分区</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_type" target="_blank" rel="noopener"><code>type</code></a></td>
+<td><code>access_type</code></td>
+<td>联接类型</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_possible_keys" target="_blank" rel="noopener"><code>possible_keys</code></a></td>
+<td><code>possible_keys</code></td>
+<td>可能的索引选择</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_key" target="_blank" rel="noopener"><code>key</code></a></td>
+<td><code>key</code></td>
+<td>实际选择的索引</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_key_len" target="_blank" rel="noopener"><code>key_len</code></a></td>
+<td><code>key_length</code></td>
+<td>所选键的长度</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_ref" target="_blank" rel="noopener"><code>ref</code></a></td>
+<td><code>ref</code></td>
+<td>与索引比较的列</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_rows" target="_blank" rel="noopener"><code>rows</code></a></td>
+<td><code>rows</code></td>
+<td>估计要检查的行</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_filtered" target="_blank" rel="noopener"><code>filtered</code></a></td>
+<td><code>filtered</code></td>
+<td>按表条件过滤的行百分比</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_extra" target="_blank" rel="noopener"><code>Extra</code></a></td>
+<td>None</td>
+<td>附加信息</td>
+</tr>
+</tbody></table>
+<h5 id="Extra"><a href="#Extra" class="headerlink" title="Extra:"></a>Extra:</h5><p>Using index condition: 通过访问索引并首先对其进行测试以确定是否读取完整的表行来读取表。除非有必要，否则索引信息将用 <code>索引下推</code> 读取整个表行</p>
+<p>Using index：仅使用索引树中的信息从表中检索列信息，而不必进行其他查找以读取实际行。</p>
+<p>Using filesort：MySQL必须额外进行一遍，以找出如何按排序顺序检索行。排序是通过根据联接类型遍历所有行并存储与该WHERE子句匹配的所有行的排序键和指向该行的指针来完成的。然后对键进行排序，并按排序顺序检索行。</p>
+<p>Using join buffer (Block Nested Loop)， Using join buffer (Batched Key Access)：来自较早联接的表被部分读取到联接缓冲区中，然后从缓冲区中使用它们的行来执行与当前表的联接。 </p>
+<p>Using temporary：为了解决该查询，MySQL需要创建一个临时表来保存结果。如果查询包含GROUP BY和 ORDER BY子句以不同的方式列出列，通常会发生这种情况。</p>
+<p>Using where：WHERE子句用于限制来匹配下一个表或发送到客户端的行。</p>
+<h4 id="7-查看查询语句每一个步骤的时间"><a href="#7-查看查询语句每一个步骤的时间" class="headerlink" title="7 查看查询语句每一个步骤的时间"></a>7 查看查询语句每一个步骤的时间</h4><p><a href="https://dev.mysql.com/doc/refman/5.7/en/show-profile.html" target="_blank" rel="noopener">show-profile</a></p>
+<p>官网中有一句话：该SHOW PROFILE和 SHOW PROFILES语句被取消，并将在未来的MySQL版本中删除，改用性能模式；</p>
+<p> The <a href="https://dev.mysql.com/doc/refman/5.7/en/show-profile.html" target="_blank" rel="noopener"><code>SHOW PROFILE</code></a> and <a href="https://dev.mysql.com/doc/refman/5.7/en/show-profiles.html" target="_blank" rel="noopener"><code>SHOW PROFILES</code></a> statements are deprecated and will be removed in a future MySQL release. Use the <a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema.html" target="_blank" rel="noopener">Performance Schema</a> instead; see <a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema-query-profiling.html" target="_blank" rel="noopener">Section 25.19.1, “Query Profiling Using Performance Schema”</a>. </p>
+<pre><code>SET profiling = 1;
+
+select * from abc;
+
+SHOW PROFILE FOR QUERY 1; //  SHOW PROFILES;
++----------------------+----------+
+| Status               | Duration |
++----------------------+----------+
+| starting             | 0.000056 |
+| checking permissions | 0.000010 |
+| Opening tables       | 0.000029 |
+| init                 | 0.000019 |
+| System lock          | 0.000011 |
+| optimizing           | 0.000006 |
+| statistics           | 0.000012 |
+| preparing            | 0.000009 |
+| executing            | 0.000003 |
+| Sending data         | 0.000053 |
+| end                  | 0.000006 |
+| query end            | 0.000009 |
+| closing tables       | 0.000009 |
+| freeing items        | 0.000014 |
+| cleaning up          | 0.000013 |
++----------------------+----------+
+15 rows in set, 1 warning (0.00 sec)</code></pre><h4 id="8-数据库性能监控-Performance-Schema"><a href="#8-数据库性能监控-Performance-Schema" class="headerlink" title="8 数据库性能监控 Performance Schema"></a>8 数据库性能监控 Performance Schema</h4><p><a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema-query-profiling.html" target="_blank" rel="noopener">使用性能模式进行查询分析</a></p>
+<h4 id="9-数据库参数设置：线程池等。。。"><a href="#9-数据库参数设置：线程池等。。。" class="headerlink" title="9 数据库参数设置：线程池等。。。"></a>9 数据库参数设置：线程池等。。。</h4><h3 id="数据库设计层面"><a href="#数据库设计层面" class="headerlink" title="数据库设计层面"></a>数据库设计层面</h3><h4 id="1-索引一定要加适量"><a href="#1-索引一定要加适量" class="headerlink" title="1 索引一定要加适量"></a>1 索引一定要加适量</h4><p>创建索引会使查询操作变得更加快速,但是会降低增加、删除、更新操作的速度,因为执行这些操作的同时会对索引文件进行重新排序或更新; </p>
+<h4 id="2-考虑前缀索引"><a href="#2-考虑前缀索引" class="headerlink" title="2 考虑前缀索引"></a>2 考虑前缀索引</h4><p>前缀索引是一种能使索引更小，更快的有效办法</p>
+<p>注意：MySQL中无法使用前缀索引进行ORDER BY和GROUP BY，也无法用来进行覆盖扫描</p>
+<p><a href="https://www.cnblogs.com/balfish/p/9003794.html" target="_blank" rel="noopener">MySQL前缀索引和索引选择性</a></p>
+<h4 id="3-更新十分频繁，数据区分度不高的字段不推荐建立索引"><a href="#3-更新十分频繁，数据区分度不高的字段不推荐建立索引" class="headerlink" title="3 更新十分频繁，数据区分度不高的字段不推荐建立索引"></a>3 更新十分频繁，数据区分度不高的字段不推荐建立索引</h4><ul>
+<li>sex: 男，女  </li>
+<li>更新会变动B+树，更新频繁的字段建立索引会大大降低数据库性能</li>
+</ul>
+<h4 id="4-创建索引的列，不允许为null"><a href="#4-创建索引的列，不允许为null" class="headerlink" title="4 创建索引的列，不允许为null"></a>4 创建索引的列，不允许为null</h4><h4 id="5-当需要表连接的时候，最好不要超过三张表，因为需要join的字段，数据类型必须一致"><a href="#5-当需要表连接的时候，最好不要超过三张表，因为需要join的字段，数据类型必须一致" class="headerlink" title="5 当需要表连接的时候，最好不要超过三张表，因为需要join的字段，数据类型必须一致"></a>5 当需要表连接的时候，最好不要超过三张表，因为需要join的字段，数据类型必须一致</h4><h4 id="6-表设计时字段优化"><a href="#6-表设计时字段优化" class="headerlink" title="6 表设计时字段优化"></a>6 表设计时字段优化</h4><ul>
+<li>尽可能选择小的数据类型  ex: <code>tinyint</code></li>
+<li>字段不要过多，取名见名思义，加注释，预留字段供扩展</li>
+</ul>
+<p><a href="https://www.jianshu.com/p/f2a43a425223" target="_blank" rel="noopener">MySQL数据库表结构设计优化技巧</a></p>
+<h3 id="全表扫描"><a href="#全表扫描" class="headerlink" title="全表扫描"></a>全表扫描</h3><p><a href="https://dev.mysql.com/doc/refman/5.7/en/table-scan-avoidance.html" target="_blank" rel="noopener">table-scan-avoidance</a></p>
+<p> 使用EXPLAIN分析SQL时，当列出执行计划表中type字段值为ALL时，代表需要全表扫描 ，mysql会在一下情况使用全表扫描：</p>
+<ul>
+<li>所扫描的数据表非常小，因此全表扫描的速度要远快于使用索引， 对于少于10行且行长较短的表 </li>
+<li>在ON或WHERE子句中没有可以使用的索引列  </li>
+<li>在使用索引列与常量值比较，并且MySQL服务已经通过索引树计算出常量值覆盖了大部分表数据，此时使用全表扫描是比较快的。 </li>
+<li>当前正在使用一个对于其他列来说基数较低的索引(每个索引值在另一列都有多行行对应)，在这种情况下，使用索引可能会引起较多的索引查询，MySQL认为全表扫描比较快。 </li>
+</ul>
+<h5 id="避免全表扫描"><a href="#避免全表扫描" class="headerlink" title="避免全表扫描"></a><strong>避免全表扫描</strong></h5><p> 对于小型表，表扫描通常是合适的，并且对性能的影响可以忽略不计。对于大型表，使用以下操作可以帮助优化器对于是否进行全表扫描做出正确的判断：  </p>
+<ul>
+<li><p>使用ANALYZE TABLE tbl_name语句来更新被扫描表中索引的分布。 </p>
+</li>
+<li><p>使用<code>FORCE INDEX</code>  语句来强制优化器对该表放弃全表扫描而使用索引，如下： </p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t1, t2 FORCE INDEX (index_for_column)</span><br><span class="line">WHERE t1.col_name=t2.col_name;</span><br></pre></td></tr></table></figure>
+
+<p>force index()指令可以指定本次查询使用哪个索引。</p>
+<p>mysql优化器会计算出一个合适的索引，但是这个索引不一定是最好的。force index()指令可以避免MySql优化器用到了一个低效的索引。</p>
+<ul>
+<li>设置启动参数–max-seeks-for-key=1000或使用参数SET max_seeks_for_key=1000来通知优化器如果没有索引扫描会导致过千的索引查找。 </li>
+</ul>
+<h3 id="join"><a href="#join" class="headerlink" title="join"></a>join</h3><p> 执行联接时从其他表中检索行。如果声明相同的类型和大小，MySQL可以更有效地在列上使用索引。在这种情况下， <a href="https://dev.mysql.com/doc/refman/5.7/en/char.html" target="_blank" rel="noopener"><code>VARCHAR</code></a>与 <a href="https://dev.mysql.com/doc/refman/5.7/en/char.html" target="_blank" rel="noopener"><code>CHAR</code></a>被认为是相同的，如果它们被声明为相同的大小。例如， <code>VARCHAR(10)</code>和 <code>CHAR(10)</code>是相同的大小，但是 <code>VARCHAR(10)</code>和 <code>CHAR(15)</code>不是。 </p>
+<ul>
+<li>如果<code>ORDER BY</code>and <code>GROUP BY</code>子句中的所有列 都来自同一表，则在连接时优先使用该表。</li>
+<li>如果存在一个<code>ORDER BY</code>子句和另一个<code>GROUP BY</code>子句，或者如果 <code>ORDER BY</code>或<code>GROUP BY</code> 包含连接队列中第一个表以外的表中的列，则会创建一个临时表。</li>
+</ul>
+<h3 id="压缩如何用于InnoDB表"><a href="#压缩如何用于InnoDB表" class="headerlink" title="压缩如何用于InnoDB表"></a><a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-compression-internals.html" target="_blank" rel="noopener">压缩如何用于InnoDB表</a></h3><p>MySQL在著名的zlib库的帮助下实现了压缩，该 库实现了LZ77压缩算法。这种压缩算法在CPU利用率和数据大小减小方面都是成熟，可靠且有效的。该算法是 “ 无损的 ”，因此始终可以从压缩形式中重建原始的未压缩数据。LZ77压缩通过查找在要压缩的数据内重复的数据序列来工作。数据中的值模式决定了压缩的程度，但是典型的用户数据通常压缩50％或更多。</p>
+<p>由于B树页面经常更新，因此需要特殊对待。重要的是，最小化B树节点的分割次数，以及最小化解压缩和重新压缩其内容的需求。</p>
+<p>MySQL使用的一种技术是以未压缩的形式维护B树节点中的一些系统信息，从而促进某些就地更新。例如，这允许对行进行删除标记和删除，而无需任何压缩操作。</p>
+<p>另外，MySQL试图避免在更改索引页时不必要的解压缩和重新压缩。在每个B树页面中，系统保留一个未压缩的 ‘ modification log ‘以记录对该页面所做的更改。小记录的更新和插入可以写入此修改日志，而无需完全重建整个页面。</p>
+<p>当修改日志的空间用完时，InnoDB解压缩页面，应用更改并重新压缩页面。如果再压缩失败（称为一个的情况 压缩破坏），B-树节点被分割，并重复该过程，直到更新或插入成功。</p>
+<h1 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h1><p><a href="http://blog.codinglabs.org/articles/theory-of-mysql-index.html" target="_blank" rel="noopener">MySQL索引背后的数据结构及算法原理</a></p>
+<h2 id="涉及到的数据库表结构为："><a href="#涉及到的数据库表结构为：" class="headerlink" title="涉及到的数据库表结构为："></a>涉及到的数据库表结构为：</h2><pre><code>mysql&gt; show index from bigtables;
++-----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table     | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++-----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| bigtables |          0 | PRIMARY  |            1 | id          | A         |        1010 |     NULL | NULL   |      | BTREE      |         |               |
+| bigtables |          1 | idx      |            1 | number      | A         |          10 |     NULL | NULL   | YES  | BTREE      |         |               |
+| bigtables |          1 | idx      |            2 | age         | A         |          17 |     NULL | NULL   | YES  | BTREE      |         |               |
+| bigtables |          1 | idx      |            3 | adds        | A         |          17 |     NULL | NULL   | YES  | BTREE      |         |               |
++-----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+4 rows in set (0.00 sec)
+
+mysql&gt; show index from abc;
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| abc   |          0 | PRIMARY  |            1 | a           | A         |           3 |     NULL | NULL   |      | BTREE      |         |               |
+| abc   |          1 | idx_a    |            1 | a           | A         |           3 |     NULL | NULL   |      | BTREE      |         |               |
+| abc   |          1 | idx_b    |            1 | b           | A         |           3 |     NULL | NULL   | YES  | BTREE      |         |               |
+| abc   |          1 | idx_c    |            1 | c           | A         |           2 |     NULL | NULL   | YES  | BTREE      |         |               |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+4 rows in set (0.00 sec)</code></pre>
       
     </div>
     
@@ -607,17 +1019,17 @@ kubectl get namespaces</code></pre>
 +------------------------+--------+
 1 row in set (0.00 sec)</code></pre><h2 id="修改数据库当前引擎"><a href="#修改数据库当前引擎" class="headerlink" title="修改数据库当前引擎"></a>修改数据库当前引擎</h2><pre><code>alter table table_name engine=MyISAM;</code></pre><h2 id="查看指定表当前的引擎"><a href="#查看指定表当前的引擎" class="headerlink" title="查看指定表当前的引擎"></a>查看指定表当前的引擎</h2><pre><code>show table status where NAME =&apos;table_name&apos; </code></pre><h2 id="修改mysql默认的数据库引擎"><a href="#修改mysql默认的数据库引擎" class="headerlink" title="修改mysql默认的数据库引擎"></a>修改mysql默认的数据库引擎</h2><pre><code>打开配置文件my.ini，将“default-storage-engine=MYISAM”改为你想设定的，然后重启即可</code></pre><h1 id="2、MyISAM表级锁"><a href="#2、MyISAM表级锁" class="headerlink" title="2、MyISAM表级锁"></a>2、MyISAM表级锁</h1><p>Mysql的表级锁有两种模式：表共享锁（Table Read Lock）和表独占锁（Table Write Lock）.</p>
 <h2 id="2-1、共享读锁"><a href="#2-1、共享读锁" class="headerlink" title="2.1、共享读锁"></a>2.1、共享读锁</h2><pre><code>lock table 表名 read
-unlock table table_name</code></pre><p>现在用两个窗口模拟多个client请求mysql,当开启共享读锁时，其他client在修改表数据时，进入等待状态。<br><img src="../MySQL%E9%94%81/%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png" alt></p>
-<p>解除共享读锁后，其他client才会进行提交操作。<br><img src="../MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png" alt></p>
+unlock table table_name</code></pre><p>现在用两个窗口模拟多个client请求mysql,当开启共享读锁时，其他client在修改表数据时，进入等待状态。<br><img src="//yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png" alt></p>
+<p>解除共享读锁后，其他client才会进行提交操作。<br><img src="//yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png" alt></p>
 <h2 id="2-2、表独占锁"><a href="#2-2、表独占锁" class="headerlink" title="2.2、表独占锁"></a>2.2、表独占锁</h2><pre><code>lock table 表名 write 
-unlock table table_name</code></pre><p>现在用两个窗口模拟多个client请求mysql,当开启表独占锁时，其他client在查询表数据时，进入等待状态。<br><img src="../MySQL%E9%94%81/%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png" alt></p>
-<p>解除表独占锁后，其他client才会进行提交操作。<br><img src="../MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png" alt></p>
+unlock table table_name</code></pre><p>现在用两个窗口模拟多个client请求mysql,当开启表独占锁时，其他client在查询表数据时，进入等待状态。<br><img src="//yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png" alt></p>
+<p>解除表独占锁后，其他client才会进行提交操作。<br><img src="//yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png" alt></p>
 <h2 id="2-3、查询表级锁使用情况"><a href="#2-3、查询表级锁使用情况" class="headerlink" title="2.3、查询表级锁使用情况"></a>2.3、查询表级锁使用情况</h2><pre><code>show status like &apos;table%&apos;
-show variables like &apos;%table%&apos;</code></pre><p><img src="../MySQL%E9%94%81/%E6%9F%A5%E8%AF%A2%E8%A1%A8%E7%BA%A7%E9%94%81%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png" alt></p>
+show variables like &apos;%table%&apos;</code></pre><p><img src="//yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E6%9F%A5%E8%AF%A2%E8%A1%A8%E7%BA%A7%E9%94%81%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png" alt></p>
 <pre><code>Table_locks_immediate：产生表级锁定的次数；
 Table_locks_waited：出现表级锁定争用而等待的次数。</code></pre><p>两个参数值都是系统启动后开始记录的，出现一次对应的事件，则数量加一。当Table_locks_waited状态值比较高时，那么说明系统中表级锁定争用现象比较明显。</p>
 <h2 id="2-4-别名"><a href="#2-4-别名" class="headerlink" title="2.4 别名"></a>2.4 别名</h2><p>表名以别名的形式进行操作时，需要在锁操作时添加别名<code>lock table 表名 as 别名 write</code></p>
-<h2 id="2-5-session和锁"><a href="#2-5-session和锁" class="headerlink" title="2.5 session和锁"></a>2.5 session和锁</h2><p>一个session使用<code>lock table</code>命令给表加了锁，这个session可以查询锁定表中的记录，但是更新或访问其他表都会提示错误；<br>同时，另外一个session可以查询表中的记录，但更新就会出现锁等待，查询其他表数据不受影响。<br><img src="../MySQL%E9%94%81/session%E5%AF%B9%E9%94%81%E7%9A%84%E5%BD%B1%E5%93%8D.png" alt></p>
+<h2 id="2-5-session和锁"><a href="#2-5-session和锁" class="headerlink" title="2.5 session和锁"></a>2.5 session和锁</h2><p>一个session使用<code>lock table</code>命令给表加了锁，这个session可以查询锁定表中的记录，但是更新或访问其他表都会提示错误；<br>同时，另外一个session可以查询表中的记录，但更新就会出现锁等待，查询其他表数据不受影响。<br><img src="//yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/session%E5%AF%B9%E9%94%81%E7%9A%84%E5%BD%B1%E5%93%8D.png" alt></p>
 <h2 id="2-6-并发插入"><a href="#2-6-并发插入" class="headerlink" title="2.6 并发插入"></a>2.6 并发插入</h2><ul>
 <li>当concurrent_insert=0时，此时读不能与insert写共存。</li>
 <li>当concurrent_insert=1时，如果表中没有空数据块时（即表中没有被删除的行），MyISAM允许在一个进程读表的同时，另一个进程从表尾插入数据。（默认设置）。</li>
@@ -638,7 +1050,7 @@ Query OK, 0 rows affected (0.00 sec)</code></pre><h3 id="2-6-3-举例并发插�
 +-------------------+--------+
 1 row in set (0.00 sec)</code></pre><p>现在用两个窗口模拟多个client请求mysql,当client_A开启并发插入时，</p>
 <pre><code>mysql&gt; lock table student read local;
-Query OK, 0 rows affected (0.00 sec)</code></pre><p>client_B在操作表数据时，可以直接修改表中数据。<br>但是此时client_A对该表进行查询操作时，表中数据依然为未修改数据；而其他client为已修改数据。<br><img src="../MySQL%E9%94%81/%E5%B9%B6%E5%8F%91%E6%8F%92%E5%85%A5.png" alt></p>
+Query OK, 0 rows affected (0.00 sec)</code></pre><p>client_B在操作表数据时，可以直接修改表中数据。<br>但是此时client_A对该表进行查询操作时，表中数据依然为未修改数据；而其他client为已修改数据。<br><img src="//yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E5%B9%B6%E5%8F%91%E6%8F%92%E5%85%A5.png" alt></p>
 <h2 id="2-7-一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？"><a href="#2-7-一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？" class="headerlink" title="2.7 一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？"></a>2.7 一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？</h2><pre><code>写进程先获得锁，即使读请求先到锁等待队列，写请求后到，写锁也会插到读锁队列。
 Mysql认为写请求写请求比读请求更重要。
 MyISAM不太适合有大量更新操作和查询操作的原因，因为大量的更新操作会造成查询操作很难获得读锁，从而可能永远阻塞。
@@ -698,7 +1110,7 @@ select * from table_name where  ... lock in share mode;
 //排它锁
 select * from table_name where ... for update;</code></pre><h3 id="3-1-2-行锁变表锁"><a href="#3-1-2-行锁变表锁" class="headerlink" title="3.1.2 行锁变表锁"></a>3.1.2 行锁变表锁</h3><p><strong><em>InnoDB行锁是通过给索引上的索引项加锁来实现的：只有通过索引检索数据，InnoDB才使用<br>行锁，否则，InnoDB使用表锁。</em></strong></p>
 <p>现在用两个窗口模拟多个client请求mysql,当client_A对表中某一行数据进行修改时，触发了索引失效。<br>client_A未进行<code>commit</code>时，则client_B对该表中其他行数据进行修改时，发生了表锁事件。</p>
-<p><img src="../MySQL%E9%94%81/%E8%A1%8C%E9%94%81%E5%8F%98%E8%A1%A8%E9%94%81.png" alt></p>
+<p><img src="//yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E8%A1%8C%E9%94%81%E5%8F%98%E8%A1%A8%E9%94%81.png" alt></p>
 <pre><code>注释：实例中 `name`字段为`varchar`类型的索引，在更新操作时字段赋值为 666（而不是&apos;666&apos;） ，此时mysql数据库会自动将其类型转化。
 转化条件需要设置sql模式为非严格模式
 

@@ -16,19 +16,19 @@
 <meta property="og:site_name" content="zhangyong">
 <meta property="og:description" content="参考资料： innodb-locking-transaction-model 1、概述不同存储引擎支持不同的锁机制。  MyISAM和MEMORY存储引擎采用的是表级锁（table-level locking）；  BDB存储引擎采用的是页面锁（page-level locking），但也支持表级锁；  InnoDB存储引擎既支持行级锁（row-level locking），也支持表级锁，但是默认">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/%E6%9F%A5%E8%AF%A2%E8%A1%A8%E7%BA%A7%E9%94%81%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/session%E5%AF%B9%E9%94%81%E7%9A%84%E5%BD%B1%E5%93%8D.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/%E5%B9%B6%E5%8F%91%E6%8F%92%E5%85%A5.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/%E8%A1%8C%E9%94%81%E5%8F%98%E8%A1%A8%E9%94%81.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E6%9F%A5%E8%AF%A2%E8%A1%A8%E7%BA%A7%E9%94%81%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/session%E5%AF%B9%E9%94%81%E7%9A%84%E5%BD%B1%E5%93%8D.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E5%B9%B6%E5%8F%91%E6%8F%92%E5%85%A5.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E8%A1%8C%E9%94%81%E5%8F%98%E8%A1%A8%E9%94%81.png">
 <meta property="og:updated_time" content="2020-03-15T14:17:52.280Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL锁">
 <meta name="twitter:description" content="参考资料： innodb-locking-transaction-model 1、概述不同存储引擎支持不同的锁机制。  MyISAM和MEMORY存储引擎采用的是表级锁（table-level locking）；  BDB存储引擎采用的是页面锁（page-level locking），但也支持表级锁；  InnoDB存储引擎既支持行级锁（row-level locking），也支持表级锁，但是默认">
-<meta name="twitter:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png">
   
     <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
   
@@ -250,17 +250,17 @@
 +------------------------+--------+
 1 row in set (0.00 sec)</code></pre><h2 id="修改数据库当前引擎"><a href="#修改数据库当前引擎" class="headerlink" title="修改数据库当前引擎"></a>修改数据库当前引擎</h2><pre><code>alter table table_name engine=MyISAM;</code></pre><h2 id="查看指定表当前的引擎"><a href="#查看指定表当前的引擎" class="headerlink" title="查看指定表当前的引擎"></a>查看指定表当前的引擎</h2><pre><code>show table status where NAME =&apos;table_name&apos; </code></pre><h2 id="修改mysql默认的数据库引擎"><a href="#修改mysql默认的数据库引擎" class="headerlink" title="修改mysql默认的数据库引擎"></a>修改mysql默认的数据库引擎</h2><pre><code>打开配置文件my.ini，将“default-storage-engine=MYISAM”改为你想设定的，然后重启即可</code></pre><h1 id="2、MyISAM表级锁"><a href="#2、MyISAM表级锁" class="headerlink" title="2、MyISAM表级锁"></a>2、MyISAM表级锁</h1><p>Mysql的表级锁有两种模式：表共享锁（Table Read Lock）和表独占锁（Table Write Lock）.</p>
 <h2 id="2-1、共享读锁"><a href="#2-1、共享读锁" class="headerlink" title="2.1、共享读锁"></a>2.1、共享读锁</h2><pre><code>lock table 表名 read
-unlock table table_name</code></pre><p>现在用两个窗口模拟多个client请求mysql,当开启共享读锁时，其他client在修改表数据时，进入等待状态。<br><img src="../MySQL%E9%94%81/%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png" alt></p>
-<p>解除共享读锁后，其他client才会进行提交操作。<br><img src="../MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png" alt></p>
+unlock table table_name</code></pre><p>现在用两个窗口模拟多个client请求mysql,当开启共享读锁时，其他client在修改表数据时，进入等待状态。<br><img src="//yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png" alt></p>
+<p>解除共享读锁后，其他client才会进行提交操作。<br><img src="//yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png" alt></p>
 <h2 id="2-2、表独占锁"><a href="#2-2、表独占锁" class="headerlink" title="2.2、表独占锁"></a>2.2、表独占锁</h2><pre><code>lock table 表名 write 
-unlock table table_name</code></pre><p>现在用两个窗口模拟多个client请求mysql,当开启表独占锁时，其他client在查询表数据时，进入等待状态。<br><img src="../MySQL%E9%94%81/%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png" alt></p>
-<p>解除表独占锁后，其他client才会进行提交操作。<br><img src="../MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png" alt></p>
+unlock table table_name</code></pre><p>现在用两个窗口模拟多个client请求mysql,当开启表独占锁时，其他client在查询表数据时，进入等待状态。<br><img src="//yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png" alt></p>
+<p>解除表独占锁后，其他client才会进行提交操作。<br><img src="//yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png" alt></p>
 <h2 id="2-3、查询表级锁使用情况"><a href="#2-3、查询表级锁使用情况" class="headerlink" title="2.3、查询表级锁使用情况"></a>2.3、查询表级锁使用情况</h2><pre><code>show status like &apos;table%&apos;
-show variables like &apos;%table%&apos;</code></pre><p><img src="../MySQL%E9%94%81/%E6%9F%A5%E8%AF%A2%E8%A1%A8%E7%BA%A7%E9%94%81%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png" alt></p>
+show variables like &apos;%table%&apos;</code></pre><p><img src="//yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E6%9F%A5%E8%AF%A2%E8%A1%A8%E7%BA%A7%E9%94%81%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png" alt></p>
 <pre><code>Table_locks_immediate：产生表级锁定的次数；
 Table_locks_waited：出现表级锁定争用而等待的次数。</code></pre><p>两个参数值都是系统启动后开始记录的，出现一次对应的事件，则数量加一。当Table_locks_waited状态值比较高时，那么说明系统中表级锁定争用现象比较明显。</p>
 <h2 id="2-4-别名"><a href="#2-4-别名" class="headerlink" title="2.4 别名"></a>2.4 别名</h2><p>表名以别名的形式进行操作时，需要在锁操作时添加别名<code>lock table 表名 as 别名 write</code></p>
-<h2 id="2-5-session和锁"><a href="#2-5-session和锁" class="headerlink" title="2.5 session和锁"></a>2.5 session和锁</h2><p>一个session使用<code>lock table</code>命令给表加了锁，这个session可以查询锁定表中的记录，但是更新或访问其他表都会提示错误；<br>同时，另外一个session可以查询表中的记录，但更新就会出现锁等待，查询其他表数据不受影响。<br><img src="../MySQL%E9%94%81/session%E5%AF%B9%E9%94%81%E7%9A%84%E5%BD%B1%E5%93%8D.png" alt></p>
+<h2 id="2-5-session和锁"><a href="#2-5-session和锁" class="headerlink" title="2.5 session和锁"></a>2.5 session和锁</h2><p>一个session使用<code>lock table</code>命令给表加了锁，这个session可以查询锁定表中的记录，但是更新或访问其他表都会提示错误；<br>同时，另外一个session可以查询表中的记录，但更新就会出现锁等待，查询其他表数据不受影响。<br><img src="//yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/session%E5%AF%B9%E9%94%81%E7%9A%84%E5%BD%B1%E5%93%8D.png" alt></p>
 <h2 id="2-6-并发插入"><a href="#2-6-并发插入" class="headerlink" title="2.6 并发插入"></a>2.6 并发插入</h2><ul>
 <li>当concurrent_insert=0时，此时读不能与insert写共存。</li>
 <li>当concurrent_insert=1时，如果表中没有空数据块时（即表中没有被删除的行），MyISAM允许在一个进程读表的同时，另一个进程从表尾插入数据。（默认设置）。</li>
@@ -281,7 +281,7 @@ Query OK, 0 rows affected (0.00 sec)</code></pre><h3 id="2-6-3-举例并发插�
 +-------------------+--------+
 1 row in set (0.00 sec)</code></pre><p>现在用两个窗口模拟多个client请求mysql,当client_A开启并发插入时，</p>
 <pre><code>mysql&gt; lock table student read local;
-Query OK, 0 rows affected (0.00 sec)</code></pre><p>client_B在操作表数据时，可以直接修改表中数据。<br>但是此时client_A对该表进行查询操作时，表中数据依然为未修改数据；而其他client为已修改数据。<br><img src="../MySQL%E9%94%81/%E5%B9%B6%E5%8F%91%E6%8F%92%E5%85%A5.png" alt></p>
+Query OK, 0 rows affected (0.00 sec)</code></pre><p>client_B在操作表数据时，可以直接修改表中数据。<br>但是此时client_A对该表进行查询操作时，表中数据依然为未修改数据；而其他client为已修改数据。<br><img src="//yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E5%B9%B6%E5%8F%91%E6%8F%92%E5%85%A5.png" alt></p>
 <h2 id="2-7-一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？"><a href="#2-7-一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？" class="headerlink" title="2.7 一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？"></a>2.7 一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？</h2><pre><code>写进程先获得锁，即使读请求先到锁等待队列，写请求后到，写锁也会插到读锁队列。
 Mysql认为写请求写请求比读请求更重要。
 MyISAM不太适合有大量更新操作和查询操作的原因，因为大量的更新操作会造成查询操作很难获得读锁，从而可能永远阻塞。
@@ -341,7 +341,7 @@ select * from table_name where  ... lock in share mode;
 //排它锁
 select * from table_name where ... for update;</code></pre><h3 id="3-1-2-行锁变表锁"><a href="#3-1-2-行锁变表锁" class="headerlink" title="3.1.2 行锁变表锁"></a>3.1.2 行锁变表锁</h3><p><strong><em>InnoDB行锁是通过给索引上的索引项加锁来实现的：只有通过索引检索数据，InnoDB才使用<br>行锁，否则，InnoDB使用表锁。</em></strong></p>
 <p>现在用两个窗口模拟多个client请求mysql,当client_A对表中某一行数据进行修改时，触发了索引失效。<br>client_A未进行<code>commit</code>时，则client_B对该表中其他行数据进行修改时，发生了表锁事件。</p>
-<p><img src="../MySQL%E9%94%81/%E8%A1%8C%E9%94%81%E5%8F%98%E8%A1%A8%E9%94%81.png" alt></p>
+<p><img src="//yoursite.com/2020/03/11/mysql/mysql锁/MySQL%E9%94%81/%E8%A1%8C%E9%94%81%E5%8F%98%E8%A1%A8%E9%94%81.png" alt></p>
 <pre><code>注释：实例中 `name`字段为`varchar`类型的索引，在更新操作时字段赋值为 666（而不是&apos;666&apos;） ，此时mysql数据库会自动将其类型转化。
 转化条件需要设置sql模式为非严格模式
 

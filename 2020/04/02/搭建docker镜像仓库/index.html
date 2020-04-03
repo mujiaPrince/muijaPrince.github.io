@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="zhangyong">
 <meta property="og:description" content="Docker RegistryDocker Registry docker run -itd -v /root/data/registry:/var/lib/registry -p 5000:5000 --restart=always --name docker-registry registry:latest 对于使用  systemd  的系统，请在  /etc/docker/daemon.j">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2020/04/02/搭建docker镜像仓库/docker%E5%B0%8F%E7%BB%93/docker-harbor%E6%95%88%E6%9E%9C%E5%9B%BE.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/02/搭建docker镜像仓库/docker-harbor%E6%95%88%E6%9E%9C%E5%9B%BE.png">
 <meta property="og:updated_time" content="2020-04-02T08:29:46.219Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="zhangyong">
 <meta name="twitter:description" content="Docker RegistryDocker Registry docker run -itd -v /root/data/registry:/var/lib/registry -p 5000:5000 --restart=always --name docker-registry registry:latest 对于使用  systemd  的系统，请在  /etc/docker/daemon.j">
-<meta name="twitter:image" content="http://yoursite.com/2020/04/02/搭建docker镜像仓库/docker%E5%B0%8F%E7%BB%93/docker-harbor%E6%95%88%E6%9E%9C%E5%9B%BE.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/02/搭建docker镜像仓库/docker-harbor%E6%95%88%E6%9E%9C%E5%9B%BE.png">
   
     <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
   
@@ -256,7 +256,7 @@ Creating harbor-core   ... done
 Creating harbor-jobservice ... done
 Creating nginx             ... done
 ✔ ----Harbor has been installed and started successfully.----</code></pre><h3 id="访问页面"><a href="#访问页面" class="headerlink" title="访问页面"></a>访问页面</h3><p><a href="https://114.67.79.102:8088" target="_blank" rel="noopener">https://114.67.79.102:8088</a></p>
-<p><img src="docker%E5%B0%8F%E7%BB%93/docker-harbor%E6%95%88%E6%9E%9C%E5%9B%BE.png" alt></p>
+<p><img src="//yoursite.com/2020/04/02/搭建docker镜像仓库/docker-harbor%E6%95%88%E6%9E%9C%E5%9B%BE.png" alt></p>
 <h3 id="建立https访问"><a href="#建立https访问" class="headerlink" title="建立https访问"></a>建立https访问</h3><h4 id="生成证书颁发机构证书"><a href="#生成证书颁发机构证书" class="headerlink" title="生成证书颁发机构证书"></a>生成证书颁发机构证书</h4><h5 id="生成CA证书私钥。"><a href="#生成CA证书私钥。" class="headerlink" title="生成CA证书私钥。"></a>生成CA证书私钥。</h5><pre><code>openssl genrsa -out ca.key 4096</code></pre><h5 id="生成CA证书。"><a href="#生成CA证书。" class="headerlink" title="生成CA证书。"></a>生成CA证书。</h5><p>调整-subj选项中的值以反映您的组织。如果使用FQDN连接Harbor主机，则必须将其指定为通用名称（CN）属性。</p>
 <pre><code>openssl req -x509 -new -nodes -sha512 -days 3650 \
  -subj &quot;/C=CN/ST=Beijing/L=Beijing/O=example/OU=Personal/CN=yourdomain.com&quot; \

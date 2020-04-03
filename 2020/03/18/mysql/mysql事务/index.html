@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="zhangyong">
 <meta property="og:description" content="1、原子性实现原理：Undo log- Undo log是为了实现事务的原子性，在mysql数据库InnoDB存储引擎中， 还用Undo log来实现多版本并发控制（MVCC） - 在操作任何数据之前，首先将数据备份到一个地方（这个存储数据备份的地方称为Undo log）. 然后进行数据修改。如果出现了错误或者用户执行了ROLLBACK语句， 系统可以利用undo log中的备份将数据恢复到事务之">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2020/03/18/mysql/mysql%E4%BA%8B%E5%8A%A1/1.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/18/mysql/mysql事务/mysql%E4%BA%8B%E5%8A%A1/1.png">
 <meta property="og:updated_time" content="2020-04-03T16:09:05.096Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql事务">
 <meta name="twitter:description" content="1、原子性实现原理：Undo log- Undo log是为了实现事务的原子性，在mysql数据库InnoDB存储引擎中， 还用Undo log来实现多版本并发控制（MVCC） - 在操作任何数据之前，首先将数据备份到一个地方（这个存储数据备份的地方称为Undo log）. 然后进行数据修改。如果出现了错误或者用户执行了ROLLBACK语句， 系统可以利用undo log中的备份将数据恢复到事务之">
-<meta name="twitter:image" content="http://yoursite.com/2020/03/18/mysql/mysql%E4%BA%8B%E5%8A%A1/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/18/mysql/mysql事务/mysql%E4%BA%8B%E5%8A%A1/1.png">
   
     <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
   
@@ -222,7 +222,7 @@ WAL(write ahead log):预写日志</code></pre><p>当我们每次执行update,ins
 <p>innodb_flush_log_at_trx_commit = 0/1/2</p>
 <pre><code>set global innodb_flush_log_at_trx_commit=2;
 show variables like &apos;innodb_flush_log_at_trx_commit&apos;;</code></pre><p>默认值为：1</p>
-<p>由于实时将数据刷到磁盘中，在并发条件下，性能较低，<br><img src="../mysql%E4%BA%8B%E5%8A%A1/1.png" alt></p>
+<p>由于实时将数据刷到磁盘中，在并发条件下，性能较低，<br><img src="//yoursite.com/2020/03/18/mysql/mysql事务/mysql%E4%BA%8B%E5%8A%A1/1.png" alt></p>
 <h1 id="3、mysql的隔离级别"><a href="#3、mysql的隔离级别" class="headerlink" title="3、mysql的隔离级别"></a>3、mysql的隔离级别</h1><ul>
 <li>读未提交(read_uncommitted):对事务处理的读取没有任何限制；</li>
 <li>读已提交(read_committed)：</li>

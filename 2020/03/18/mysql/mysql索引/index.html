@@ -379,7 +379,7 @@ mysql&gt; explain select * from bigtables where number = 103;
 +----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------+
 1 row in set, 1 warning (0.00 sec)</code></pre><h4 id="2-使用索引扫描进行排序时"><a href="#2-使用索引扫描进行排序时" class="headerlink" title="2 使用索引扫描进行排序时"></a>2 使用索引扫描进行排序时</h4><p> <a href="https://blog.csdn.net/csdn_kenneth/article/details/82942137" target="_blank" rel="noopener">为排序使用索引Order By优化</a> </p>
 <p>mysql默认的排序是asc。</p>
-<p>多个排序时，一个逆序，其他asc的时候也不会走索引排序，而同时都desc时候，不会走索引排序<br><img src="..%5Cmysql%E7%B4%A2%E5%BC%95%5C%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%E6%89%AB%E6%8F%8F%E8%BF%9B%E8%A1%8C%E6%8E%92%E5%BA%8F.png" alt="使用索引扫描进行排序"><br>或者一个是desc，也不会走索引排序。<code>Using filesort</code></p>
+<p>多个排序时，一个逆序，其他asc的时候也不会走索引排序，而同时都desc时候，不会走索引排序<br><img src="//yoursite.com/2020/03/18/mysql/mysql索引/..%5Cmysql%E7%B4%A2%E5%BC%95%5C%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%E6%89%AB%E6%8F%8F%E8%BF%9B%E8%A1%8C%E6%8E%92%E5%BA%8F.png" alt="使用索引扫描进行排序"><br>或者一个是desc，也不会走索引排序。<code>Using filesort</code></p>
 <pre><code>mysql&gt; explain select * from abc2 where c &gt;1 order by c desc;
 +----+-------------+-------+------------+-------+---------------+---------+---------+------+------+----------+------------------------------------------+
 | id | select_type | table | partitions | type  | possible_keys | key     | key_len | ref  | rows | filtered | Extra                                    |
@@ -639,18 +639,18 @@ mysql&gt; show index from abc;
     
 <nav id="article-nav">
   
-    <a href="/2020/03/18/mysql/mysql优化/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/03/18/mysql/mysql连接器-分析器-优化器-执行器/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">&lt;</strong>
       <div class="article-nav-title">
         
-          mysql优化
+          mysql连接器，分析器，优化器，执行器
         
       </div>
     </a>
   
   
-    <a href="/2020/03/18/mysql/mysql使用存储过程脚本批量插入数据/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">使用存储过程脚本批量插入数据</div>
+    <a href="/2020/03/18/mysql/mysql面试题/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql面试题</div>
       <strong class="article-nav-caption">&gt;</strong>
     </a>
   

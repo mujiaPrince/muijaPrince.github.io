@@ -252,7 +252,7 @@ Creating harbor-core   ... done
 Creating harbor-jobservice ... done
 Creating nginx             ... done
 ✔ ----Harbor has been installed and started successfully.----</code></pre><h3 id="访问页面"><a href="#访问页面" class="headerlink" title="访问页面"></a>访问页面</h3><p><a href="https://114.67.79.102:8088" target="_blank" rel="noopener">https://114.67.79.102:8088</a></p>
-<p><img src="docker%E5%B0%8F%E7%BB%93/docker-harbor%E6%95%88%E6%9E%9C%E5%9B%BE.png" alt></p>
+<p><img src="//yoursite.com/2020/04/02/搭建docker镜像仓库/docker-harbor%E6%95%88%E6%9E%9C%E5%9B%BE.png" alt></p>
 <h3 id="建立https访问"><a href="#建立https访问" class="headerlink" title="建立https访问"></a>建立https访问</h3><h4 id="生成证书颁发机构证书"><a href="#生成证书颁发机构证书" class="headerlink" title="生成证书颁发机构证书"></a>生成证书颁发机构证书</h4><h5 id="生成CA证书私钥。"><a href="#生成CA证书私钥。" class="headerlink" title="生成CA证书私钥。"></a>生成CA证书私钥。</h5><pre><code>openssl genrsa -out ca.key 4096</code></pre><h5 id="生成CA证书。"><a href="#生成CA证书。" class="headerlink" title="生成CA证书。"></a>生成CA证书。</h5><p>调整-subj选项中的值以反映您的组织。如果使用FQDN连接Harbor主机，则必须将其指定为通用名称（CN）属性。</p>
 <pre><code>openssl req -x509 -new -nodes -sha512 -days 3650 \
  -subj &quot;/C=CN/ST=Beijing/L=Beijing/O=example/OU=Personal/CN=yourdomain.com&quot; \
@@ -698,7 +698,7 @@ Redis的位数组是自动扩展的，如果设置了阈值且当前超出了阈
       
         <h1 id="容器和虚拟机"><a href="#容器和虚拟机" class="headerlink" title="容器和虚拟机"></a>容器和虚拟机</h1><p>容器在Linux上本地运行，并与其他容器共享主机的内核。它运行一个离散进程，不占用任何其他可执行文件更多的内存，从而使其轻巧。</p>
 <p>相比之下，虚拟机（VM）运行具有“ 虚拟机管理程序”对主机资源的虚拟访问权的成熟<code>guest</code>操作系统。通常，VM会产生大量开销，超出了应用程序逻辑所消耗的开销。</p>
-<p><img src="docker%E5%B0%8F%E7%BB%93/docker%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA.png" alt="docker和虚拟机"></p>
+<p><img src="//yoursite.com/2020/03/18/docker小结/docker%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA.png" alt="docker和虚拟机"></p>
 <h1 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h1><h2 id="windows下安装docker"><a href="#windows下安装docker" class="headerlink" title="windows下安装docker"></a>windows下安装docker</h2><p><a href="https://docs.docker.com/docker-for-windows/install/" target="_blank" rel="noopener">在Windows上安装Docker Desktop</a></p>
 <p><a href="https://hub.docker.com/editions/community/docker-ce-desktop-windows/" target="_blank" rel="noopener">下载Docker Desktop</a></p>
 <h4 id="需要注意的是："><a href="#需要注意的是：" class="headerlink" title="需要注意的是："></a>需要注意的是：</h4><p>运行Docker Desktop需要Microsoft Hyper-V。必要时，Docker桌面Windows安装程序会启用Hyper-V，然后重新启动计算机。启用Hyper-V后，VirtualBox不再起作用。但是，将保留所有现有的VirtualBox VM映像。</p>
@@ -930,6 +930,65 @@ docker rm 2d85b99b03b2</code></pre><h2 id="查看镜像、容器、数据卷所�
 
 
   
+    <article id="post-golang/go_上台阶" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/18/golang/go_上台阶/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/golang/go_上台阶/">
+        go上台阶
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#1、上台阶</p>
+<p>递归问题</p>
+<p><code>https://blog.csdn.net/qq_27068845/article/details/90181340</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-golang/go_函数" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -977,65 +1036,6 @@ docker rm 2d85b99b03b2</code></pre><h2 id="查看镜像、容器、数据卷所�
 
 <p>1、</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">func calc(index string, a, b int) int &#123;</span><br><span class="line">	ret := a + b</span><br><span class="line">	fmt.Println(index, a, b, ret)</span><br><span class="line">	return ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	x := 1</span><br><span class="line">	y := 2</span><br><span class="line">	defer calc(&quot;AA&quot;, x, calc(&quot;A&quot;, x, y))</span><br><span class="line">	x = 10</span><br><span class="line">	defer calc(&quot;BB&quot;, x, calc(&quot;B&quot;, x, y))</span><br><span class="line">	y = 20</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">上面代码的输出结果是?</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-golang/go_上台阶" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/03/18/golang/go_上台阶/" class="article-date">
-  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/18/golang/go_上台阶/">
-        go上台阶
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#1、上台阶</p>
-<p>递归问题</p>
-<p><code>https://blog.csdn.net/qq_27068845/article/details/90181340</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
       

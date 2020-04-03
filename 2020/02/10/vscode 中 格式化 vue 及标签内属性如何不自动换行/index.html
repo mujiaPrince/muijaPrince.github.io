@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="zhangyong">
 <meta property="og:description" content="平台：windows vue版本：v1.31.1 一、格式化vue首先打开vscode的 &amp;gt;文件 &amp;gt; 首选项 &amp;gt;设置 找到vetur 这个选项里面的  vetur.format.defaultFormatter.html 这个选项 将其设置为 js-beautify-html 前提是你必须安装了这个插件 二、设置标签内属性不自动换行1、找到如图“在settings.json中编辑">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2020/02/10/vscode%20中%20格式化%20vue%20及标签内属性如何不自动换行/_v_images/20190624153023831_13624.png">
+<meta property="og:image" content="http://yoursite.com/2020/02/10/vscode%20中%20格式化%20vue%20及标签内属性如何不自动换行/20190624153023831_13624.png">
 <meta property="og:updated_time" content="2019-11-15T03:35:06.489Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vscode 中 格式化 vue 及标签内属性如何不自动换行">
 <meta name="twitter:description" content="平台：windows vue版本：v1.31.1 一、格式化vue首先打开vscode的 &amp;gt;文件 &amp;gt; 首选项 &amp;gt;设置 找到vetur 这个选项里面的  vetur.format.defaultFormatter.html 这个选项 将其设置为 js-beautify-html 前提是你必须安装了这个插件 二、设置标签内属性不自动换行1、找到如图“在settings.json中编辑">
-<meta name="twitter:image" content="http://yoursite.com/2020/02/10/vscode%20中%20格式化%20vue%20及标签内属性如何不自动换行/_v_images/20190624153023831_13624.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/02/10/vscode%20中%20格式化%20vue%20及标签内属性如何不自动换行/20190624153023831_13624.png">
   
     <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
   
@@ -208,7 +208,7 @@
 <p>找到vetur 这个选项里面的 </p>
 <p>vetur.format.defaultFormatter.html 这个选项 将其设置为 js-beautify-html</p>
 <p>前提是你必须安装了这个插件</p>
-<h1 id="二、设置标签内属性不自动换行"><a href="#二、设置标签内属性不自动换行" class="headerlink" title="二、设置标签内属性不自动换行"></a>二、设置标签内属性不自动换行</h1><h2 id="1、找到如图“在settings-json中编辑”"><a href="#1、找到如图“在settings-json中编辑”" class="headerlink" title="1、找到如图“在settings.json中编辑”"></a>1、找到如图“在settings.json中编辑”</h2><p>​​​​​​​<img src="_v_images/20190624153023831_13624.png" alt><a href="_v_images/20190624153021233_14421" title="点击并拖拽以移动"></a>​​</p>
+<h1 id="二、设置标签内属性不自动换行"><a href="#二、设置标签内属性不自动换行" class="headerlink" title="二、设置标签内属性不自动换行"></a>二、设置标签内属性不自动换行</h1><h2 id="1、找到如图“在settings-json中编辑”"><a href="#1、找到如图“在settings-json中编辑”" class="headerlink" title="1、找到如图“在settings.json中编辑”"></a>1、找到如图“在settings.json中编辑”</h2><p>​​​​​​​<img src="//yoursite.com/2020/02/10/vscode 中 格式化 vue 及标签内属性如何不自动换行/20190624153023831_13624.png" alt><a href="_v_images/20190624153021233_14421" title="点击并拖拽以移动"></a>​​</p>
 <h2 id="2、添加如下："><a href="#2、添加如下：" class="headerlink" title="2、添加如下："></a>2、添加如下：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;workbench.colorTheme&quot;: &quot;Visual Studio Light&quot;,</span><br><span class="line">    &quot;workbench.startupEditor&quot;: &quot;newUntitledFile&quot;,</span><br><span class="line">    &quot;explorer.confirmDelete&quot;: false,</span><br><span class="line">    &quot;vetur.format.defaultFormatterOptions&quot;: &#123;</span><br><span class="line">        &quot;js-beautify-html&quot;: &#123;</span><br><span class="line">          &quot;wrap_attributes&quot;: &quot;auto&quot; </span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;prettyhtml&quot;: &#123;</span><br><span class="line">            &quot;printWidth&quot;: 100,</span><br><span class="line">            &quot;singleQuote&quot;: false,</span><br><span class="line">            &quot;wrapAttributes&quot;: false,</span><br><span class="line">            &quot;sortAttributes&quot;: false</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>参考资料：<a href="https://vuejs.github.io/vetur/formatting.html#settings" target="_blank" rel="noopener">Vetur</a></p>

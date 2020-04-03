@@ -193,7 +193,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>#1 简单描述Fabric数据上链过程</p>
-<p><img src="Fabric-notes/Fabric-tx.png" alt></p>
+<p><img src="//yoursite.com/2020/02/10/Fabric-notes/Fabric-tx.png" alt></p>
 <p>##1.1、模拟</p>
 <p>client发起交易请求，请求被发送至endorsers，模拟进行这些交易，会产生一个read set和一个write set记录这个交易的影响，模拟完成后，endorser对read set和write set进行签名并将其一起返回给client</p>
 <p>如果client收到的read set和write set是一致的（可能存在恶意endorser或者智能合约存在不确定的算法导致出现不一致），那么client就会生成一个真正的交易请求，包含read set、write set和对应的签名，并将这个请求发送给ordering service。</p>
@@ -223,7 +223,7 @@
 <p>创世区块：创世区块文件，需要手动用官方提供的工具configtxgen生成，创建语句为configtxgen -profile TwoOrgsOrdererGenesis -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block,创世区块的主要作用是定义了系统通道的共识算法，准入的组织名称，策略等信息</p>
 <p>世界状态：世界状态代表了所有账本状态当前的值。这个世界状态非常有用，因为程序通常需要某个账本的当前状态值，并且总是很容易就能获取到。你不需要遍历整个区块链去计算账本当前的状态的值(余额)，你可以直接从世界状态获取</p>
 <p>#5 Fabric中一个区块的数据结构</p>
-<p><img src="Fabric-notes/blocks.png" alt></p>
+<p><img src="//yoursite.com/2020/02/10/Fabric-notes/blocks.png" alt></p>
 <p> 区块头 包含区块高度，上一个区块的哈希值，本区块的哈希值</p>
 <p> 交易数据集合，封装了打包的交易集合</p>
 <p> 区块元数据，封装了如下4个元数据索引项</p>
@@ -255,7 +255,7 @@
 <p>#10 联盟链，Fabric比较其他联盟链的优势</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.elecfans.com/blockchain/800061.html</span><br></pre></td></tr></table></figure>
 
-<p><img src="Fabric-notes/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E3%80%81HyperledgerFabric%E5%92%8CCorda%E7%9A%84%E5%AF%B9%E6%AF%94.jpg" alt></p>
+<p><img src="//yoursite.com/2020/02/10/Fabric-notes/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E3%80%81HyperledgerFabric%E5%92%8CCorda%E7%9A%84%E5%AF%B9%E6%AF%94.jpg" alt></p>
 <p>#11 链码的事件通知</p>
 
       
@@ -524,7 +524,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>#1、跨域<br><a href="https://blog.csdn.net/xcbeyond/article/details/84453832" target="_blank" rel="noopener">https://blog.csdn.net/xcbeyond/article/details/84453832</a></p>
-<p>1、内网项目，第三方vpn和梯子也会引起跨域现象<br><img src="CORS/cors.png" alt></p>
+<p>1、内网项目，第三方vpn和梯子也会引起跨域现象<br><img src="//yoursite.com/2020/02/10/CORS/cors.png" alt></p>
 
       
     </div>
