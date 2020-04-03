@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>zhangyong</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#1、选择优化的数据类型 ##1 更小的通常更好一般情况下，应该尽量使用可以正确存储数据的最小的数据类型 例如只需要存储 `0-200`， `tinyint unsigned`更好一些更小的数据类型通常更快，因为它们占用更少的磁盘、内存和CPU缓存，并且处理时需要的CPU周期也更少 ##2 简单就好简单数据类型的操作通常需要更少的CPU周期。 例如，整型比字符型操作代价更低，因为字符集和校对规则（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zhangyong">
+<meta property="og:url" content="http://yoursite.com/2020/03/08/mysql/mysql优化/index.html">
+<meta property="og:site_name" content="zhangyong">
+<meta property="og:description" content="#1、选择优化的数据类型 ##1 更小的通常更好一般情况下，应该尽量使用可以正确存储数据的最小的数据类型 例如只需要存储 `0-200`， `tinyint unsigned`更好一些更小的数据类型通常更快，因为它们占用更少的磁盘、内存和CPU缓存，并且处理时需要的CPU周期也更少 ##2 简单就好简单数据类型的操作通常需要更少的CPU周期。 例如，整型比字符型操作代价更低，因为字符集和校对规则（">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-03-16T05:42:18.783Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zhangyong">
+<meta name="twitter:description" content="#1、选择优化的数据类型 ##1 更小的通常更好一般情况下，应该尽量使用可以正确存储数据的最小的数据类型 例如只需要存储 `0-200`， `tinyint unsigned`更好一些更小的数据类型通常更快，因为它们占用更少的磁盘、内存和CPU缓存，并且处理时需要的CPU周期也更少 ##2 简单就好简单数据类型的操作通常需要更少的CPU周期。 例如，整型比字符型操作代价更低，因为字符集和校对规则（">
+  
+    <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head></html>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhangyong</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">zhangyong</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">zhangyong</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-mysql/mysql优化" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/08/mysql/mysql优化/" class="article-date">
+  	<time datetime="2020-03-08T00:44:28.562Z" itemprop="datePublished">2020-03-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#1、选择优化的数据类型</p>
+<p>##1 更小的通常更好<br>一般情况下，应该尽量使用可以正确存储数据的最小的数据类型</p>
+<pre><code>例如只需要存储 `0-200`， `tinyint unsigned`更好一些</code></pre><p>更小的数据类型通常更快，因为它们占用更少的磁盘、内存和CPU缓存，并且处理时需要的CPU周期也更少</p>
+<p>##2 简单就好<br>简单数据类型的操作通常需要更少的CPU周期。</p>
+<pre><code>例如，整型比字符型操作代价更低，因为字符集和校对规则（排序规则）是字符比较比整型比较更复杂。
+ex: 一个是应该使用Mysql内建的类型(date,time,datetime)而不是字符串来存储日期和时间，另外一个是应该用整型存储IP地。</code></pre><p>##3 尽量避免NULL<br>很多表都包含可为NULL的列，即使应用程序并不需要保存NULL也是如此，这是因为NULL是列的默认属性。<br>通常情况下最好指定列为NOT NULL，除非真的需要存储NULL值。</p>
+<p>如果查询中包含可为NULL的列，对Mysql来说更难优化，因为可为NULL的列使得索引、索引统计和值比较都更复杂。<br>可为NULL的列会使用更多的存储空间，在Mysql中也需要特殊处理。当可为NULL的列被索引时，每个索引记录需要一个额外的字节，<br>在MyISAM里甚至还可能导致固定大小的索引（例如只有一个整数列的索引）变成可变大小的索引。<br>通常此项改动对于InnoDB的性能提升比较小。InnoDB使用单独的位（bit）存储NULL值，所以对于稀疏数据有很好的空间效率。    </p>
+<h1 id="优化工具"><a href="#优化工具" class="headerlink" title="优化工具"></a>优化工具</h1><h2 id="explain"><a href="#explain" class="headerlink" title="explain"></a>explain</h2><p><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html" target="_blank" rel="noopener">explain-output</a></p>
+<h2 id="show-profile"><a href="#show-profile" class="headerlink" title="show-profile"></a>show-profile</h2><p><a href="https://dev.mysql.com/doc/refman/5.7/en/show-profile.html" target="_blank" rel="noopener">show-profile</a></p>
+<p><strong>* The SHOW PROFILE and SHOW PROFILES statements are deprecated and will be removed in a future MySQL release.<br>Use the Performance Schema instead; <a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema-query-profiling.html" target="_blank" rel="noopener">see Section 25.19.1, “Query Profiling Using Performance Schema”</a>. *</strong></p>
+<pre><code>set profiling=1;
+select * from student;
+show profile for query 1;
+show profile all for query 1;
+show profile all for query 1\G               (后面没有分号！！！)
+
+---------------------------------------
+
+mysql&gt; set profiling=1;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql&gt; select * from student;
++----+-----------+------+------+
+| id | name      | age  | sex  |
++----+-----------+------+------+
+|  1 | xiaoming  |   19 |    1 |
+|  2 | xiaohong  |   18 |    0 |
+|  3 | xiaolan   |   20 |    0 |
+|  4 | xiaolv    |   20 |    0 |
+|  5 | xiaohuang |   20 |    0 |
+|  6 | 666       |   17 |    0 |
++----+-----------+------+------+
+6 rows in set (0.00 sec)
+
+mysql&gt; show profile for query 1;
++----------------------+----------+
+| Status               | Duration |
++----------------------+----------+
+| starting             | 0.000081 |
+| checking permissions | 0.000011 |
+| Opening tables       | 0.000019 |
+| init                 | 0.000018 |
+| System lock          | 0.000009 |
+| optimizing           | 0.000006 |
+| statistics           | 0.000016 |
+| preparing            | 0.000013 |
+| executing            | 0.000005 |
+| Sending data         | 0.000056 |
+| end                  | 0.000006 |
+| query end            | 0.000009 |
+| closing tables       | 0.000008 |
+| freeing items        | 0.000013 |
+| cleaning up          | 0.000016 |
++----------------------+----------+
+15 rows in set, 1 warning (0.00 sec)
+
+mysql&gt; show profile all for query 1;
++----------------------+----------+----------+------------+-------------------+---------------------+--------------+---------------+---------------+-------------------+-------------------+-------------------+-------+-----------------------+----------------------+-------------+
+| Status               | Duration | CPU_user | CPU_system | Context_voluntary | Context_involuntary | Block_ops_in | Block_ops_out | Messages_sent | Messages_received | Page_faults_major | Page_faults_minor | Swaps | Source_function       | Source_file          | Source_line |
++----------------------+----------+----------+------------+-------------------+---------------------+--------------+---------------+---------------+-------------------+-------------------+-------------------+-------+-----------------------+----------------------+-------------+
+| starting             | 0.000081 | 0.000032 |   0.000045 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | NULL                  | NULL                 |        NULL |
+| checking permissions | 0.000011 | 0.000005 |   0.000006 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | check_access          | sql_authorization.cc |         809 |
+| Opening tables       | 0.000019 | 0.000007 |   0.000010 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | open_tables           | sql_base.cc          |        5753 |
+| init                 | 0.000018 | 0.000007 |   0.000011 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | handle_query          | sql_select.cc        |         128 |
+| System lock          | 0.000009 | 0.000005 |   0.000006 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | mysql_lock_tables     | lock.cc              |         330 |
+| optimizing           | 0.000006 | 0.000002 |   0.000004 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | optimize              | sql_optimizer.cc     |         158 |
+| statistics           | 0.000016 | 0.000007 |   0.000009 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | optimize              | sql_optimizer.cc     |         374 |
+| preparing            | 0.000013 | 0.000005 |   0.000008 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | optimize              | sql_optimizer.cc     |         482 |
+| executing            | 0.000005 | 0.000002 |   0.000002 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | exec                  | sql_executor.cc      |         126 |
+| Sending data         | 0.000056 | 0.000023 |   0.000033 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | exec                  | sql_executor.cc      |         202 |
+| end                  | 0.000006 | 0.000002 |   0.000003 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | handle_query          | sql_select.cc        |         206 |
+| query end            | 0.000009 | 0.000004 |   0.000006 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | mysql_execute_command | sql_parse.cc         |        4956 |
+| closing tables       | 0.000008 | 0.000003 |   0.000004 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | mysql_execute_command | sql_parse.cc         |        5009 |
+| freeing items        | 0.000013 | 0.000005 |   0.000008 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | mysql_parse           | sql_parse.cc         |        5622 |
+| cleaning up          | 0.000016 | 0.000007 |   0.000008 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | dispatch_command      | sql_parse.cc         |        1931 |
++----------------------+----------+----------+------------+-------------------+---------------------+--------------+---------------+---------------+-------------------+-------------------+-------------------+-------+-----------------------+----------------------+-------------+
+15 rows in set, 1 warning (0.00 sec)</code></pre><h2 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h2><p><a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema-quick-start.html" target="_blank" rel="noopener">performance-schema-quick-start</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/optimization.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/8.0/en/optimization.html</a></p>
+<h1 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h1><p><a href="https://www.jianshu.com/p/5b2bb76d26d6" target="_blank" rel="noopener">分库分表</a></p>
+<p><a href="https://www.bbsmax.com/A/xl56PpKYzr/" target="_blank" rel="noopener">mysql中间件分享（Mysql-prxoy,Atlas,DBProxy,Amoeba,cobar,TDDL）</a></p>
+<h1 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h1><p><a href="https://blog.csdn.net/A_man_only/article/details/84257702" target="_blank" rel="noopener">MTS： 并行复制技术</a></p>
+<h1 id="读写分离"><a href="#读写分离" class="headerlink" title="读写分离"></a>读写分离</h1>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/11/mysql/mysql锁/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          MySQL锁
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/06/golang/go_map/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="mysql/mysql优化" data-title="" data-url="http://yoursite.com/2020/03/08/mysql/mysql优化/"  data-images="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" data-content="">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2020 zhangyong
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

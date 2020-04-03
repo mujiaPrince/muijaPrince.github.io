@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>zhangyong</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Docker RegistryDocker Registry docker run -itd -v /root/data/registry:/var/lib/registry -p 5000:5000 --restart=always --name docker-registry registry:latest 对于使用  systemd  的系统，请在  /etc/docker/daemon.j">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zhangyong">
+<meta property="og:url" content="http://yoursite.com/2020/04/02/搭建docker镜像仓库/index.html">
+<meta property="og:site_name" content="zhangyong">
+<meta property="og:description" content="Docker RegistryDocker Registry docker run -itd -v /root/data/registry:/var/lib/registry -p 5000:5000 --restart=always --name docker-registry registry:latest 对于使用  systemd  的系统，请在  /etc/docker/daemon.j">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2020/04/02/搭建docker镜像仓库/docker%E5%B0%8F%E7%BB%93/docker-harbor%E6%95%88%E6%9E%9C%E5%9B%BE.png">
+<meta property="og:updated_time" content="2020-04-02T08:29:46.219Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zhangyong">
+<meta name="twitter:description" content="Docker RegistryDocker Registry docker run -itd -v /root/data/registry:/var/lib/registry -p 5000:5000 --restart=always --name docker-registry registry:latest 对于使用  systemd  的系统，请在  /etc/docker/daemon.j">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/02/搭建docker镜像仓库/docker%E5%B0%8F%E7%BB%93/docker-harbor%E6%95%88%E6%9E%9C%E5%9B%BE.png">
+  
+    <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head></html>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhangyong</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">zhangyong</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">zhangyong</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-搭建docker镜像仓库" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/04/02/搭建docker镜像仓库/" class="article-date">
+  	<time datetime="2020-04-02T08:18:13.854Z" itemprop="datePublished">2020-04-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Docker-Registry"><a href="#Docker-Registry" class="headerlink" title="Docker Registry"></a>Docker Registry</h2><p><a href="https://docs.docker.com/registry/" target="_blank" rel="noopener">Docker Registry</a></p>
+<pre><code>docker run -itd -v /root/data/registry:/var/lib/registry -p 5000:5000 --restart=always --name docker-registry registry:latest </code></pre><p>对于使用  systemd  的系统，请在  /etc/docker/daemon.json  中写入如下内容（如果文件不存<br>在请新建该文件）</p>
+<pre><code>{
+    &quot;registry-mirror&quot;: [
+        &quot;https://registry.docker-cn.com&quot;
+    ],
+    &quot;insecure-registries&quot;: [
+        &quot;192.168.199.100:5000&quot;
+    ]
+}</code></pre><p>当前镜像tag</p>
+<pre><code>[root@JD ~]# docker tag mysql:5.7 127.0.0.1:5000/registry-mysql:5.7</code></pre><p>推送到镜像仓库</p>
+<pre><code>[root@JD ~]# docker push 127.0.0.1:5000/registry-mysql</code></pre><p>用  curl  查看仓库中的镜像。</p>
+<pre><code>[root@JD ~]# curl 127.0.0.1:5000/v2/_catalog
+{&quot;repositories&quot;:[&quot;registry-mysql&quot;]}</code></pre><p> Docker 默认不允许非<code>HTTPS</code>方式推送镜像</p>
+<p> <a href="https://blog.csdn.net/prince_mujia/article/details/105272760" target="_blank" rel="noopener">使用  Docker Compose  搭建一个拥有权限认证、TLS 的私有仓库</a></p>
+<h2 id="harbor"><a href="#harbor" class="headerlink" title="harbor"></a>harbor</h2><h4 id="使用脚本搭建"><a href="#使用脚本搭建" class="headerlink" title="使用脚本搭建"></a>使用脚本搭建</h4><p>将harbor.sh脚本从 <a href="https://gist.github.com/kacole2/95e83ac84fec950b1a70b0853d6594dc" target="_blank" rel="noopener">GitHub Gist</a>下载到您的Ubuntu机器或VM。</p>
+<p>harbor.sh脚本需要梯子才能下载。我在CSDN上传了一份<code>harbor：v1.10</code>版本的脚本。<br><a href="https://download.csdn.net/download/prince_mujia/12294781" target="_blank" rel="noopener">使用安装脚本快速部署Harbor的脚本文件-harbor.sh</a></p>
+<p>向当前用户授予运行权限。</p>
+<pre><code>chmod u+x</code></pre><p>要注意修改脚本中的端口号。</p>
+<p>Harbor要求在目标主机上打开以下端口。</p>
+<table>
+<thead>
+<tr>
+<th align="left">港口</th>
+<th align="left">协议</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">443</td>
+<td align="left">HTTPS</td>
+<td align="left">Harbor门户和核心API在此端口上接受HTTPS请求。您可以在配置文件中更改此端口。</td>
+</tr>
+<tr>
+<td align="left">4443</td>
+<td align="left">HTTPS</td>
+<td align="left">与Harbor的Docker内容信任服务的连接。仅在启用公证人的情况下才需要。您可以在配置文件中更改此端口。</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="left">HTTP</td>
+<td align="left">Harbor门户和核心API在此端口上接受HTTP请求。您可以在配置文件中更改此端口。</td>
+</tr>
+</tbody></table>
+<p>以超级用户身份运行脚本。</p>
+<pre><code>sudo ./harbor.sh</code></pre><p>选择是使用主机的IP地址还是FQDN部署Harbor。</p>
+<pre><code>Would you like to install Harbor based on IP or FQDN?</code></pre><p>这是您访问Harbor接口和注册表服务的地址。</p>
+<pre><code>要使用IP地址，请输入1。
+要使用FQDN，请输入2。</code></pre><p>该脚本需要几分钟才能运行。在运行时，该脚本会从Ubuntu下载所需的软件包和依赖项，安装最新的稳定版本的Docker和Docker Compose，并安装最新的稳定版本的Harbor。</p>
+<p>当脚本报告时Harbor Installation Complete，登录到新的Harbor实例。</p>
+<pre><code>docker login &lt;harbor_ip_or_FQDN&gt;
+用户名： admin
+密码： VMware12345</code></pre><p>在浏览器中输入Harbor地址，以登录Harbor接口</p>
+<h2 id="使用harbor-yml搭建"><a href="#使用harbor-yml搭建" class="headerlink" title="使用harbor.yml搭建"></a>使用harbor.yml搭建</h2><p><a href="https://github.com/goharbor/harbor/releases" target="_blank" rel="noopener">harbor 下载</a></p>
+<h3 id="解压之后修改harbor-yml"><a href="#解压之后修改harbor-yml" class="headerlink" title="解压之后修改harbor.yml"></a>解压之后修改harbor.yml</h3><p><a href="https://goharbor.io/docs/1.10/install-config/configure-yml-file/" target="_blank" rel="noopener">配置YML文件</a></p>
+<pre><code>hostname   这里设置本机的ip
+harbor_admin_password    web页面的密码,默认的用户名和密码为admin和Harbor12345</code></pre><p>如果没有https，则需要先注释：</p>
+<pre><code>https:
+  # https port for harbor, default is 443
+  port: 443
+  # The path of cert and key files for nginx
+  certificate: /your/certificate/path
+  private_key: /your/private/key/path</code></pre><h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><pre><code>sh ./install.sh
+
+Creating harbor-log ... done
+Creating registry      ... done
+Creating harbor-db     ... done
+Creating harbor-portal ... done
+Creating redis         ... done
+Creating registryctl   ... done
+Creating harbor-core   ... done
+Creating harbor-jobservice ... done
+Creating nginx             ... done
+✔ ----Harbor has been installed and started successfully.----</code></pre><h3 id="访问页面"><a href="#访问页面" class="headerlink" title="访问页面"></a>访问页面</h3><p><a href="https://114.67.79.102:8088" target="_blank" rel="noopener">https://114.67.79.102:8088</a></p>
+<p><img src="docker%E5%B0%8F%E7%BB%93/docker-harbor%E6%95%88%E6%9E%9C%E5%9B%BE.png" alt></p>
+<h3 id="建立https访问"><a href="#建立https访问" class="headerlink" title="建立https访问"></a>建立https访问</h3><h4 id="生成证书颁发机构证书"><a href="#生成证书颁发机构证书" class="headerlink" title="生成证书颁发机构证书"></a>生成证书颁发机构证书</h4><h5 id="生成CA证书私钥。"><a href="#生成CA证书私钥。" class="headerlink" title="生成CA证书私钥。"></a>生成CA证书私钥。</h5><pre><code>openssl genrsa -out ca.key 4096</code></pre><h5 id="生成CA证书。"><a href="#生成CA证书。" class="headerlink" title="生成CA证书。"></a>生成CA证书。</h5><p>调整-subj选项中的值以反映您的组织。如果使用FQDN连接Harbor主机，则必须将其指定为通用名称（CN）属性。</p>
+<pre><code>openssl req -x509 -new -nodes -sha512 -days 3650 \
+ -subj &quot;/C=CN/ST=Beijing/L=Beijing/O=example/OU=Personal/CN=yourdomain.com&quot; \
+ -key ca.key \
+ -out ca.crt</code></pre><h4 id="生成服务器证书"><a href="#生成服务器证书" class="headerlink" title="生成服务器证书"></a>生成服务器证书</h4><p>证书通常包含一个.crt文件和一个.key文件，例如10.19.46.15.crt和10.19.46.15.key。</p>
+<h5 id="生成私钥。"><a href="#生成私钥。" class="headerlink" title="生成私钥。"></a>生成私钥。</h5><pre><code>openssl genrsa -out 10.19.46.15.key 4096</code></pre><h5 id="生成证书签名请求（CSR）。"><a href="#生成证书签名请求（CSR）。" class="headerlink" title="生成证书签名请求（CSR）。"></a>生成证书签名请求（CSR）。</h5><p>调整-subj选项中的值以反映您的组织。如果使用FQDN连接Harbor主机，则必须将其指定为公用名（CN）属性，并在密钥和CSR文件名中使用它。</p>
+<pre><code>openssl req -sha512 -new \
+    -subj &quot;/C=CN/ST=Beijing/L=Beijing/O=example/OU=Personal/CN=yourdomain.com&quot; \
+    -key yourdomain.com.key \
+    -out yourdomain.com.csr</code></pre><h5 id="生成一个x509-v3扩展文件。"><a href="#生成一个x509-v3扩展文件。" class="headerlink" title="生成一个x509 v3扩展文件。"></a>生成一个x509 v3扩展文件。</h5><p>无论您使用FQDN还是IP地址连接到Harbor主机，都必须创建此文件，以便可以为您的Harbor主机生成符合主题备用名称（SAN）和x509 v3的证书扩展要求。替换DNS条目以反映您的域。</p>
+<pre><code>cat &gt; v3.ext &lt;&lt;-EOF
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1=yourdomain.com
+DNS.2=yourdomain
+DNS.3=hostname
+EOF</code></pre><h5 id="使用该v3-ext文件为您的Harbor主机生成证书。"><a href="#使用该v3-ext文件为您的Harbor主机生成证书。" class="headerlink" title="使用该v3.ext文件为您的Harbor主机生成证书。"></a>使用该v3.ext文件为您的Harbor主机生成证书。</h5><p>将yourdomain.comCRS和CRT文件名中的替换为Harbor主机名。</p>
+<pre><code>openssl x509 -req -sha512 -days 3650 \
+    -extfile v3.ext \
+    -CA ca.crt -CAkey ca.key -CAcreateserial \
+    -in yourdomain.com.csr \
+    -out yourdomain.com.crt</code></pre><h5 id="提供证书给Harbor和Docker"><a href="#提供证书给Harbor和Docker" class="headerlink" title="提供证书给Harbor和Docker"></a>提供证书给Harbor和Docker</h5><p>生成后ca.crt，yourdomain.com.crt和yourdomain.com.key文件，必须将它们提供给港口和码头工人，和重新配置港使用它们。</p>
+<p>将服务器证书和密钥复制到Harbor主机上的certficates文件夹中。</p>
+<pre><code>cp yourdomain.com.crt /data/cert/
+cp yourdomain.com.key /data/cert/</code></pre><p>转换yourdomain.com.crt为yourdomain.com.cert，供Docker使用。</p>
+<p>Docker守护程序将.crt文件解释为CA证书，并将.cert文件解释为客户端证书。</p>
+<pre><code>openssl x509 -inform PEM -in yourdomain.com.crt -out yourdomain.com.cert</code></pre><p>将服务器证书，密钥和CA文件复制到Harbor主机上的Docker certificate文件夹中。必须首先创建适当的文件夹。</p>
+<pre><code>cp yourdomain.com.cert /etc/docker/certs.d/yourdomain.com/
+cp yourdomain.com.key /etc/docker/certs.d/yourdomain.com/
+cp ca.crt /etc/docker/certs.d/yourdomain.com/</code></pre><p>如果将默认nginx端口443 映射到其他端口，请创建文件夹/etc/docker/certs.d/yourdomain.com:port或/etc/docker/certs.d/harbor_IP:port。</p>
+<p>重新启动Docker Engine</p>
+<pre><code>systemctl restart docker</code></pre><h5 id="添加hosts解析"><a href="#添加hosts解析" class="headerlink" title="添加hosts解析"></a>添加hosts解析</h5><pre><code>echo &quot;10.19.46.15   yourdomain.com&quot; &gt;&gt; /etc/hosts   </code></pre><h4 id="运行prepare脚本以启用HTTPS"><a href="#运行prepare脚本以启用HTTPS" class="headerlink" title="运行prepare脚本以启用HTTPS"></a>运行prepare脚本以启用HTTPS</h4><pre><code>./prepare</code></pre><h5 id="停止harbor"><a href="#停止harbor" class="headerlink" title="停止harbor"></a>停止harbor</h5><pre><code>docker-compose down -v    </code></pre><h5 id="开启harbor"><a href="#开启harbor" class="headerlink" title="开启harbor"></a>开启harbor</h5><pre><code>docker-compose up -d</code></pre><h5 id="本机登录"><a href="#本机登录" class="headerlink" title="本机登录"></a>本机登录</h5><pre><code>[root@JD harbor]# docker login 127.0.0.1:443
+Username: admin
+Password: 
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded   </code></pre><p><a href="https://goharbor.io/docs/1.10/install-config/quick-install-script/" target="_blank" rel="noopener">部署单机版harbor</a></p>
+<p><a href="https://goharbor.io/docs/1.10/install-config/harbor-ha-helm/" target="_blank" rel="noopener">通过Helm部署具有高可用性的harbor</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/01/使用  Docker Compose  搭建一 个拥有权限认证、TLS 的私有仓库/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="搭建docker镜像仓库" data-title="" data-url="http://yoursite.com/2020/04/02/搭建docker镜像仓库/"  data-images="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" data-content="">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2020 zhangyong
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

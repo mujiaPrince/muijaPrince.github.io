@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>zhangyong</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="zhangyong">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="zhangyong">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zhangyong">
+  
+    <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head></html>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhangyong</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">zhangyong</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">zhangyong</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap">
+  
+    <article id="post-k8s/k8s" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/13/k8s/k8s/" class="article-date">
+  	<time datetime="2020-03-13T06:48:10.844Z" itemprop="datePublished">2020-03-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#1、基础概念</p>
+<h2 id="1-容器编排系统"><a href="#1-容器编排系统" class="headerlink" title="1 容器编排系统"></a>1 容器编排系统</h2><pre><code>- Service Discovery  [服务注册和发现]
+- Load Balancing     [负载均衡]
+- Secrets/configuration/storage management  [配置和存储管理]
+- Health checks  [健康检查]
+- Auto-[scaling/restart/healing] of containers and nodes [自动扩容、缩容、重启]
+- Zero - downtime deploys  [零宕机]</code></pre><h2 id="2-容器编排系统种类"><a href="#2-容器编排系统种类" class="headerlink" title="2 容器编排系统种类"></a>2 容器编排系统种类</h2><pre><code>1 Kubernetes
+2 Docker Swarm 
+3 Apache Mesos and Marathon</code></pre><h1 id="2、集群部署及陈述式命令管理"><a href="#2、集群部署及陈述式命令管理" class="headerlink" title="2、集群部署及陈述式命令管理"></a>2、集群部署及陈述式命令管理</h1><h1 id="3、资源类型及配置清单"><a href="#3、资源类型及配置清单" class="headerlink" title="3、资源类型及配置清单"></a>3、资源类型及配置清单</h1><h1 id="4、Pod资源"><a href="#4、Pod资源" class="headerlink" title="4、Pod资源"></a>4、Pod资源</h1><h1 id="5、Pod控制器"><a href="#5、Pod控制器" class="headerlink" title="5、Pod控制器"></a>5、Pod控制器</h1><h1 id="6、Service资源"><a href="#6、Service资源" class="headerlink" title="6、Service资源"></a>6、Service资源</h1><h1 id="7、存储卷"><a href="#7、存储卷" class="headerlink" title="7、存储卷"></a>7、存储卷</h1><h1 id="8、ConfigMap与Secret资源"><a href="#8、ConfigMap与Secret资源" class="headerlink" title="8、ConfigMap与Secret资源"></a>8、ConfigMap与Secret资源</h1><h1 id="9、StatefulSet控制器"><a href="#9、StatefulSet控制器" class="headerlink" title="9、StatefulSet控制器"></a>9、StatefulSet控制器</h1><h1 id="10、认证、授权及准入控制"><a href="#10、认证、授权及准入控制" class="headerlink" title="10、认证、授权及准入控制"></a>10、认证、授权及准入控制</h1><h1 id="11、网络模型及网络策略"><a href="#11、网络模型及网络策略" class="headerlink" title="11、网络模型及网络策略"></a>11、网络模型及网络策略</h1><h1 id="12、Pod资源调度"><a href="#12、Pod资源调度" class="headerlink" title="12、Pod资源调度"></a>12、Pod资源调度</h1><h1 id="13、CRD、自定义资源、自定义控制器及自定义APR-server"><a href="#13、CRD、自定义资源、自定义控制器及自定义APR-server" class="headerlink" title="13、CRD、自定义资源、自定义控制器及自定义APR server"></a>13、CRD、自定义资源、自定义控制器及自定义APR server</h1><h1 id="14、资源指标与HPA控制器"><a href="#14、资源指标与HPA控制器" class="headerlink" title="14、资源指标与HPA控制器"></a>14、资源指标与HPA控制器</h1><h1 id="15、Helm管理器"><a href="#15、Helm管理器" class="headerlink" title="15、Helm管理器"></a>15、Helm管理器</h1><h1 id="16、高可用k8s"><a href="#16、高可用k8s" class="headerlink" title="16、高可用k8s"></a>16、高可用k8s</h1><h1 id="17、部署要点"><a href="#17、部署要点" class="headerlink" title="17、部署要点"></a>17、部署要点</h1><ul>
+<li><p>测试环境</p>
+<ul>
+<li>可以使用单<code>master</code>节点，单<code>etcd</code>实例；</li>
+<li><code>Node</code>主机数量按需而定</li>
+<li><code>nfs</code>或<code>glusterfs</code>等存储系统</li>
+</ul>
+</li>
+<li><p>生产环境</p>
+<ul>
+<li>高可用<code>etcd</code>集群，建立3、5或7个节点；</li>
+<li>高可用<code>Master</code><ul>
+<li>kube-apiserver 无状态，可多实例；<ul>
+<li>借助于<code>keepalived</code>进行vip流动实现多实例冗余；</li>
+<li>或在多实例前端通过<code>HAProxy</code>或<code>Ngind</code>反代，并借助于<code>keepalived</code>对代理服务器进行冗余</li>
+</ul>
+</li>
+<li><code>kube-scheduler</code>及<code>kube-controller-manager</code>各自只能有一个活动实例，但可以有多个备用；<ul>
+<li>各自自带<code>leader</code>选举功能，并默认处于启用状态；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>多<code>Node</code>主机，数量越多，冗余能力越强；</li>
+<li><code>ceph</code>、<code>glusterfs</code>、<code>iSCSI</code>、<code>FC SAN</code>及各种云储存等；</li>
+</ul>
+</li>
+</ul>
+<h1 id="18、常用命令"><a href="#18、常用命令" class="headerlink" title="18、常用命令"></a>18、常用命令</h1><pre><code>kubectl create namespace ***
+kubectl get namespaces</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-mysql/mysql锁" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/11/mysql/mysql锁/" class="article-date">
+  	<time datetime="2020-03-11T02:12:11.580Z" itemprop="datePublished">2020-03-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/11/mysql/mysql锁/">
+        MySQL锁
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考资料：</p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-locking-transaction-model.html" target="_blank" rel="noopener">innodb-locking-transaction-model</a></p>
+<h1 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h1><p>不同存储引擎支持不同的锁机制。</p>
+<ul>
+<li><p>MyISAM和MEMORY存储引擎采用的是表级锁（table-level locking）；</p>
+</li>
+<li><p>BDB存储引擎采用的是页面锁（page-level locking），但也支持表级锁；</p>
+</li>
+<li><p>InnoDB存储引擎既支持行级锁（row-level locking），也支持表级锁，但是默认情况下采用行级锁。</p>
+</li>
+</ul>
+<h2 id="表级锁、行级锁、页面锁"><a href="#表级锁、行级锁、页面锁" class="headerlink" title="表级锁、行级锁、页面锁"></a>表级锁、行级锁、页面锁</h2><ul>
+<li><p>表级锁：开销小，加锁快；不会出现死锁；锁粒度大。发生冲突几率最大，并发度最低。</p>
+</li>
+<li><p>行级锁：开销大，加锁慢；会出现死锁，发生锁冲突几率最低，并发度最高。</p>
+</li>
+<li><p>页面锁：介于表级锁和行级锁之间。</p>
+</li>
+</ul>
+<h2 id="查看当前数据库支持的引擎"><a href="#查看当前数据库支持的引擎" class="headerlink" title="查看当前数据库支持的引擎"></a>查看当前数据库支持的引擎</h2><pre><code>mysql&gt; show engines;
++--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
+| Engine             | Support | Comment                                                        | Transactions | XA   | Savepoints |
++--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
+| InnoDB             | DEFAULT | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |
+| MRG_MYISAM         | YES     | Collection of identical MyISAM tables                          | NO           | NO   | NO         |
+| MEMORY             | YES     | Hash based, stored in memory, useful for temporary tables      | NO           | NO   | NO         |
+| BLACKHOLE          | YES     | /dev/null storage engine (anything you write to it disappears) | NO           | NO   | NO         |
+| MyISAM             | YES     | MyISAM storage engine                                          | NO           | NO   | NO         |
+| CSV                | YES     | CSV storage engine                                             | NO           | NO   | NO         |
+| ARCHIVE            | YES     | Archive storage engine                                         | NO           | NO   | NO         |
+| PERFORMANCE_SCHEMA | YES     | Performance Schema                                             | NO           | NO   | NO         |
+| FEDERATED          | NO      | Federated MySQL storage engine                                 | NULL         | NULL | NULL       |
++--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
+9 rows in set (0.00 sec)</code></pre><h2 id="查看当前默认的引擎"><a href="#查看当前默认的引擎" class="headerlink" title="查看当前默认的引擎"></a>查看当前默认的引擎</h2><pre><code>mysql&gt; show variables like &apos;default_storage_engine&apos;;
++------------------------+--------+
+| Variable_name          | Value  |
++------------------------+--------+
+| default_storage_engine | InnoDB |
++------------------------+--------+
+1 row in set (0.00 sec)</code></pre><h2 id="修改数据库当前引擎"><a href="#修改数据库当前引擎" class="headerlink" title="修改数据库当前引擎"></a>修改数据库当前引擎</h2><pre><code>alter table table_name engine=MyISAM;</code></pre><h2 id="查看指定表当前的引擎"><a href="#查看指定表当前的引擎" class="headerlink" title="查看指定表当前的引擎"></a>查看指定表当前的引擎</h2><pre><code>show table status where NAME =&apos;table_name&apos; </code></pre><h2 id="修改mysql默认的数据库引擎"><a href="#修改mysql默认的数据库引擎" class="headerlink" title="修改mysql默认的数据库引擎"></a>修改mysql默认的数据库引擎</h2><pre><code>打开配置文件my.ini，将“default-storage-engine=MYISAM”改为你想设定的，然后重启即可</code></pre><h1 id="2、MyISAM表级锁"><a href="#2、MyISAM表级锁" class="headerlink" title="2、MyISAM表级锁"></a>2、MyISAM表级锁</h1><p>Mysql的表级锁有两种模式：表共享锁（Table Read Lock）和表独占锁（Table Write Lock）.</p>
+<h2 id="2-1、共享读锁"><a href="#2-1、共享读锁" class="headerlink" title="2.1、共享读锁"></a>2.1、共享读锁</h2><pre><code>lock table 表名 read
+unlock table table_name</code></pre><p>现在用两个窗口模拟多个client请求mysql,当开启共享读锁时，其他client在修改表数据时，进入等待状态。<br><img src="../MySQL%E9%94%81/%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png" alt></p>
+<p>解除共享读锁后，其他client才会进行提交操作。<br><img src="../MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png" alt></p>
+<h2 id="2-2、表独占锁"><a href="#2-2、表独占锁" class="headerlink" title="2.2、表独占锁"></a>2.2、表独占锁</h2><pre><code>lock table 表名 write 
+unlock table table_name</code></pre><p>现在用两个窗口模拟多个client请求mysql,当开启表独占锁时，其他client在查询表数据时，进入等待状态。<br><img src="../MySQL%E9%94%81/%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png" alt></p>
+<p>解除表独占锁后，其他client才会进行提交操作。<br><img src="../MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png" alt></p>
+<h2 id="2-3、查询表级锁使用情况"><a href="#2-3、查询表级锁使用情况" class="headerlink" title="2.3、查询表级锁使用情况"></a>2.3、查询表级锁使用情况</h2><pre><code>show status like &apos;table%&apos;
+show variables like &apos;%table%&apos;</code></pre><p><img src="../MySQL%E9%94%81/%E6%9F%A5%E8%AF%A2%E8%A1%A8%E7%BA%A7%E9%94%81%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png" alt></p>
+<pre><code>Table_locks_immediate：产生表级锁定的次数；
+Table_locks_waited：出现表级锁定争用而等待的次数。</code></pre><p>两个参数值都是系统启动后开始记录的，出现一次对应的事件，则数量加一。当Table_locks_waited状态值比较高时，那么说明系统中表级锁定争用现象比较明显。</p>
+<h2 id="2-4-别名"><a href="#2-4-别名" class="headerlink" title="2.4 别名"></a>2.4 别名</h2><p>表名以别名的形式进行操作时，需要在锁操作时添加别名<code>lock table 表名 as 别名 write</code></p>
+<h2 id="2-5-session和锁"><a href="#2-5-session和锁" class="headerlink" title="2.5 session和锁"></a>2.5 session和锁</h2><p>一个session使用<code>lock table</code>命令给表加了锁，这个session可以查询锁定表中的记录，但是更新或访问其他表都会提示错误；<br>同时，另外一个session可以查询表中的记录，但更新就会出现锁等待，查询其他表数据不受影响。<br><img src="../MySQL%E9%94%81/session%E5%AF%B9%E9%94%81%E7%9A%84%E5%BD%B1%E5%93%8D.png" alt></p>
+<h2 id="2-6-并发插入"><a href="#2-6-并发插入" class="headerlink" title="2.6 并发插入"></a>2.6 并发插入</h2><ul>
+<li>当concurrent_insert=0时，此时读不能与insert写共存。</li>
+<li>当concurrent_insert=1时，如果表中没有空数据块时（即表中没有被删除的行），MyISAM允许在一个进程读表的同时，另一个进程从表尾插入数据。（默认设置）。</li>
+<li>当concurrent_insert=2时，不论有没有空数据块，都允许在表尾插入数据。</li>
+</ul>
+<h3 id="2-6-1-查看当前设置状态"><a href="#2-6-1-查看当前设置状态" class="headerlink" title="2.6.1 查看当前设置状态"></a>2.6.1 查看当前设置状态</h3><pre><code>mysql&gt; show variables like &apos;concurrent_insert&apos;;
++-------------------+-------+
+| Variable_name     | Value |
++-------------------+-------+
+| concurrent_insert | AUTO  |
++-------------------+-------+
+1 row in set (0.00 sec)</code></pre><h3 id="2-6-2-设置并发插入状态"><a href="#2-6-2-设置并发插入状态" class="headerlink" title="2.6.2 设置并发插入状态"></a>2.6.2 设置并发插入状态</h3><pre><code>mysql&gt; set global concurrent_insert = 2;
+Query OK, 0 rows affected (0.00 sec)</code></pre><h3 id="2-6-3-举例并发插入状态为2（ALWAYS）时"><a href="#2-6-3-举例并发插入状态为2（ALWAYS）时" class="headerlink" title="2.6.3 举例并发插入状态为2（ALWAYS）时"></a>2.6.3 举例并发插入状态为2（ALWAYS）时</h3><pre><code>show variables like &apos;concurrent_insert&apos;;
++-------------------+--------+
+| Variable_name     | Value  |
++-------------------+--------+
+| concurrent_insert | ALWAYS |
++-------------------+--------+
+1 row in set (0.00 sec)</code></pre><p>现在用两个窗口模拟多个client请求mysql,当client_A开启并发插入时，</p>
+<pre><code>mysql&gt; lock table student read local;
+Query OK, 0 rows affected (0.00 sec)</code></pre><p>client_B在操作表数据时，可以直接修改表中数据。<br>但是此时client_A对该表进行查询操作时，表中数据依然为未修改数据；而其他client为已修改数据。<br><img src="../MySQL%E9%94%81/%E5%B9%B6%E5%8F%91%E6%8F%92%E5%85%A5.png" alt></p>
+<h2 id="2-7-一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？"><a href="#2-7-一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？" class="headerlink" title="2.7 一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？"></a>2.7 一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？</h2><pre><code>写进程先获得锁，即使读请求先到锁等待队列，写请求后到，写锁也会插到读锁队列。
+Mysql认为写请求写请求比读请求更重要。
+MyISAM不太适合有大量更新操作和查询操作的原因，因为大量的更新操作会造成查询操作很难获得读锁，从而可能永远阻塞。
+
+解决方法：
+执行`set low_priority_updates=1`,使该连接发出的更新请求优先级降低。同理insert,delete也可以通过此方法指定。</code></pre><p>另外MySQL也提供了一种折中的方法调节读写冲突，即给系统参数max_write_lock_count设置一个合适的值，当一个表的读锁达到这个值后，MySQL就暂时将写请求的优先级降低，给读进程一定的获取锁的机会</p>
+<h1 id="3-Innodb锁"><a href="#3-Innodb锁" class="headerlink" title="3 Innodb锁"></a>3 Innodb锁</h1><pre><code>关闭自动提交 `set autocommit=0;`</code></pre><ul>
+<li>共享锁（S） ：读锁</li>
+<li>排它锁（X） ：写锁</li>
+<li>意向共享锁（IS）</li>
+<li>意向排他锁（IX）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">排它锁（X）</th>
+<th align="center">意向排他锁（IX）</th>
+<th align="center">共享锁（S）</th>
+<th align="center">意向共享锁（IS）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">排它锁（X）</td>
+<td align="center">冲突</td>
+<td align="center">冲突</td>
+<td align="center">冲突</td>
+<td align="center">冲突</td>
+</tr>
+<tr>
+<td align="center">意向排他锁（IX）</td>
+<td align="center">冲突</td>
+<td align="center">兼容</td>
+<td align="center">冲突</td>
+<td align="center">兼容</td>
+</tr>
+<tr>
+<td align="center">共享锁（S）</td>
+<td align="center">冲突</td>
+<td align="center">冲突</td>
+<td align="center">兼容</td>
+<td align="center">兼容</td>
+</tr>
+<tr>
+<td align="center">意向共享锁（IS）</td>
+<td align="center">冲突</td>
+<td align="center">兼容</td>
+<td align="center">兼容</td>
+<td align="center">兼容</td>
+</tr>
+</tbody></table>
+<h2 id="3-1-意向锁"><a href="#3-1-意向锁" class="headerlink" title="3.1 意向锁"></a>3.1 意向锁</h2><h3 id="3-1-1-意向锁"><a href="#3-1-1-意向锁" class="headerlink" title="3.1.1 意向锁"></a>3.1.1 意向锁</h3><p><a href="https://dev.mysql.com/doc/refman/8.0/en/glossary.html#glos_intention_lock" target="_blank" rel="noopener">意向锁</a></p>
+<p>对于update、delete和insert语句，Innodb会自动给涉及数据集加排他锁(X)；<br>对于普通的select语句，Innodb不会加任何锁。</p>
+<p>事务可以通过以下语句显式的给记录集加锁：</p>
+<pre><code>//共享锁
+select * from table_name where  ... lock in share mode;
+//排它锁
+select * from table_name where ... for update;</code></pre><h3 id="3-1-2-行锁变表锁"><a href="#3-1-2-行锁变表锁" class="headerlink" title="3.1.2 行锁变表锁"></a>3.1.2 行锁变表锁</h3><p><strong><em>InnoDB行锁是通过给索引上的索引项加锁来实现的：只有通过索引检索数据，InnoDB才使用<br>行锁，否则，InnoDB使用表锁。</em></strong></p>
+<p>现在用两个窗口模拟多个client请求mysql,当client_A对表中某一行数据进行修改时，触发了索引失效。<br>client_A未进行<code>commit</code>时，则client_B对该表中其他行数据进行修改时，发生了表锁事件。</p>
+<p><img src="../MySQL%E9%94%81/%E8%A1%8C%E9%94%81%E5%8F%98%E8%A1%A8%E9%94%81.png" alt></p>
+<pre><code>注释：实例中 `name`字段为`varchar`类型的索引，在更新操作时字段赋值为 666（而不是&apos;666&apos;） ，此时mysql数据库会自动将其类型转化。
+转化条件需要设置sql模式为非严格模式
+
+mysql&gt; show session variables like &apos;%sql_mode%&apos;;
++---------------+-------------------------------------------------------------------------------------------------------------------------------------------+
+| Variable_name | Value                                                                                                                                     |
++---------------+-------------------------------------------------------------------------------------------------------------------------------------------+
+| sql_mode      | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION |
++---------------+-------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql&gt; set sql_mode=&apos;NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION&apos;;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt; show session variables like &apos;%sql_mode%&apos;;
++---------------+--------------------------------------------+
+| Variable_name | Value                                      |
++---------------+--------------------------------------------+
+| sql_mode      | NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION |
++---------------+--------------------------------------------+
+1 row in set (0.01 sec)</code></pre><h3 id="3-1-3-间隙锁-gap-lock"><a href="#3-1-3-间隙锁-gap-lock" class="headerlink" title="3.1.3 间隙锁(gap lock)"></a>3.1.3 间隙锁(gap lock)</h3><p>InnoDB使用间隙锁的目的：</p>
+<ul>
+<li>防止幻读，以满足相关隔离级别的要求；</li>
+<li>满足恢复和复制的需要；</li>
+</ul>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-gap-locks" target="_blank" rel="noopener">间隙锁</a></p>
+<p><a href="http://blog.itpub.net/15498/viewspace-2141515/" target="_blank" rel="noopener">如何开启和关闭MySQL 间隙锁(gap lock)</a></p>
+<p>间隙锁定是对索引记录之间的间隙的锁定，或者是对第一个或最后一个索引记录之前的间隙的锁定。</p>
+<pre><code>例如，SELECT c1 FROM t WHERE c1 BETWEEN 10 and 20 FOR UPDATE;
+
+防止其他事务将value 15插入column中t.c1，无论该列 中是否已有这样的值，
+因为该范围中所有现有值之间的间隙都是锁定的。</code></pre><p>间隙可能跨越单个索引值，多个索引值，甚至为空。</p>
+<p>对于使用唯一索引来锁定唯一行来锁定行的语句，不需要间隙锁定。<br>（这不包括搜索条件仅包含多列唯一索引的某些列的情况；在这种情况下，会发生间隙锁定。）<br>例如，如果该id列具有唯一索引，则以下语句仅使用一个具有id值100 的行的索引记录锁定，<br>其他会话是否在前面的间隙中插入行并不重要：<br>    SELECT * FROM child WHERE id = 100;</p>
+<p>间隙锁定InnoDB是“ 纯粹抑制性的 ”，这意味着它们的唯一目的是防止其他事务插入间隙。</p>
+<h3 id="3-1-4-InnoDB使用索引的条件"><a href="#3-1-4-InnoDB使用索引的条件" class="headerlink" title="3.1.4 InnoDB使用索引的条件"></a>3.1.4 InnoDB使用索引的条件</h3><ul>
+<li>在不通过索引条件查询的时候，InnoDB确实使用的是表锁，而不是行锁。</li>
+<li>mysql的行锁是针对索引加的锁。不是针对记录加的锁，虽然是访问不同的行，但是若是相同的索引，会出现锁锁冲突的。<br>当表中含有多个索引的时候，不同的事务可以使用不同的索引锁定不同的行。</li>
+<li>即使在条件中使用了索引，但是是否使用索引来检索数据是由MySQL通过判断不同执行计划的代价决定的，如果MySQL认为全表扫描效率更高，比如很小的表，他也不会使用索引，此时InnoDB将使用表锁，而不是行锁。因此，在分析锁冲突的时候，不要忘记检查SQL的执行计划，以确定是否真正使用了索引。</li>
+</ul>
+<pre><code>关于InnoDB到底是使用行锁还是表锁，我们需要依据索引来决定的，本质上行锁是针对索引加的锁，而非记录！！！
+虽然是访问不同的行，但是若是含有相同的索引，还是会发生锁冲突的！！！
+而且就算条件里面使用了索引，Mysql也不一定走索引，还是要看SQL的执行计划！！！</code></pre><p>参考资料：</p>
+<p><a href="https://www.jianshu.com/p/95a0d10eb881" target="_blank" rel="noopener">InnoDB使用索引的条件</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-mysql/mysql优化" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/08/mysql/mysql优化/" class="article-date">
+  	<time datetime="2020-03-08T00:44:28.562Z" itemprop="datePublished">2020-03-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#1、选择优化的数据类型</p>
+<p>##1 更小的通常更好<br>一般情况下，应该尽量使用可以正确存储数据的最小的数据类型</p>
+<pre><code>例如只需要存储 `0-200`， `tinyint unsigned`更好一些</code></pre><p>更小的数据类型通常更快，因为它们占用更少的磁盘、内存和CPU缓存，并且处理时需要的CPU周期也更少</p>
+<p>##2 简单就好<br>简单数据类型的操作通常需要更少的CPU周期。</p>
+<pre><code>例如，整型比字符型操作代价更低，因为字符集和校对规则（排序规则）是字符比较比整型比较更复杂。
+ex: 一个是应该使用Mysql内建的类型(date,time,datetime)而不是字符串来存储日期和时间，另外一个是应该用整型存储IP地。</code></pre><p>##3 尽量避免NULL<br>很多表都包含可为NULL的列，即使应用程序并不需要保存NULL也是如此，这是因为NULL是列的默认属性。<br>通常情况下最好指定列为NOT NULL，除非真的需要存储NULL值。</p>
+<p>如果查询中包含可为NULL的列，对Mysql来说更难优化，因为可为NULL的列使得索引、索引统计和值比较都更复杂。<br>可为NULL的列会使用更多的存储空间，在Mysql中也需要特殊处理。当可为NULL的列被索引时，每个索引记录需要一个额外的字节，<br>在MyISAM里甚至还可能导致固定大小的索引（例如只有一个整数列的索引）变成可变大小的索引。<br>通常此项改动对于InnoDB的性能提升比较小。InnoDB使用单独的位（bit）存储NULL值，所以对于稀疏数据有很好的空间效率。    </p>
+<h1 id="优化工具"><a href="#优化工具" class="headerlink" title="优化工具"></a>优化工具</h1><h2 id="explain"><a href="#explain" class="headerlink" title="explain"></a>explain</h2><p><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html" target="_blank" rel="noopener">explain-output</a></p>
+<h2 id="show-profile"><a href="#show-profile" class="headerlink" title="show-profile"></a>show-profile</h2><p><a href="https://dev.mysql.com/doc/refman/5.7/en/show-profile.html" target="_blank" rel="noopener">show-profile</a></p>
+<p><strong>* The SHOW PROFILE and SHOW PROFILES statements are deprecated and will be removed in a future MySQL release.<br>Use the Performance Schema instead; <a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema-query-profiling.html" target="_blank" rel="noopener">see Section 25.19.1, “Query Profiling Using Performance Schema”</a>. *</strong></p>
+<pre><code>set profiling=1;
+select * from student;
+show profile for query 1;
+show profile all for query 1;
+show profile all for query 1\G               (后面没有分号！！！)
+
+---------------------------------------
+
+mysql&gt; set profiling=1;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql&gt; select * from student;
++----+-----------+------+------+
+| id | name      | age  | sex  |
++----+-----------+------+------+
+|  1 | xiaoming  |   19 |    1 |
+|  2 | xiaohong  |   18 |    0 |
+|  3 | xiaolan   |   20 |    0 |
+|  4 | xiaolv    |   20 |    0 |
+|  5 | xiaohuang |   20 |    0 |
+|  6 | 666       |   17 |    0 |
++----+-----------+------+------+
+6 rows in set (0.00 sec)
+
+mysql&gt; show profile for query 1;
++----------------------+----------+
+| Status               | Duration |
++----------------------+----------+
+| starting             | 0.000081 |
+| checking permissions | 0.000011 |
+| Opening tables       | 0.000019 |
+| init                 | 0.000018 |
+| System lock          | 0.000009 |
+| optimizing           | 0.000006 |
+| statistics           | 0.000016 |
+| preparing            | 0.000013 |
+| executing            | 0.000005 |
+| Sending data         | 0.000056 |
+| end                  | 0.000006 |
+| query end            | 0.000009 |
+| closing tables       | 0.000008 |
+| freeing items        | 0.000013 |
+| cleaning up          | 0.000016 |
++----------------------+----------+
+15 rows in set, 1 warning (0.00 sec)
+
+mysql&gt; show profile all for query 1;
++----------------------+----------+----------+------------+-------------------+---------------------+--------------+---------------+---------------+-------------------+-------------------+-------------------+-------+-----------------------+----------------------+-------------+
+| Status               | Duration | CPU_user | CPU_system | Context_voluntary | Context_involuntary | Block_ops_in | Block_ops_out | Messages_sent | Messages_received | Page_faults_major | Page_faults_minor | Swaps | Source_function       | Source_file          | Source_line |
++----------------------+----------+----------+------------+-------------------+---------------------+--------------+---------------+---------------+-------------------+-------------------+-------------------+-------+-----------------------+----------------------+-------------+
+| starting             | 0.000081 | 0.000032 |   0.000045 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | NULL                  | NULL                 |        NULL |
+| checking permissions | 0.000011 | 0.000005 |   0.000006 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | check_access          | sql_authorization.cc |         809 |
+| Opening tables       | 0.000019 | 0.000007 |   0.000010 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | open_tables           | sql_base.cc          |        5753 |
+| init                 | 0.000018 | 0.000007 |   0.000011 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | handle_query          | sql_select.cc        |         128 |
+| System lock          | 0.000009 | 0.000005 |   0.000006 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | mysql_lock_tables     | lock.cc              |         330 |
+| optimizing           | 0.000006 | 0.000002 |   0.000004 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | optimize              | sql_optimizer.cc     |         158 |
+| statistics           | 0.000016 | 0.000007 |   0.000009 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | optimize              | sql_optimizer.cc     |         374 |
+| preparing            | 0.000013 | 0.000005 |   0.000008 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | optimize              | sql_optimizer.cc     |         482 |
+| executing            | 0.000005 | 0.000002 |   0.000002 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | exec                  | sql_executor.cc      |         126 |
+| Sending data         | 0.000056 | 0.000023 |   0.000033 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | exec                  | sql_executor.cc      |         202 |
+| end                  | 0.000006 | 0.000002 |   0.000003 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | handle_query          | sql_select.cc        |         206 |
+| query end            | 0.000009 | 0.000004 |   0.000006 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | mysql_execute_command | sql_parse.cc         |        4956 |
+| closing tables       | 0.000008 | 0.000003 |   0.000004 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | mysql_execute_command | sql_parse.cc         |        5009 |
+| freeing items        | 0.000013 | 0.000005 |   0.000008 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | mysql_parse           | sql_parse.cc         |        5622 |
+| cleaning up          | 0.000016 | 0.000007 |   0.000008 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | dispatch_command      | sql_parse.cc         |        1931 |
++----------------------+----------+----------+------------+-------------------+---------------------+--------------+---------------+---------------+-------------------+-------------------+-------------------+-------+-----------------------+----------------------+-------------+
+15 rows in set, 1 warning (0.00 sec)</code></pre><h2 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h2><p><a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema-quick-start.html" target="_blank" rel="noopener">performance-schema-quick-start</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/optimization.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/8.0/en/optimization.html</a></p>
+<h1 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h1><p><a href="https://www.jianshu.com/p/5b2bb76d26d6" target="_blank" rel="noopener">分库分表</a></p>
+<p><a href="https://www.bbsmax.com/A/xl56PpKYzr/" target="_blank" rel="noopener">mysql中间件分享（Mysql-prxoy,Atlas,DBProxy,Amoeba,cobar,TDDL）</a></p>
+<h1 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h1><p><a href="https://blog.csdn.net/A_man_only/article/details/84257702" target="_blank" rel="noopener">MTS： 并行复制技术</a></p>
+<h1 id="读写分离"><a href="#读写分离" class="headerlink" title="读写分离"></a>读写分离</h1>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-golang/go_map" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/06/golang/go_map/" class="article-date">
+  	<time datetime="2020-03-06T06:55:31.667Z" itemprop="datePublished">2020-03-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://mp.weixin.qq.com/s/BGjJt86MhpbSNPgh2CLRKw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/BGjJt86MhpbSNPgh2CLRKw</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-golang/go_channel" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/05/golang/go_channel/" class="article-date">
+  	<time datetime="2020-03-05T08:40:52.467Z" itemprop="datePublished">2020-03-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://mp.weixin.qq.com/s/MF3o5Jr7h-EiSN8amKW0QA" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/MF3o5Jr7h-EiSN8amKW0QA</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-golang/初探 Go 的编译命令执行过程" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/05/golang/初探 Go 的编译命令执行过程/" class="article-date">
+  	<time datetime="2020-03-05T07:06:51.461Z" itemprop="datePublished">2020-03-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://www.jianshu.com/p/35a4ec1b3067" target="_blank" rel="noopener">https://www.jianshu.com/p/35a4ec1b3067</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-golang/protocol-buffer" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/05/golang/protocol-buffer/" class="article-date">
+  	<time datetime="2020-03-05T05:58:28.170Z" itemprop="datePublished">2020-03-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://blog.csdn.net/mzpmzk/article/details/80824839" target="_blank" rel="noopener">https://blog.csdn.net/mzpmzk/article/details/80824839</a></p>
+<p>Source: <a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/Protocol/Protocol-buffers-decode.md" target="_blank" rel="noopener">https://github.com/halfrost/Halfrost-Field/blob/master/contents/Protocol/Protocol-buffers-decode.md</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-golang/golang面试题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/04/golang/golang面试题/" class="article-date">
+  	<time datetime="2020-03-04T06:55:17.764Z" itemprop="datePublished">2020-03-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="使用Go编程有什么好处？"><a href="#使用Go编程有什么好处？" class="headerlink" title="使用Go编程有什么好处？"></a>使用Go编程有什么好处？</h2><p>1 golang虽然不像jvm那样，一次构建，到处运行。但是golang支持跨平台编译，完全能够适应多平台。</p>
+<p>2 内嵌C支持。Go里面也可以直接包含c代码，利用现有的丰富的C库。</p>
+<p>3 gofmt，它根据 Go 的建议风格对代码进行格式化。</p>
+<p>4 <code>goroutine</code>的轻量级线程，并通过<code>channel</code>进行通信。</p>
+<p>5 golang 的调度机制</p>
+<h2 id="Go支持类型继承吗？"><a href="#Go支持类型继承吗？" class="headerlink" title="Go支持类型继承吗？"></a>Go支持类型继承吗？</h2><p><a href="https://cloud.tencent.com/developer/news/411806" target="_blank" rel="noopener">Go语言中没有类继承，要用多态怎么办？</a></p>
+<pre><code>type shape interface{
+
+    hasArea（name string）bool
+
+}
+
+type square struct {
+
+    length int
+
+}
+
+func （sq square）hasArea(type string) bool {
+
+    if type == &quot;line&quot;
+
+        return false
+
+    else
+
+        return true
+
+}
+
+使用的时候可以这样:
+
+sq := square
+
+fmt.Pringln（&quot;Has area?&quot;, sq.hasArea（））
+
+或者这样
+
+var sq shape
+
+sq = square
+
+fmt.Pringln（&quot;Has area?&quot;, sq.hasArea（））
+
+从上面的例子可以看出，任何能够匹配以上接口中函数定义的结构对象， 
+都可以使用这个接口类型。
+
+这样做，就在go语言实现多态了。</code></pre><p>Go支持运营商超载吗？</p>
+<h2 id="Go支持方法重载吗？"><a href="#Go支持方法重载吗？" class="headerlink" title="Go支持方法重载吗？"></a>Go支持方法重载吗？</h2><p>不支持</p>
+<h2 id="Go支持指针算术吗？"><a href="#Go支持指针算术吗？" class="headerlink" title="Go支持指针算术吗？"></a>Go支持指针算术吗？</h2><p>golang虽说指针变量不能直接参与指针运算, 但是却提供了unsafe包, 能够实现同样的功能。</p>
+<p><a href="https://www.jianshu.com/p/c5dd12522cc6" target="_blank" rel="noopener">Golang是否真的没有指针运算</a></p>
+<h2 id="Go支持通用编程吗？"><a href="#Go支持通用编程吗？" class="headerlink" title="Go支持通用编程吗？"></a>Go支持通用编程吗？</h2><p>Go编程语言不支持通用/泛型编程</p>
+<h2 id="Go是一个区分大小写的语言吗？"><a href="#Go是一个区分大小写的语言吗？" class="headerlink" title="Go是一个区分大小写的语言吗？"></a>Go是一个区分大小写的语言吗？</h2><p>区分：例如在方法名上，首字母大写表示方法为public,小写为私有方法</p>
+<h2 id="Go中变量的静态类型声明是什么？Go中变量的动态类型声明是什么？"><a href="#Go中变量的静态类型声明是什么？Go中变量的动态类型声明是什么？" class="headerlink" title="Go中变量的静态类型声明是什么？Go中变量的动态类型声明是什么？"></a>Go中变量的静态类型声明是什么？Go中变量的动态类型声明是什么？</h2><p>静态类型(static type)是变量声明的时候的声明类型，<br>在变量声明、new方法创建对象时或者结构体(struct)的元素的类型定义，参数类型等。</p>
+<p>接口(interface)类型的变量还有一个动态类型，它是运行时赋值给这个变量的具体的值的类型(当然值为nil的时候没有动态类型)。一个变量的动态类型在运行时可能改变，<br>这主要依赖它的赋值。</p>
+<pre><code>var x interface{}  // x 为零值 nil,静态类型为 interface{}
+var v *T           // v 为零值 nil, 静态类型为 *T
+x = 42             // x 的值为 42,动态类型为int, 静态类型为interface{}
+x = v              // x 的值为 (*T)(nil)， 动态类型为 *T, 静态类型为 *T</code></pre><h2 id="你能在Go中的单个声明中声明多种类型的变量吗？"><a href="#你能在Go中的单个声明中声明多种类型的变量吗？" class="headerlink" title="你能在Go中的单个声明中声明多种类型的变量吗？"></a>你能在Go中的单个声明中声明多种类型的变量吗？</h2><p>能</p>
+<pre><code>var m, n int
+a, b := &quot;a&quot;, &quot;b&quot;;
+
+var(
+   no  int
+   name string
+)</code></pre><h2 id="如何在Go中打印变量的类型？"><a href="#如何在Go中打印变量的类型？" class="headerlink" title="如何在Go中打印变量的类型？"></a>如何在Go中打印变量的类型？</h2><pre><code>第一种方式，反射：
+fmt.Println(reflect.TypeOf(var)) 
+
+第二种方式， %T
+var a, b, c = 3, 4, &quot;foo&quot;    
+fmt.Printf(&quot;a is of type %T\n&quot;, a)</code></pre><p>什么是指针？</p>
+<h2 id="break语句的目的是什么？"><a href="#break语句的目的是什么？" class="headerlink" title="break语句的目的是什么？"></a>break语句的目的是什么？</h2><pre><code>break：跳出for循环;break在switch（开关语句）中在执行一条case后跳出语句的作用
+continue:跳过当前循环执行下一次循环语句</code></pre><p><a href="https://blog.csdn.net/mofiu/article/details/77318376" target="_blank" rel="noopener">golang跳转语句goto,break,continue的使用及区别</a></p>
+<p>继续声明的目的是什么？</p>
+<h2 id="goto语句的目的是什么？"><a href="#goto语句的目的是什么？" class="headerlink" title="goto语句的目的是什么？"></a>goto语句的目的是什么？</h2><pre><code>goto可以跳出多层嵌套循环，
+for，while，dowhile本质是用goto语句实现的，goto语句比较底层</code></pre><p>除非跳出多个循环嵌套和远程注入技术，否则尽量少用goto</p>
+<p>goto会降低程序的可读性，让代码难以调试</p>
+<p> 利用递归也可以实现循环结构和do while类似</p>
+<p><a href="https://www.cnblogs.com/luoxuw/p/11257788.html" target="_blank" rel="noopener">goto语句的本质</a></p>
+<h2 id="解释’for’循环的语法。"><a href="#解释’for’循环的语法。" class="headerlink" title="解释’for’循环的语法。"></a>解释’for’循环的语法。</h2><p><a href="https://blog.csdn.net/guofeng93/article/details/90804430" target="_blank" rel="noopener">https://blog.csdn.net/guofeng93/article/details/90804430</a></p>
+<h2 id="解释在Go中创建函数的语法。"><a href="#解释在Go中创建函数的语法。" class="headerlink" title="解释在Go中创建函数的语法。"></a>解释在Go中创建函数的语法。</h2><pre><code>func function_name( [parameter list] ) [return_types] {
+   函数体
+}</code></pre><h2 id="你能从函数中返回多个值吗？"><a href="#你能从函数中返回多个值吗？" class="headerlink" title="你能从函数中返回多个值吗？"></a>你能从函数中返回多个值吗？</h2><p>能</p>
+<pre><code>func (file *File) Read(b []byte) (n int, err Error) </code></pre><p>您可以将参数传递给方法的方式有多少？</p>
+<p>将参数传递给函数的默认方式是什么？</p>
+<h2 id="Go中的函数作为值是什么意思？"><a href="#Go中的函数作为值是什么意思？" class="headerlink" title="Go中的函数作为值是什么意思？"></a>Go中的函数作为值是什么意思？</h2><p>在Go中函数也是一种变量，我们可以通过type来定义它，<br>它的类型就是所有拥有相同的参数，相同的返回值的一种类型</p>
+<pre><code>type typeName func(input1 inputType1 , input2 inputType2 [, ...]) (result1 resultType1 [, ...])</code></pre><h2 id="什么是功能关闭？"><a href="#什么是功能关闭？" class="headerlink" title="什么是功能关闭？"></a>什么是功能关闭？</h2><p>定义的或内置的可调用函数</p>
+<p>Go中的方法是什么？</p>
+<p>Go中局部变量的默认值是多少？</p>
+<p>Go中全局变量的默认值是多少？</p>
+<h2 id="Go中指针变量的默认值是多少？"><a href="#Go中指针变量的默认值是多少？" class="headerlink" title="Go中指针变量的默认值是多少？"></a>Go中指针变量的默认值是多少？</h2><p>在go语言中，任何类型在声明后没有赋值的情况下，都对应一个零值。</p>
+<pre><code>整形如int8、byte、int16、uint、uintprt等，默认值为0。
+浮点类型如float32、float64，默认值为0。
+布尔类型bool的默认值为false。
+复数类型如complex64、complex128，默认值为0+0i。
+字符串string的默认值为”“。
+错误类型error的默认值为nil。
+对于一些复合类型，如指针、切片、字典、通道、接口，默认值为nil。
+而数组的默认值要根据其数据类型来确定。
+例如：var a [4]int，其默认值为[0 0 0 0]。</code></pre><h2 id="解释Printf（）函数的用途。"><a href="#解释Printf（）函数的用途。" class="headerlink" title="解释Printf（）函数的用途。"></a>解释Printf（）函数的用途。</h2><p>格式化输出。</p>
+<p>什么是左值和左值？</p>
+<p>实际和形式参数之间有什么区别？</p>
+<p>变量声明和变量定义有什么区别？</p>
+<p>解释模块化编程。</p>
+<p>什么是令牌？</p>
+<p>哪个关键字用于执行无条件分支？</p>
+<p>什么是阵列？</p>
+<p>Go中的零指针是什么？</p>
+<p>指针上的指针是什么？</p>
+<p>Go的结构是什么？</p>
+<p>如何在Go中定义一个结构？</p>
+<p>Go中的切片是什么？</p>
+<p>如何在Go中定义切片？</p>
+<p>如何获取切片中存在的元素数？</p>
+<p>Go中slice的len（）和cap（）函数有什么区别？</p>
+<p>长度 、容量</p>
+<p>如何获得切片的子切片？</p>
+<p>Go的范围是什么？</p>
+<p>Go中的map是什么？</p>
+<p>如何在Go中创建map？</p>
+<p>如何从Go中删除map中的条目？</p>
+<p>什么是Go中的类型转换？</p>
+<p>Go中的接口是什么？</p>
+<p>垃圾回收</p>
+<p>逃逸分析</p>
+<p>除了 mutex 以外还有那些方式安全读写共享变量？</p>
+<h2 id="channel"><a href="#channel" class="headerlink" title="channel"></a>channel</h2><h3 id="1-无缓冲-chan-的发送和接收是否同步？"><a href="#1-无缓冲-chan-的发送和接收是否同步？" class="headerlink" title="1 无缓冲 chan 的发送和接收是否同步？"></a>1 无缓冲 chan 的发送和接收是否同步？</h3><p>ch := make(chan int) 无缓冲的channel由于没有缓冲发送和接收需要同步.</p>
+<p>ch := make(chan int, 2) 有缓冲channel不要求发送和接收操作同步</p>
+<p>仅当信道的缓冲区填满后，向其发送数据时才会阻塞（阻塞写）。<br>当缓冲区为空时，接受方会阻塞（阻塞读）</p>
+<h3 id="2-channel-是通过注册-goroutine-id-实现？"><a href="#2-channel-是通过注册-goroutine-id-实现？" class="headerlink" title="2 channel 是通过注册 goroutine id 实现？"></a>2 channel 是通过注册 goroutine id 实现？</h3><p>是</p>
+<h3 id="3-如何用channel实现一个令牌桶"><a href="#3-如何用channel实现一个令牌桶" class="headerlink" title="3 如何用channel实现一个令牌桶"></a>3 如何用channel实现一个令牌桶</h3><p><a href="https://www.jianshu.com/p/a6129c70f7d4" target="_blank" rel="noopener">go 令牌桶简易实现</a></p>
+<p>令牌桶算法的基本过程如下：</p>
+<ul>
+<li>假如用户配置的平均发送速率为r，则每隔1/r秒一个令牌被加入到桶中；</li>
+<li>假设桶最多可以存发b个令牌。如果令牌到达时令牌桶已经满了，那么这个令牌会被丢弃；</li>
+<li>当一个n个字节的数据包到达时，就从令牌桶中删除n个令牌，并且数据包被发送到网络；</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">    &quot;sync&quot;</span><br><span class="line">    &quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type Bucket struct &#123;</span><br><span class="line">    cap   int //容量</span><br><span class="line">    ch    chan bool   </span><br><span class="line">    timer *time.Ticker //定时填充token</span><br><span class="line">    mu    sync.Mutex</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func NewBucket(cap int, interval time.Duration) *Bucket &#123;</span><br><span class="line">    bucket := &amp;Bucket&#123;</span><br><span class="line">        cap:   cap,</span><br><span class="line">        ch:    make(chan bool, cap),</span><br><span class="line">        timer: time.NewTicker(interval),</span><br><span class="line">    &#125;</span><br><span class="line">    go bucket.startTicker()</span><br><span class="line">    return bucket</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (bucket *Bucket) startTicker() &#123;</span><br><span class="line">    for i := 0; i &lt; bucket.cap; i++ &#123;</span><br><span class="line">        bucket.ch &lt;- true</span><br><span class="line">    &#125;</span><br><span class="line">    for &#123;</span><br><span class="line">        select &#123;</span><br><span class="line">        case &lt;-bucket.timer.C:</span><br><span class="line">            for i := len(bucket.ch); i &lt; bucket.cap; i++ &#123;</span><br><span class="line">                bucket.Add()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (bucket *Bucket) Add() &#123;</span><br><span class="line">    bucket.mu.Lock()</span><br><span class="line">    defer bucket.mu.Unlock()</span><br><span class="line">    if len(bucket.ch) &lt; bucket.cap &#123;</span><br><span class="line">        bucket.ch &lt;- true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (bucket *Bucket) Get() bool &#123;</span><br><span class="line">    select &#123;</span><br><span class="line">    case &lt;-bucket.ch:</span><br><span class="line">        return true</span><br><span class="line">    default:</span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">    bucket := NewBucket(5, time.Second)</span><br><span class="line">    for i := 0; i &lt; 1000; i++ &#123;</span><br><span class="line">        time.Sleep(time.Millisecond * 100)</span><br><span class="line">        go DoFunc(bucket, i)</span><br><span class="line">    &#125;</span><br><span class="line">    for &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func DoFunc(bucket *Bucket, index int) &#123;</span><br><span class="line">    if bucket.Get() &#123;</span><br><span class="line">        fmt.Printf(&quot;######### success : %d \n&quot;, index)</span><br><span class="line">        bucket.Add() // 每次请求成功后执行Add是否合理？？？每一时刻最多可有cap个token可用</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        fmt.Printf(&quot;######### failed : %d \n&quot;, index)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="golang-采用什么并发模型？体现在哪里？"><a href="#golang-采用什么并发模型？体现在哪里？" class="headerlink" title="golang 采用什么并发模型？体现在哪里？"></a>golang 采用什么并发模型？体现在哪里？</h2><p><a href="https://www.jianshu.com/p/6032f2db6be5" target="_blank" rel="noopener">Golang并发模型</a></p>
+<p>说说 golang 中常用的并发模式？</p>
+<p>JSON 标准库对 nil slice 和 空 slice 的处理是一致的吗？</p>
+<p>Go程序能链接C/C++程序吗</p>
+<p>为什么Go没有泛型</p>
+<h2 id="为什么Go没有异常"><a href="#为什么Go没有异常" class="headerlink" title="为什么Go没有异常"></a>为什么Go没有异常</h2><p>因为go开发者认为，所有异常皆可打印。</p>
+<p>为什么用CSP思想构建并发如何知道变量分配到堆还是栈</p>
+<p>为什么没有goroutine ID</p>
+<p>restful熟悉吗？都有哪些请求方法，分别代表什么意思？</p>
+<p>手写循环队列进程虚拟空间分布，全局变量放哪里？</p>
+<p>c++ 和 go对比</p>
+<p>怎么理解云计算</p>
+<p>go使用踩过什么坑</p>
+<p>go内存模型，什么是小对象，go get，go tool，go test，go vetgo什么情况下会发生内存泄漏？</p>
+<h2 id="go为什么高并发好？"><a href="#go为什么高并发好？" class="headerlink" title="go为什么高并发好？"></a>go为什么高并发好？</h2><p>Golang 从语言级别支持并发，通过轻量级协程 Goroutine 来实现程序并发运行。</p>
+<p>** Goroutine 非常轻量 **，主要体现在以下两个方面：</p>
+<ul>
+<li><p>上下文切换代价小： Goroutine 上下文切换只涉及到三个寄存器（PC / SP / DX）的值修改；<br>而对比线程的上下文切换则需要涉及模式切换（从用户态切换到内核态）、<br>以及 16 个寄存器、PC、SP…等寄存器的刷新；</p>
+</li>
+<li><p>内存占用少 ：线程栈空间通常是 2M，Goroutine 栈空间最小 2K；</p>
+</li>
+</ul>
+<p>Golang 程序中可以轻松支持10w 级别的 Goroutine 运行，<br>而线程数量达到 1k 时，内存占用就已经达到 2G。</p>
+<h2 id="Go语言-CPU-性能、内存分析调试方法大汇总"><a href="#Go语言-CPU-性能、内存分析调试方法大汇总" class="headerlink" title="Go语言 CPU 性能、内存分析调试方法大汇总"></a><a href="https://mp.weixin.qq.com/s/-HojlxCZZIcWWwprQaVkzw" target="_blank" rel="noopener">Go语言 CPU 性能、内存分析调试方法大汇总</a></h2><p>pprof</p>
+<p>go的分布式</p>
+<p>谈谈go的未来</p>
+<p>gogc</p>
+<h2 id="go的调度"><a href="#go的调度" class="headerlink" title="go的调度"></a>go的调度</h2><p> <a href="https://www.zhihu.com/question/21409296/answer/1040884859" target="_blank" rel="noopener">go调度器</a></p>
+<h2 id="go-struct能不能比较-空struct-用处"><a href="#go-struct能不能比较-空struct-用处" class="headerlink" title="go struct能不能比较  空struct{}用处"></a>go struct能不能比较  空struct{}用处</h2><pre><code>因为是强类型语言，所以不同类型的结构不能作比较，
+但是同一类型的实例值是可以比较的，实例不可以比较，因为是指针类型
+
+map[inter]struct{}</code></pre><p>go defer（for defer）     </p>
+<p>select可以用于什么 </p>
+<pre><code>常用于gorotine的完美退出
+golang 的 select 就是监听 IO 操作，当 IO 操作发生时，触发相应的动作
+每个case语句里必须是一个IO操作，确切的说，应该是一个面向channel的IO操作    </code></pre><p>context包的用途     </p>
+<p>client如何实现长连接     </p>
+<pre><code>server是设置超时时间，for循环遍历的</code></pre><p>主协程如何等其余协程完再操作     </p>
+<p>slice，len，cap，共享，扩容    </p>
+<p>map如何顺序读取    </p>
+<pre><code>map不能顺序读取，是因为他是无序的，想要有序读取，
+首先的解决的问题就是，把ｋｅｙ变为有序，
+所以可以把key放入切片，对切片进行排序，遍历切片，通过key取值。</code></pre><p>实现set     </p>
+<pre><code>type inter interface{}
+type Set struct {
+    m map[inter]bool
+    sync.RWMutex
+}
+
+func New() *Set {
+    return &amp;Set{
+    m: map[inter]bool{},
+    }
+}
+func (s *Set) Add(item inter) {
+    s.Lock()
+    defer s.Unlock()
+    s.m[item] = true
+}</code></pre><p>实现消息队列（多生产者，多消费者）     </p>
+<pre><code>使用切片加锁可以实现</code></pre><p>大文件排序     </p>
+<pre><code>归并排序，分而治之,拆分为小文件，在排序</code></pre><p>基本排序，哪些是稳定的     </p>
+<p>读写锁</p>
+<h1 id="http"><a href="#http" class="headerlink" title="http"></a>http</h1><h2 id="1-http-get跟head"><a href="#1-http-get跟head" class="headerlink" title="1 http get跟head"></a>1 http get跟head</h2><pre><code>HEAD和GET本质是一样的，区别在于HEAD不含有呈现数据，
+而仅仅是HTTP头信息。有的人可能觉得这个方法没什么用，
+其实不是这样的。想象一个业务情景：欲判断某个资源是否存在，
+我们通常使用GET，但这里用HEAD则意义更加明确。</code></pre><h2 id="2-http-401-403"><a href="#2-http-401-403" class="headerlink" title="2 http 401,403"></a>2 http 401,403</h2><pre><code>400 bad request，请求报文存在语法错误
+401 unauthorized，表示发送的请求需要有通过 HTTP 认证的认证信息
+403 forbidden，表示对请求资源的访问被服务器拒绝
+404 not found，表示在服务器上没有找到请求的资源  </code></pre><h2 id="3-http-keep-alive"><a href="#3-http-keep-alive" class="headerlink" title="3 http keep-alive"></a>3 http keep-alive</h2><pre><code>client发出的HTTP请求头需要增加Connection:keep-alive字段
+Web-Server端要能识别Connection:keep-alive字段，
+并且在http的response里指定Connection:keep-alive字段，
+告诉client，我能提供keep-alive服务，
+并且&quot;应允&quot;client我暂时不会关闭socket连接</code></pre><h2 id="4-http能不能一次连接多次请求，不等后端返回"><a href="#4-http能不能一次连接多次请求，不等后端返回" class="headerlink" title="4 http能不能一次连接多次请求，不等后端返回"></a>4 http能不能一次连接多次请求，不等后端返回</h2><pre><code>http本质上市使用socket连接，因此发送请求，接写入tcp缓冲，
+是可以多次进行的，这也是http是无状态的原因   </code></pre><h2 id="5-tcp与udp区别，udp优点，适用场景"><a href="#5-tcp与udp区别，udp优点，适用场景" class="headerlink" title="5 tcp与udp区别，udp优点，适用场景"></a>5 tcp与udp区别，udp优点，适用场景</h2><pre><code>tcp传输的是数据流，而udp是数据包，tcp会进过三次握手，udp不需要</code></pre><h2 id="6-time-wait的作用-服务产生大量的time-wait如何解决"><a href="#6-time-wait的作用-服务产生大量的time-wait如何解决" class="headerlink" title="6 time-wait的作用     服务产生大量的time_wait如何解决"></a>6 time-wait的作用     服务产生大量的time_wait如何解决</h2><p><a href="https://www.jianshu.com/p/41f7e468f312" target="_blank" rel="noopener">https://www.jianshu.com/p/41f7e468f312</a></p>
+<pre><code>如果服务器最后发送的ACK因为某种原因丢失了，那么客户一定会重新发送FIN，
+这样因为有TIME_WAIT的存在，服务器会重新发送ACK给客户，
+如果没有TIME_WAIT，那么无论客户有没有收到ACK，服务器都已经关掉连接了，
+此时客户重新发送FIN，服务器将不会发送ACK，而是RST，从而使客户端报错
+
+如果没有TIME_WAIT，我们可以在最后一个ACK还未到达客户的时候，
+就建立一个新的连接。那么此时，如果客户收到了这个ACK的话，就乱套了，
+必须保证这个ACK完全死掉之后，才能建立新的连接。
+
+
+在应用中通过设置合理的连接池参数可以避免TIME_WAIT状态过多的问题
+比如 http  redis  grpc  mysql...</code></pre><h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h2 id="1-索引"><a href="#1-索引" class="headerlink" title="1 索引"></a>1 索引</h2><h2 id="2-锁"><a href="#2-锁" class="headerlink" title="2 锁"></a>2 锁</h2><h2 id="3-事务"><a href="#3-事务" class="headerlink" title="3 事务"></a>3 事务</h2><p>幻读，一致性，CAP</p>
+<h2 id="4-持久化"><a href="#4-持久化" class="headerlink" title="4 持久化"></a>4 持久化</h2><h1 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h1><h2 id="1-持久化"><a href="#1-持久化" class="headerlink" title="1 持久化"></a>1 持久化</h2><h2 id="2-分布式锁"><a href="#2-分布式锁" class="headerlink" title="2 分布式锁"></a>2 分布式锁</h2><h2 id="3-sorted-set"><a href="#3-sorted-set" class="headerlink" title="3 sorted set"></a>3 sorted set</h2><h1 id="mq"><a href="#mq" class="headerlink" title="mq"></a>mq</h1><h2 id="1-重复消费"><a href="#1-重复消费" class="headerlink" title="1 重复消费"></a>1 重复消费</h2><h2 id="2-保证不丢失消息"><a href="#2-保证不丢失消息" class="headerlink" title="2 保证不丢失消息"></a>2 保证不丢失消息</h2><p>孤儿进程，僵尸进程     </p>
+<p>死锁条件，如何避免     </p>
+<p>linux命令，查看端口占用，cpu负载，内存占用，如何发送信号给一个进程     </p>
+<p>git文件版本，使用顺序，merge跟rebase</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-Hyperledger Fabric v2.0 更新说明" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/01/Hyperledger Fabric v2.0 更新说明/" class="article-date">
+  	<time datetime="2020-03-01T10:12:38.034Z" itemprop="datePublished">2020-03-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>从 v1.0以来，第一个 Hyperledger Fabric 主版本，Fabric v2.0为用户和运营商提供了重要的新功能和更改，包括对新应用程序和隐私模式的支持，围绕智能合约对管理增强，操作节点的新选择。</p>
+<p>   保持不变的是根据您自己的条件升级网络组件的能力，支持从 v1.4.x 开始滚动升级，以及只有在成员组织准备好时才启用新功能的能力。</p>
+<p>   下面我们就来看看 Fabric v2.0 发布的一些亮点……</p>
+<p>##智能合约的去中心化治理<br>Fabric v2.0 引入了智能合约的去中心化治理，它提供了一个新的流程，用于在您的 Peer 节点上安装链码，并在通道上启动它。新的 Fabric 链码生命周期允许多个组织在它用于与账本交互之前认同链码的参数，例如链码背书策略。对于比以前的生命周期，新的模式有几个改进:</p>
+<p>###多组织必须认同链码参数<br>在 Fabric 1.x 版本中，一个组织有能力为所有其他通道成员设置链码的参数（例如背书策略），这些通道成员只有拒绝安装链码的权力，因此不能参与调用它的事务。新的 Fabric 链码生命周期更加灵活，因为它既支持中心化的信任模式（如以前的生命周期模式），也支持去中心化的模式，去中心化的模式要求在链码于通道上变为活动状态之前，有足够数量的组织就背书策略和其他细节达成一致意见。</p>
+<p>###更周密的链码升级过程<br>在以前的链码生命周期中，升级交易可能由单个组织发出，这会给尚未安装新链码的通道成员带来风险。新的模式允许只有在足够数量的组织批准升级后才能升级链码。</p>
+<p>###更简单的背书政策和私有数据收集更新<br>Fabric生命周期允许您更改背书策略或私有数据收集配置，而无需重新打包或重新安装链码。用户还可以利用新的默认背书策略，该策略要求获得通道上大多数组织的背书。在通道中添加或删除组织时，会自动更新此策略。</p>
+<p>###可被检查的链码包<br>Fabric生命周期将链码封装在易于阅读的 tar 文件中。这使得检查链码包和跨多个组织协调安装变得更加容易。</p>
+<p>###使用一个包在通道上启动多个链码<br>以前的生命周期在安装链码包时使用指定的名称和版本定义通道上的每个链码。您现在可以使用单个链码包，并以不同的名称在同一通道或不同通道上多次部署它。例如，如果您想在链码自己的“副本”中跟踪不同类型的资产。</p>
+<p>###链码包不需要在通道成员之间相同<br>组织可以用他们自己的用例扩展链码，例如为了他们组织的利益执行不同的验证。只要所需数量的组织为链码交易背书和结果相匹配，该交易将被验证并提交到帐本中。这还允许组织按照自己的时间表单独推出小的修补程序，而不需要整个网络同步进行。</p>
+<p>##使用新的链码生命周期<br>对于现有的 Fabric 部署，您可以继续使用 Fabric v2.0 之前的链码生命周期。新的链码生命周期只有在通道应用程序功能更新到 v2.0 时才会生效。 关于新的链码生命周期完整细节教程请看 <a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/chaincode4noah.html" target="_blank" rel="noopener">Chaincode for Operators</a></p>
+<h3 id="用于协作和共识的新链码应用程序模式"><a href="#用于协作和共识的新链码应用程序模式" class="headerlink" title="用于协作和共识的新链码应用程序模式"></a>用于协作和共识的新链码应用程序模式</h3><p>支持新的链码生命周期管理的相同的去中心化的达成协议的方法也可以用于您自己的链码应用程序中，以确保组织在数据交易被提交到帐本之前同意它们。</p>
+<p>####自动检查<br>如上所述，组织可以在链码功能中添加自动检查，以便在背书事务提案之前验证附加信息。</p>
+<p>####去中心化协议<br>链码可能要求来自不同组织的参与者在账本交易中指明他们的协议条款和条件。然后，最终的链码提案可以验证来自所有单个交易者的条件是否得到满足，并最终在所有通道成员之间“解决”业务交易。有关以非公开方式指示条款和条件的具体示例，请参见资产转移场景，于文档中 私有数据.</p>
+<p>##私有数据增强<br>Fabric v2.0还支持使用和共享私有数据的新模式，而不需要为所有可能要进行交易的通道成员组合创建私有数据集合。具体地说，您不是在多个成员的集合中共享私有数据，而是可能想要跨集合共享私有数据，其中每个集合可能包括单个组织，或者带有一个监管者或审计师的单个组织。</p>
+<p>Fabric v2.0 中的几个增强使得这些新的私有数据模式成为可能:</p>
+<p>###共享和验证私有数据<br>当私有数据与不是集合成员的通道成员共享时，或者与包含一个或多个通道成员的另一个私有数据集合共享时（通过向该集合写入密钥），接收方可以利用 GetPrivateDataHash() 链码 API 验证私有数据是否与以前交易中被创建的来自私有数据的链上哈希匹配。</p>
+<p>###集合水平的背书策略<br>现在可以选择使用背书策略来定义私有数据集合，该背书策略覆盖集合内密钥的链码级别背书策略。该特性可用于限制哪些组织可以将数据写入集合，并且正是它启用了前面提到的新的链码生命周期和链码应用程序模式。例如，您可能有一个链码背书策略，该策略要求大多数组织背书，但对于任何给定的交易，您可能需要两个交易处理组织在它们自己的私有数据集合中单独背书它们的协议。</p>
+<p>###每个组织的隐式集合<br>如果您想利用每个组织的私有数据模式，那么在 Fabric v2.0 中部署链码时甚至不需要定义集合。不需要任何前期定义就可以使用隐式的特定组织集合。<br>了解更多关于新的私有数据模式请看 <a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/private-data/private-data.html" target="_blank" rel="noopener">私有数据</a> (概念文档). 更多关于私有数据集合配置和隐式集合请看 <a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/private-data-arch.html" target="_blank" rel="noopener">Private Data</a> (参考文档).</p>
+<p>##外部的链码启动器<br>外部链码启动器功能使运营商能够使用他们选择的技术构建和启动链码。不需要使用外部构建器和启动器，因为默认行为构建和运行链码的方式与使用 Docker API 的先前版本相同。</p>
+<p>###消除 Docker<br>守护进程依赖 Fabric 以前的版本要求 Peer 节点能够访问 Docker 守护进程，以便构建和启动链码——由于 Peer 节点进程所需的特权，这在生产环境中可能是不可取的。</p>
+<p>###容器的替代品<br>不再要求链码在 Docker 容器中运行，可以在运营商选择的环境（包括容器）中执行。</p>
+<p>###外部构建器可执行文件<br>操作员可以提供一组外部构建器可执行文件，以覆盖 Peer 节点构建和启动链码方式。</p>
+<p>###作为外部服务的链码<br>传统上，链码由 Peer 节点启动，然后连接回 Peer 节点。现在可以将链码作为外部服务运行，例如在 Kubernetes pod 中， Peer 节点可以连接到该 pod，并利用该 pod 执行链码。了解更多信息请看 <a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/cc_service.html" target="_blank" rel="noopener">Chaincode as an external service</a><br>了解更多关于外部链码启动功能请看 <a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/cc_launcher.html" target="_blank" rel="noopener">External Builders and Launchers</a> 。</p>
+<p>##用于提高 CouchDB 性能的状态数据库缓存<br>在使用外部 CouchDB 状态数据库时，背书和验证阶段的读取延迟历来是性能瓶颈。<br>在 Fabric v2.0 中，一个新的 Peer 节点缓存用快速的本地缓存读取取代了许多昂贵的查找。可以使用 core.yaml 文件中的属性 cachesize 来配置缓存大小。</p>
+<p>##基于 Alpine 的 docker 镜像<br>   从 v2.0 开始，Hyperledger Fabric Docker 镜像将使用 Alpine Linux 作为基础镜像，这是一个面向安全的轻量级 Linux 发行版。这意味着 Docker 镜像现在要小得多，提供更快的下载和启动时间，以及占用主机系统上更少的磁盘空间。Alpine Linux 的设计从一开始就考虑到了安全性，Alpine 发行版的最小化特性大大降低了安全漏洞的风险。</p>
+<p>##示例测试网络<br>Fabric-Samples 仓库现在包括一个新的 Fabric 测试网络。测试网络被构建为模块化的和用户友好的示例 Fabric 网络，这使测试您的应用程序和智能合约变得容易。除了 Cryptogen 之外，该网络还支持使用 Certificate Authorities 部署网络的能力。</p>
+<p>了解更多关于这个网络的信息，请查看 Using the Fabric test network.</p>
+<p>##升级到 Fabric v2.0<br>一个主要的新版本带来了一些额外的升级注意事项。不过请放心，我们支持从 v1.4.x 到 v2.0 的滚动升级，因此可以一次升级一个网络组件而不会停机。</p>
+<p>升级文档得到了显著的扩展和修改，现在在文档中有了一个独立的主页 <a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/upgrade.html" target="_blank" rel="noopener">Upgrading to the latest release</a>. 这里您将会发现文档<br><a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/upgrading_your_components.html" target="_blank" rel="noopener">Upgrading your components</a> 和 <a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/updating_capabilities.html" target="_blank" rel="noopener">Updating the capability level of a channel</a>， 以及对升级到 v2.0 的注意事项的具体了解， <a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/upgrade_to_newest_version.html" target="_blank" rel="noopener">Considerations for getting to v2.0</a>。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-docker小结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/02/29/docker小结/" class="article-date">
+  	<time datetime="2020-02-29T07:09:35.529Z" itemprop="datePublished">2020-02-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="容器和虚拟机"><a href="#容器和虚拟机" class="headerlink" title="容器和虚拟机"></a>容器和虚拟机</h1><p>容器在Linux上本地运行，并与其他容器共享主机的内核。它运行一个离散进程，不占用任何其他可执行文件更多的内存，从而使其轻巧。</p>
+<p>相比之下，虚拟机（VM）运行具有“ 虚拟机管理程序”对主机资源的虚拟访问权的成熟<code>guest</code>操作系统。通常，VM会产生大量开销，超出了应用程序逻辑所消耗的开销。</p>
+<p><img src="docker%E5%B0%8F%E7%BB%93/docker%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA.png" alt="docker和虚拟机"></p>
+<h1 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h1><h2 id="windows下安装docker"><a href="#windows下安装docker" class="headerlink" title="windows下安装docker"></a>windows下安装docker</h2><p><a href="https://docs.docker.com/docker-for-windows/install/" target="_blank" rel="noopener">在Windows上安装Docker Desktop</a></p>
+<p><a href="https://hub.docker.com/editions/community/docker-ce-desktop-windows/" target="_blank" rel="noopener">下载Docker Desktop</a></p>
+<h4 id="需要注意的是："><a href="#需要注意的是：" class="headerlink" title="需要注意的是："></a>需要注意的是：</h4><p>运行Docker Desktop需要Microsoft Hyper-V。必要时，Docker桌面Windows安装程序会启用Hyper-V，然后重新启动计算机。启用Hyper-V后，VirtualBox不再起作用。但是，将保留所有现有的VirtualBox VM映像。</p>
+<p>用docker-machine（包括default通常在Toolbox安装过程中创建的虚拟机）创建的VirtualBox VM 不再启动。这些VM不能与Docker Desktop并排使用。但是，您仍然可以 docker-machine用来管理远程VM。</p>
+<p><a href="https://blog.csdn.net/huryer/article/details/91126391" target="_blank" rel="noopener">安装Docker后VMware和VirtualBox无法启动 VT-x is not available</a></p>
+<h2 id="linux下安装docker"><a href="#linux下安装docker" class="headerlink" title="linux下安装docker"></a>linux下安装docker</h2><p>用yum源安装</p>
+<p>查看是否已安装docker列表</p>
+<pre><code>yum list installed | grep docker</code></pre><p>安装docker</p>
+<pre><code>yum -y install docker</code></pre><p>启动docker</p>
+<pre><code>systemctl start docker</code></pre><p>查看docker服务状态</p>
+<pre><code>systemctl status docker</code></pre><h2 id="配置-加速器"><a href="#配置-加速器" class="headerlink" title="配置 加速器"></a>配置 加速器</h2><p>对于使用 upstart 的系统而言，编辑  /etc/default/docker  文件，在其中的  DOCKER_OPTS  中<br>添加获得的加速器配置：</p>
+<pre><code>DOCKER_OPTS=&quot;--registry-mirror=https://registry.docker-cn.com&quot;</code></pre><p>重新启动服务。</p>
+<pre><code>$ sudo service docker restart</code></pre><p>对于使用 systemd 的系统，请在  /etc/docker/daemon.json  中写入如下内容（如果文件不存<br>在请新建该文件）</p>
+<pre><code>{
+    &quot;registry-mirrors&quot;: [
+        &quot;https://registry.docker-cn.com&quot;
+    ]
+}</code></pre><p>注意，一定要保证该文件符合 json 规范，否则 Docker 将不能启动。<br>之后重新启动服务。</p>
+<pre><code>$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker    </code></pre><p>​    </p>
+<h1 id="创建镜像"><a href="#创建镜像" class="headerlink" title="创建镜像"></a>创建镜像</h1><h2 id="基于dockerfile创建镜像"><a href="#基于dockerfile创建镜像" class="headerlink" title="基于dockerfile创建镜像"></a>基于dockerfile创建镜像</h2><h3 id="编写docker-file"><a href="#编写docker-file" class="headerlink" title="编写docker file"></a>编写docker file</h3><p><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener">dockerfile命令参考</a></p>
+<pre><code># Use the official image as a parent image
+FROM node:current-slim
+
+# Set the working directory
+WORKDIR /usr/src/app
+
+# Copy the file from your host to your current location
+COPY package.json .
+
+# Run the command inside your image filesystem
+RUN npm install
+
+# Inform Docker that the container is listening on the specified port at runtime.
+EXPOSE 8080
+
+# Run the specified command within the container.
+CMD [ &quot;npm&quot;, &quot;start&quot; ]
+
+# Copy the rest of your app&apos;s source code from your host to your image filesystem.
+COPY . .    </code></pre><h3 id="dockerfile-命令"><a href="#dockerfile-命令" class="headerlink" title="dockerfile 命令"></a>dockerfile 命令</h3><h4 id="MAINTAINER"><a href="#MAINTAINER" class="headerlink" title="MAINTAINER"></a>MAINTAINER</h4><pre><code>格式
+MAINTAINER &lt;name&gt;
+指定该dockerfilr文件的维护者信息。</code></pre><h4 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h4><pre><code>格式：
+RUN &lt;command&gt;                             (shell模式)
+RUN[&quot;executable&quot;, &quot;param1&quot;,&quot;param2&quot;]      (exec模式)</code></pre><p>表示当前镜像构建时候运行的命令，如果有确认输入的话，一定要在命令中添加 -v</p>
+<p>如果命令较长，那么可以在命令结尾使用 \ 换行</p>
+<p>shell模式：类似于 <code>/bin/bash -c command</code></p>
+<p>实例：<code>RUN echo hello</code></p>
+<p>exec模式：类似于 RUN<code>[&quot;/bin/bash&quot;, &quot;-c&quot;, &quot;command&quot;]</code></p>
+<p>实例： <code>RUN[&quot;echo&quot;, &quot;hello&quot;]</code><br>​</p>
+<h4 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h4><pre><code>格式：EXPOSE &lt;port&gt; [&lt;port&gt;...]</code></pre><p>设置docker容器对外暴露的端口号，docker 为了安全，不会自动对外打开端口，如果需要外部提供访问，还需要启动容器时增加<code>-p</code>或者<code>-P</code>参数对容器的端口进行分配。</p>
+<h2 id="基于容器创建镜像"><a href="#基于容器创建镜像" class="headerlink" title="基于容器创建镜像"></a>基于容器创建镜像</h2><p> <code>不要使用  docker commit  定制镜像，定制镜像应该使用  Dockerfile  来完成</code></p>
+<p> docker commit :从容器创建一个新的镜像。</p>
+<p> 语法</p>
+<pre><code>docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</code></pre><p> OPTIONS说明：</p>
+<ul>
+<li><p>a :提交的镜像作者；</p>
+</li>
+<li><p>c :使用Dockerfile指令来创建镜像；</p>
+</li>
+<li><p>m :提交时的说明文字；</p>
+</li>
+<li><p>p :在commit时，将容器暂停。   </p>
+</li>
+</ul>
+<p>示例：</p>
+<pre><code>[root@JD ~]# docker ps -a |grep mysql
+e718ed5b4e32        mysql:5.7                           &quot;docker-entrypoint.s…&quot;   3 weeks ago         Up 3 weeks                 0.0.0.0:3306-&gt;3306/tcp, 33060/tcp                                mysql
+[root@JD ~]# docker commit -a &quot;mujia_prince&quot; -m &quot;test docker commit mysql&quot; e718ed5b4e32 my-test-mysql:v1.0
+sha256:bb9c07f10ff04f0fa0f486afc07221110029e13ab3dd61bc495b7bd5ad93978f
+
+[root@JD ~]# docker images -a
+REPOSITORY                     TAG                 IMAGE ID            CREATED             SIZE
+my-test-mysql                  v1.0                bb9c07f10ff0        41 seconds ago      437MB
+mysql                          5.7                 db39680b63ac        3 months ago        437MB</code></pre><h1 id="搭建镜像仓库"><a href="#搭建镜像仓库" class="headerlink" title="搭建镜像仓库"></a>搭建镜像仓库</h1><p><a href="https://blog.csdn.net/prince_mujia/article/details/105273055" target="_blank" rel="noopener">搭建docker镜像仓库</a></p>
+<h1 id="docker-volumes"><a href="#docker-volumes" class="headerlink" title="docker volumes"></a>docker volumes</h1><p><a href="https://docs.docker.com/storage/volumes/" target="_blank" rel="noopener">docker volumes</a></p>
+<p>-v：把宿主机的/root/data/registry目录绑定到容器/var/lib/registry目录(这个目录是registry容器中存放镜像文件的目录)，来实现数据的持久化；</p>
+<p>示例：</p>
+<pre><code>docker run -itd -v /root/data/registry:/var/lib/registry -p 5000:5000 --restart=always --name docker-registry registry:latest </code></pre><p>在镜像仓库中推送镜像<code>registry-mysql</code>之后，在<code>/root/data/registry</code>下能找到：</p>
+<pre><code>[root@JD repositories]# pwd
+/root/data/registry/docker/registry/v2/repositories
+[root@JD repositories]# ll
+total 0
+drwxr-xr-x 5 root root 55 Apr  1 23:32 registry-mysql</code></pre><p>使用  -v  参数时如果本地目录不存在 Docker 会自动为创建一个文件夹，现在使用  –mount  参数时如果本地目录不存在，Docker 会报错</p>
+<p>挂载一个本地主机文件作为数据卷</p>
+<p>–mount  标记也可以从主机挂载单个文件到容器中</p>
+<pre><code>docker run --rm -it \
+# -v $HOME/.bash_history:/root/.bash_history \
+--mount type=bind,source=$HOME/.bash_history,target=/root/.bash_history \
+ubuntu:17.10 \
+bash</code></pre><p><code>--rm</code> :在Docker容器退出时，默认容器内部的文件系统仍然被保留，以方便调试并保留用户数据。</p>
+<p>但是，对于foreground容器，由于其只是在开发调试过程中短期运行，其用户数据并无保留的必要，因而可以在容器启动时设置–rm选项，这样在容器退出时就能够自动清理容器内部的文件系统</p>
+<h2 id="docker-volume-container"><a href="#docker-volume-container" class="headerlink" title="docker volume container"></a>docker volume container</h2><h2 id="数据备份"><a href="#数据备份" class="headerlink" title="数据备份"></a>数据备份</h2><h1 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker compose"></a>docker compose</h1><p><a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">docker compose install</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line">$ sudo chmod +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line">$ docker-compose --version</span><br><span class="line">docker-compose version 1.24.1, build 1110ad01</span><br></pre></td></tr></table></figure>
+
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><h2 id="删除已经停止的容器"><a href="#删除已经停止的容器" class="headerlink" title="删除已经停止的容器"></a>删除已经停止的容器</h2><pre><code>$ docker rm [OPTIONS] CONTAINER [CONTAINER...]
+docker rm 2d85b99b03b2</code></pre><h2 id="查看镜像、容器、数据卷所占用的空间"><a href="#查看镜像、容器、数据卷所占用的空间" class="headerlink" title="查看镜像、容器、数据卷所占用的空间"></a>查看镜像、容器、数据卷所占用的空间</h2><pre><code>docker system df   </code></pre><h2 id="查看当前宿主机开放了哪些端口"><a href="#查看当前宿主机开放了哪些端口" class="headerlink" title="查看当前宿主机开放了哪些端口"></a>查看当前宿主机开放了哪些端口</h2><pre><code>netstat -tnulp</code></pre><h2 id="查看docker-信息"><a href="#查看docker-信息" class="headerlink" title="查看docker 信息"></a>查看docker 信息</h2><pre><code>docker inspect [image id]</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+    </nav>
+  
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2020 zhangyong
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: true,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

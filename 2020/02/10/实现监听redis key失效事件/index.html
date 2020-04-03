@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>zhangyong</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="利用redis天然的key自动过期机制，下单时将订单id写入redis，过期时间30分钟，30分钟后检查订单状态，如果未支付，则进行处理。 开启redis key过期提醒修改redis相关事件配置。找到redis配置文件redis.conf，查看“notify-keyspace-events”的配置项，如果没有，添加“notify-keyspace-events Ex”，如果有值，添加Ex，相关参">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zhangyong">
+<meta property="og:url" content="http://yoursite.com/2020/02/10/实现监听redis key失效事件/index.html">
+<meta property="og:site_name" content="zhangyong">
+<meta property="og:description" content="利用redis天然的key自动过期机制，下单时将订单id写入redis，过期时间30分钟，30分钟后检查订单状态，如果未支付，则进行处理。 开启redis key过期提醒修改redis相关事件配置。找到redis配置文件redis.conf，查看“notify-keyspace-events”的配置项，如果没有，添加“notify-keyspace-events Ex”，如果有值，添加Ex，相关参">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-04-01T08:05:13.697Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zhangyong">
+<meta name="twitter:description" content="利用redis天然的key自动过期机制，下单时将订单id写入redis，过期时间30分钟，30分钟后检查订单状态，如果未支付，则进行处理。 开启redis key过期提醒修改redis相关事件配置。找到redis配置文件redis.conf，查看“notify-keyspace-events”的配置项，如果没有，添加“notify-keyspace-events Ex”，如果有值，添加Ex，相关参">
+  
+    <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head></html>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhangyong</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">zhangyong</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">zhangyong</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-实现监听redis key失效事件" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/02/10/实现监听redis key失效事件/" class="article-date">
+  	<time datetime="2020-02-10T02:40:34.928Z" itemprop="datePublished">2020-02-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>利用redis天然的key自动过期机制，下单时将订单id写入redis，<br>过期时间30分钟，30分钟后检查订单状态，如果未支付，则进行处理。</p>
+<h2 id="开启redis-key过期提醒"><a href="#开启redis-key过期提醒" class="headerlink" title="开启redis key过期提醒"></a>开启redis key过期提醒</h2><p>修改redis相关事件配置。找到redis配置文件redis.conf，查看“notify-keyspace-events”的配置项，如果没有，添加“notify-keyspace-events Ex”，如果有值，添加Ex，相关参数说明如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">K：keyspace事件，事件以__keyspace@&lt;db&gt;__为前缀进行发布；         </span><br><span class="line">E：keyevent事件，事件以__keyevent@&lt;db&gt;__为前缀进行发布；         </span><br><span class="line">g：一般性的，非特定类型的命令，比如del，expire，rename等；        </span><br><span class="line">$：字符串特定命令；         </span><br><span class="line">l：列表特定命令；         </span><br><span class="line">s：集合特定命令；         </span><br><span class="line">h：哈希特定命令；         </span><br><span class="line">z：有序集合特定命令；         </span><br><span class="line">x：过期事件，当某个键过期并删除时会产生该事件；         </span><br><span class="line">e：驱逐事件，当某个键因maxmemore策略而被删除时，产生该事件；         </span><br><span class="line">A：g$lshzxe的别名，因此”AKE”意味着所有事件。</span><br></pre></td></tr></table></figure>
+
+<h2 id="redis测试："><a href="#redis测试：" class="headerlink" title="redis测试："></a>redis测试：</h2><p>打开一个redis-cli ,监控db0的key过期事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; PSUBSCRIBE __keyevent@0__:expired</span><br><span class="line">Reading messages... (press Ctrl-C to quit)</span><br><span class="line">1) &quot;psubscribe&quot;</span><br><span class="line">2) &quot;__keyevent@0__:expired&quot;</span><br><span class="line">3) (integer) 1</span><br></pre></td></tr></table></figure>
+
+<h2 id="打开另一个redis-cli-发送定时过期key"><a href="#打开另一个redis-cli-发送定时过期key" class="headerlink" title="打开另一个redis-cli ,发送定时过期key"></a>打开另一个redis-cli ,发送定时过期key</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; setex test_key 3 test_value</span><br></pre></td></tr></table></figure>
+
+<h2 id="观察上一个redis-cli-会发现收到了过期的keytest-key，但是无法收到过期的value-test-value"><a href="#观察上一个redis-cli-会发现收到了过期的keytest-key，但是无法收到过期的value-test-value" class="headerlink" title="观察上一个redis-cli ,会发现收到了过期的keytest_key，但是无法收到过期的value test_value"></a>观察上一个redis-cli ,会发现收到了过期的keytest_key，但是无法收到过期的value test_value</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; PSUBSCRIBE __keyevent@0__:expired</span><br><span class="line">Reading messages... (press Ctrl-C to quit)</span><br><span class="line">1) &quot;psubscribe&quot;</span><br><span class="line">2) &quot;__keyevent@0__:expired&quot;</span><br><span class="line">3) (integer) 1</span><br><span class="line">1) &quot;pmessage&quot;</span><br><span class="line">2) &quot;__keyevent@0__:expired&quot;</span><br><span class="line">3) &quot;__keyevent@0__:expired&quot;</span><br><span class="line">4) &quot;test_key&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="在springboot中使用"><a href="#在springboot中使用" class="headerlink" title="在springboot中使用"></a>在springboot中使用</h2><h3 id="1-pom-中添加依赖"><a href="#1-pom-中添加依赖" class="headerlink" title="1.pom 中添加依赖"></a>1.pom 中添加依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- redis --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-定义配置RedisListenerConfig"><a href="#2-定义配置RedisListenerConfig" class="headerlink" title="2.定义配置RedisListenerConfig"></a>2.定义配置RedisListenerConfig</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import com.example.wendy.controller.RedisKeyExpirationListener;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.ComponentScan;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">import org.springframework.data.redis.connection.RedisConnectionFactory;</span><br><span class="line">import org.springframework.data.redis.listener.KeyExpirationEventMessageListener;</span><br><span class="line">import org.springframework.data.redis.listener.RedisMessageListenerContainer;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @Author: zy</span><br><span class="line"> * @Date: 2019/7/17 18:23</span><br><span class="line"> */</span><br><span class="line">@Configuration</span><br><span class="line">@ComponentScan(&quot;com.example.wendy.controller&quot;)</span><br><span class="line">public class RedisListenerConfig &#123;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    RedisMessageListenerContainer listenerContainer(RedisConnectionFactory connectionFactory) &#123;</span><br><span class="line">        RedisMessageListenerContainer listenerContainer = new RedisMessageListenerContainer();</span><br><span class="line">        listenerContainer.setConnectionFactory(connectionFactory);</span><br><span class="line">        return listenerContainer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    KeyExpirationEventMessageListener redisKeyExpirationListener(RedisMessageListenerContainer listenerContainer) &#123;</span><br><span class="line">        return new RedisKeyExpirationListener(listenerContainer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-定义监听器，实现KeyExpirationEventMessageListener接口，查看源码发现，该接口监听所有db的过期事件keyevent-expired”"><a href="#3-定义监听器，实现KeyExpirationEventMessageListener接口，查看源码发现，该接口监听所有db的过期事件keyevent-expired”" class="headerlink" title="3.定义监听器，实现KeyExpirationEventMessageListener接口，查看源码发现，该接口监听所有db的过期事件keyevent@*:expired”"></a>3.定义监听器，实现KeyExpirationEventMessageListener接口，查看源码发现，该接口监听所有db的过期事件keyevent@*:expired”</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line">import org.springframework.data.redis.connection.Message;</span><br><span class="line">import org.springframework.data.redis.listener.KeyExpirationEventMessageListener;</span><br><span class="line">import org.springframework.data.redis.listener.RedisMessageListenerContainer;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @Author: zy</span><br><span class="line"> * 监听所有db的过期事件__keyevent@*__:expired&quot;</span><br><span class="line"> * @Date: 2019/7/17/0017 17:56</span><br><span class="line"> */</span><br><span class="line">public class RedisKeyExpirationListener extends KeyExpirationEventMessageListener &#123;</span><br><span class="line"></span><br><span class="line">    private Logger logger = LoggerFactory.getLogger(this.getClass());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public RedisKeyExpirationListener(RedisMessageListenerContainer listenerContainer) &#123;</span><br><span class="line">        super(listenerContainer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 针对redis数据失效事件，进行数据处理</span><br><span class="line">     *</span><br><span class="line">     * @param message</span><br><span class="line">     * @param pattern</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void onMessage(Message message, byte[] pattern) &#123;</span><br><span class="line"></span><br><span class="line">        // 获取失效数据的key</span><br><span class="line">        String expiredKey = message.toString();</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;弹出来啦。。。。： &quot; + expiredKey);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/02/10/搭建gitlab和jenkins/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          搭建gitlab&amp;jenkins
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/10/在Kubernetes中,如何为Elasticsearch-Cluster分配专用的Node节点_/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">在 Kubernetes 中，如何为 Elasticsearch Cluster 分配专用的 Node 节点？</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="实现监听redis key失效事件" data-title="" data-url="http://yoursite.com/2020/02/10/实现监听redis key失效事件/"  data-images="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" data-content="">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2020 zhangyong
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

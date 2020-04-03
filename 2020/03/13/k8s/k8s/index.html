@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>zhangyong</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#1、基础概念 1 容器编排系统- Service Discovery  [服务注册和发现] - Load Balancing     [负载均衡] - Secrets/configuration/storage management  [配置和存储管理] - Health checks  [健康检查] - Auto-[scaling/restart/healing] of containers">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zhangyong">
+<meta property="og:url" content="http://yoursite.com/2020/03/13/k8s/k8s/index.html">
+<meta property="og:site_name" content="zhangyong">
+<meta property="og:description" content="#1、基础概念 1 容器编排系统- Service Discovery  [服务注册和发现] - Load Balancing     [负载均衡] - Secrets/configuration/storage management  [配置和存储管理] - Health checks  [健康检查] - Auto-[scaling/restart/healing] of containers">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-03-14T14:28:48.486Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zhangyong">
+<meta name="twitter:description" content="#1、基础概念 1 容器编排系统- Service Discovery  [服务注册和发现] - Load Balancing     [负载均衡] - Secrets/configuration/storage management  [配置和存储管理] - Health checks  [健康检查] - Auto-[scaling/restart/healing] of containers">
+  
+    <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head></html>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhangyong</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">zhangyong</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">zhangyong</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-k8s/k8s" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/13/k8s/k8s/" class="article-date">
+  	<time datetime="2020-03-13T06:48:10.844Z" itemprop="datePublished">2020-03-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#1、基础概念</p>
+<h2 id="1-容器编排系统"><a href="#1-容器编排系统" class="headerlink" title="1 容器编排系统"></a>1 容器编排系统</h2><pre><code>- Service Discovery  [服务注册和发现]
+- Load Balancing     [负载均衡]
+- Secrets/configuration/storage management  [配置和存储管理]
+- Health checks  [健康检查]
+- Auto-[scaling/restart/healing] of containers and nodes [自动扩容、缩容、重启]
+- Zero - downtime deploys  [零宕机]</code></pre><h2 id="2-容器编排系统种类"><a href="#2-容器编排系统种类" class="headerlink" title="2 容器编排系统种类"></a>2 容器编排系统种类</h2><pre><code>1 Kubernetes
+2 Docker Swarm 
+3 Apache Mesos and Marathon</code></pre><h1 id="2、集群部署及陈述式命令管理"><a href="#2、集群部署及陈述式命令管理" class="headerlink" title="2、集群部署及陈述式命令管理"></a>2、集群部署及陈述式命令管理</h1><h1 id="3、资源类型及配置清单"><a href="#3、资源类型及配置清单" class="headerlink" title="3、资源类型及配置清单"></a>3、资源类型及配置清单</h1><h1 id="4、Pod资源"><a href="#4、Pod资源" class="headerlink" title="4、Pod资源"></a>4、Pod资源</h1><h1 id="5、Pod控制器"><a href="#5、Pod控制器" class="headerlink" title="5、Pod控制器"></a>5、Pod控制器</h1><h1 id="6、Service资源"><a href="#6、Service资源" class="headerlink" title="6、Service资源"></a>6、Service资源</h1><h1 id="7、存储卷"><a href="#7、存储卷" class="headerlink" title="7、存储卷"></a>7、存储卷</h1><h1 id="8、ConfigMap与Secret资源"><a href="#8、ConfigMap与Secret资源" class="headerlink" title="8、ConfigMap与Secret资源"></a>8、ConfigMap与Secret资源</h1><h1 id="9、StatefulSet控制器"><a href="#9、StatefulSet控制器" class="headerlink" title="9、StatefulSet控制器"></a>9、StatefulSet控制器</h1><h1 id="10、认证、授权及准入控制"><a href="#10、认证、授权及准入控制" class="headerlink" title="10、认证、授权及准入控制"></a>10、认证、授权及准入控制</h1><h1 id="11、网络模型及网络策略"><a href="#11、网络模型及网络策略" class="headerlink" title="11、网络模型及网络策略"></a>11、网络模型及网络策略</h1><h1 id="12、Pod资源调度"><a href="#12、Pod资源调度" class="headerlink" title="12、Pod资源调度"></a>12、Pod资源调度</h1><h1 id="13、CRD、自定义资源、自定义控制器及自定义APR-server"><a href="#13、CRD、自定义资源、自定义控制器及自定义APR-server" class="headerlink" title="13、CRD、自定义资源、自定义控制器及自定义APR server"></a>13、CRD、自定义资源、自定义控制器及自定义APR server</h1><h1 id="14、资源指标与HPA控制器"><a href="#14、资源指标与HPA控制器" class="headerlink" title="14、资源指标与HPA控制器"></a>14、资源指标与HPA控制器</h1><h1 id="15、Helm管理器"><a href="#15、Helm管理器" class="headerlink" title="15、Helm管理器"></a>15、Helm管理器</h1><h1 id="16、高可用k8s"><a href="#16、高可用k8s" class="headerlink" title="16、高可用k8s"></a>16、高可用k8s</h1><h1 id="17、部署要点"><a href="#17、部署要点" class="headerlink" title="17、部署要点"></a>17、部署要点</h1><ul>
+<li><p>测试环境</p>
+<ul>
+<li>可以使用单<code>master</code>节点，单<code>etcd</code>实例；</li>
+<li><code>Node</code>主机数量按需而定</li>
+<li><code>nfs</code>或<code>glusterfs</code>等存储系统</li>
+</ul>
+</li>
+<li><p>生产环境</p>
+<ul>
+<li>高可用<code>etcd</code>集群，建立3、5或7个节点；</li>
+<li>高可用<code>Master</code><ul>
+<li>kube-apiserver 无状态，可多实例；<ul>
+<li>借助于<code>keepalived</code>进行vip流动实现多实例冗余；</li>
+<li>或在多实例前端通过<code>HAProxy</code>或<code>Ngind</code>反代，并借助于<code>keepalived</code>对代理服务器进行冗余</li>
+</ul>
+</li>
+<li><code>kube-scheduler</code>及<code>kube-controller-manager</code>各自只能有一个活动实例，但可以有多个备用；<ul>
+<li>各自自带<code>leader</code>选举功能，并默认处于启用状态；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>多<code>Node</code>主机，数量越多，冗余能力越强；</li>
+<li><code>ceph</code>、<code>glusterfs</code>、<code>iSCSI</code>、<code>FC SAN</code>及各种云储存等；</li>
+</ul>
+</li>
+</ul>
+<h1 id="18、常用命令"><a href="#18、常用命令" class="headerlink" title="18、常用命令"></a>18、常用命令</h1><pre><code>kubectl create namespace ***
+kubectl get namespaces</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/15/mysql/mysql连接器-分析器-优化器-执行器/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/11/mysql/mysql锁/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MySQL锁</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="k8s/k8s" data-title="" data-url="http://yoursite.com/2020/03/13/k8s/k8s/"  data-images="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" data-content="">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2020 zhangyong
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

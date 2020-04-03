@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>zhangyong</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Redis缓存更新怎么保证⼀致性？删缓存-&amp;gt;更新db-&amp;gt;再删缓存 更新db-&amp;gt;删缓存 第一种方案： 使用阿里的canal将binlog日志采集发送到MQ队列里面，然后通过ACK机制确认处理 这条更新消息，删除缓存，保证数据缓存一致性 （1）读取缓存中是否有相关数据 （2）如果缓存中有相关数据value，则返回 （3）如果缓存中没有相关数据，则从数据库读取相关数据放入缓存中key-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zhangyong">
+<meta property="og:url" content="http://yoursite.com/2020/03/21/redis笔记/index.html">
+<meta property="og:site_name" content="zhangyong">
+<meta property="og:description" content="Redis缓存更新怎么保证⼀致性？删缓存-&amp;gt;更新db-&amp;gt;再删缓存 更新db-&amp;gt;删缓存 第一种方案： 使用阿里的canal将binlog日志采集发送到MQ队列里面，然后通过ACK机制确认处理 这条更新消息，删除缓存，保证数据缓存一致性 （1）读取缓存中是否有相关数据 （2）如果缓存中有相关数据value，则返回 （3）如果缓存中没有相关数据，则从数据库读取相关数据放入缓存中key-">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-03-22T13:34:22.932Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zhangyong">
+<meta name="twitter:description" content="Redis缓存更新怎么保证⼀致性？删缓存-&amp;gt;更新db-&amp;gt;再删缓存 更新db-&amp;gt;删缓存 第一种方案： 使用阿里的canal将binlog日志采集发送到MQ队列里面，然后通过ACK机制确认处理 这条更新消息，删除缓存，保证数据缓存一致性 （1）读取缓存中是否有相关数据 （2）如果缓存中有相关数据value，则返回 （3）如果缓存中没有相关数据，则从数据库读取相关数据放入缓存中key-">
+  
+    <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head></html>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhangyong</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">zhangyong</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">zhangyong</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-redis笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/21/redis笔记/" class="article-date">
+  	<time datetime="2020-03-21T02:08:00.022Z" itemprop="datePublished">2020-03-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Redis缓存更新怎么保证⼀致性？"><a href="#Redis缓存更新怎么保证⼀致性？" class="headerlink" title="Redis缓存更新怎么保证⼀致性？"></a>Redis缓存更新怎么保证⼀致性？</h3><p>删缓存-&gt;更新db-&gt;再删缓存</p>
+<p>更新db-&gt;删缓存</p>
+<p>第一种方案：</p>
+<p>使用阿里的canal将binlog日志采集发送到MQ队列里面，然后通过ACK机制确认处理 这条更新消息，删除缓存，保证数据缓存一致性</p>
+<pre><code>（1）读取缓存中是否有相关数据
+（2）如果缓存中有相关数据value，则返回
+（3）如果缓存中没有相关数据，则从数据库读取相关数据放入缓存中key-&gt;value，再返回
+（4）如果有更新数据，则先更新数据，再删除缓存
+（5）为了保证第四步删除缓存成功，使用binlog异步删除
+（6）如果是主从数据库，binglog取自于从库
+（7）如果是一主多从，每个从库都要采集binlog，然后消费端收到最后一台binlog数据才删除缓存</code></pre><p><a href="https://juejin.im/post/5d694d336fb9a06aca383493" target="_blank" rel="noopener">高并发环境下，先操作数据库还是先操作缓存</a></p>
+<p>第二种方案：</p>
+<p><code>使用一致性算法： paxos</code></p>
+<h3 id="Redis分布式锁原理？会有什么问题"><a href="#Redis分布式锁原理？会有什么问题" class="headerlink" title="Redis分布式锁原理？会有什么问题"></a>Redis分布式锁原理？会有什么问题</h3><p>redis分布式锁的实现主要是基于redis的<a href="http://doc.redisfans.com/string/setnx.html" target="_blank" rel="noopener">setnx 命令</a></p>
+<p>第一种情况：业务逻辑执行时间超出锁的超时限制，其他客户端得到锁之后，被超时客户端删除锁</p>
+<pre><code>一个客户端拿到了锁，被某个操作阻塞了很长时间，过了超时时间后自动释放了
+这个锁，然后这个客户端之后又尝试删除这个其实已经被其他客户端拿到的锁。
+所以单纯的用DEL指令有可能造成一个客户端删除了其他客户端的锁，
+通过校验这个值保证每个客户端都用一个随机字符串’签名’了，
+这样每个锁就只能被获得锁的客户端删除了。</code></pre><p> 第二种情况：业务逻辑执行时间超出锁的超时限制导致两个客户端同时持有锁的问题</p>
+<pre><code>如果在加锁和释放锁之间的逻辑执行得太长，以至于超出了锁的超时限制，
+就会出现问题。因为这时候第一个线程持有的锁过期了，临界区的逻辑还没有
+执行完，这个时候第二个线程就提前重新持有了这把锁，导致临界区代码不能
+得到严格的串行执行
+
+如果在执行计算期间发现锁快要超时了，客户端可以给redis服务实例发送一个
+Lua脚本让redis服务端延长锁的时间，只要这个锁的key还存在而且值还等于
+客户端设置的那个值    
+
+if  redis.call(&quot;get&quot;,KEYS[1]) == ARGV[1] then 
+        redis.call(&quot;set&quot;,KEYS[1],ex=3000)
+else 
+        getDLock();//重新获取锁</code></pre><p>第三种： redis的单点故障主从切换带来的两个客户端同时持有锁的问题</p>
+<pre><code>生产中redis一般是主从模式，主节点挂掉时，从节点会取而代之，
+客户端上却并没有明显感知。原先第一个客户端在主节点中申请成功了一把锁，
+但是这把锁还没有来得及同步到从节点，主节点突然挂掉了。
+然后从节点变成了主节点，这个新的节点内部没有这个锁，
+所以当另一个客户端过来请求加锁时，立即就批准了。
+这样就会导致系统中同样一把锁被两个客户端同时持有
+
+不过这种不安全也仅仅是在主从发生 failover 的情况下才会产生，
+而且持续时间极短，业务系统多数情况下可以容忍</code></pre><h2 id="RedLock算法"><a href="#RedLock算法" class="headerlink" title="RedLock算法"></a>RedLock算法</h2><p>使用N个完全独立、没有主从关系的Redis master节点以保证他们大多数情况下都不会同时宕机，N一般为奇数。一个客户端需要做如下操作来获取锁：</p>
+<ul>
+<li>1.获取当前时间（单位是毫秒）。</li>
+<li>2.轮流用相同的key和随机值在N个节点上请求锁，在这一步里，客户端在每个master上请求锁时，会有一个和总的锁释放时间相比小的多的超时时间。比如如果锁自动释放时间是10秒钟，那每个节点锁请求的超时时间可能是5-50毫秒的范围，这个可以防止一个客户端在某个宕掉的master节点上阻塞过长时间，如果一个master节点不可用了，我们应该尽快尝试下一个master节点。</li>
+<li>3.客户端计算第二步中获取锁所花的时间，只有当客户端在大多数master节点上成功获取了锁（(N/2) +1），而且总共消耗的时间不超过锁释放时间，这个锁就认为是获取成功了。</li>
+<li>4.如果锁获取成功了，那现在锁自动释放时间就是最初的锁释放时间减去之前获取锁所消耗的时间。</li>
+<li>5.如果锁获取失败了，不管是因为获取成功的锁不超过一半（N/2+1)还是因为总消耗时间超过了锁释放时间，客户端都会到每个master节点上释放锁，即便是那些他认为没有获取成功的锁。</li>
+</ul>
+<p><a href="https://redis.io/topics/distlock" target="_blank" rel="noopener">使用Redis的分布式锁</a></p>
+<h1 id="Redis集群⽅案？新增节点后如何进⾏数据迁移。"><a href="#Redis集群⽅案？新增节点后如何进⾏数据迁移。" class="headerlink" title="Redis集群⽅案？新增节点后如何进⾏数据迁移。"></a>Redis集群⽅案？新增节点后如何进⾏数据迁移。</h1><p><a href="https://redis.io/topics/cluster-spec" target="_blank" rel="noopener">Redis Cluster</a></p>
+<p>添加一个空节点，然后将一些数据移入该节点（如果它是新的主节点），或者告诉它设置为已知节点的副本（如果它是从节点的话）</p>
+<p><code>redis-cli --cluster add-node 127.0.0.1:7006 127.0.0.1:7000</code><br>add-node命令将新节点的地址指定为第一个参数，并将集群中随机存在的节点的地址指定为第二个参数.<br>与其他master节点相比：</p>
+<pre><code>由于没有分配的`hash slots`，因此不保存任何数据。（可以使用的重新分片功能为此节点分配`hash slots`）
+因为它是没有分配`slots`的主机，所以当从机要成为主机时，它不会参与选举过程。</code></pre><p><a href="https://redis.io/topics/cluster-tutorial/#adding-a-new-node" target="_blank" rel="noopener">添加一个新的节点</a></p>
+<p><strong>新增节点后如何进⾏数据迁移没有找到相关资料。。。</strong></p>
+<h2 id="Redis持久化机制？RDB、AOF，最新的默认⽅案是什么？"><a href="#Redis持久化机制？RDB、AOF，最新的默认⽅案是什么？" class="headerlink" title="Redis持久化机制？RDB、AOF，最新的默认⽅案是什么？"></a>Redis持久化机制？RDB、AOF，最新的默认⽅案是什么？</h2><p>RDB的优点：</p>
+<ul>
+<li>RDB是Redis数据的非常紧凑的单文件时间点表示。RDB文件非常适合备份。例如，您可能希望在最近的24小时内每小时存档一次RDB文件，并在30天之内每天保存一次RDB快照。这使您可以在发生灾难时轻松还原数据集的不同版本。</li>
+<li>RDB对于灾难恢复非常有用，它是一个紧凑的文件，可以传输到远程数据中心或Amazon S3（可能已加密）上。</li>
+<li>RDB最大限度地提高了Redis的性能，因为Redis父进程为了持久化所需要做的唯一工作就是分叉一个孩子，其余的都将做。父实例将永远不会执行磁盘I / O或类似操作。</li>
+<li>与AOF相比，RDB允许大型数据集更快地重启。</li>
+</ul>
+<p>RDB的缺点：</p>
+<ul>
+<li>如果您需要在Redis停止工作（例如断电后）的情况下最大程度地减少数据丢失的机会，则RDB不好。您可以在生成RDB的位置配置不同的保存点（例如，在至少五分钟之后，对数据集进行100次写入，但是您可以有多个保存点）。但是，通常会每隔五分钟或更长时间创建一次RDB快照，因此，如果Redis出于任何原因在没有正确关闭的情况下停止工作，则应该准备丢失最新的数据分钟。</li>
+<li>RDB需要经常使用fork（）才能使用子进程将其持久化在磁盘上。如果数据集很大，Fork（）可能很耗时，并且如果数据集很大且CPU性能不佳，则可能导致Redis停止为客户端服务几毫秒甚至一秒钟。AOF还需要fork（），但您可以调整要重写日志的频率，而无需在持久性上进行权衡。</li>
+</ul>
+<p>AOF的优点：</p>
+<ul>
+<li>使用AOF Redis更加持久：您可以有不同的fsync策略：完全没有fsync，每秒fsync，每个查询fsync。使用默认策略fsync时，每秒的写入性能仍然很好（fsync是使用后台线程执行的，并且在没有进行fsync的情况下，主线程将尽力执行写入操作。）但是您只能损失一秒钟的写入时间。</li>
+<li>AOF日志仅是一个追加日志，因此，如果断电，也不会出现寻道或损坏问题。即使由于某种原因（磁盘已满或其他原因）以半写命令结束日志，redis-check-aof工具也可以轻松修复它。</li>
+<li>Redis太大时，Redis可以在后台自动重写AOF。重写是完全安全的，因为Redis继续追加到旧文件时，会生成一个全新的文件，其中包含创建当前数据集所需的最少操作集，一旦准备好第二个文件，Redis会切换这两个文件并开始追加到新的那一个。</li>
+<li>AOF以易于理解和解析的格式包含所有操作的日志。您甚至可以轻松导出AOF文件。例如，即使您使用FLUSHALL命令刷新了所有错误文件，如果在此期间未执行任何日志重写操作，您仍然可以保存数据集，只是停止服务器，删除最新命令并重新启动Redis。</li>
+</ul>
+<p>AOF的缺点：</p>
+<ul>
+<li>对于相同的数据集，AOF文件通常大于等效的RDB文件。</li>
+<li>根据确切的fsync策略，AOF可能比RDB慢。通常，在将fsync设置为每秒的情况下，性能仍然很高，并且在禁用fsync的情况下，即使在高负载下，它也应与RDB一样快。即使在巨大的写负载情况下，RDB仍然能够提供有关最大延迟的更多保证。</li>
+<li>过去，我们在特定命令中遇到过罕见的错误（例如，其中一个涉及阻止命令，例如BRPOPLPUSH），导致生成的AOF在重载时无法重现完全相同的数据集。这些错误很少见，我们在测试套件中进行了测试，自动创建了随机的复杂数据集，然后重新加载它们以检查一切是否正常。但是，RDB持久性几乎是不可能的。为了更清楚地说明这一点：Redis AOF通过像MySQL或MongoDB那样增量更新现有状态来工作，而RDB快照一次又一次地创建所有内容，从概念上讲，它更健壮。但是-1）请注意，每次Redis重写AOF时，都会从数据集中包含的实际数据开始重新创建AOF，与始终附加AOF文件（或重写为读取旧AOF而不是读取内存中的数据）相比，提高了对错误的抵抗力。2）我们从未收到过有关真实环境中检测到的AOF损坏的用户报告。<br><a href="http://doc.redisfans.com/topic/persistence.html" target="_blank" rel="noopener">Redis持久化机制</a></li>
+</ul>
+<p><a href="http://oldblog.antirez.com/post/redis-persistence-demystified.html" target="_blank" rel="noopener">redis持久化深入</a></p>
+<h3 id="Redis缓存过期与淘汰机制是什么？"><a href="#Redis缓存过期与淘汰机制是什么？" class="headerlink" title="Redis缓存过期与淘汰机制是什么？"></a>Redis缓存过期与淘汰机制是什么？</h3><ul>
+<li>volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰</li>
+<li>volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰</li>
+<li>volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰</li>
+<li>allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰</li>
+<li>allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰</li>
+<li>no-enviction（驱逐）：禁止驱逐数据</li>
+</ul>
+<h2 id="Redis的缓存穿透、缓存击穿是否了解？业界会使⽤什么⽅案？如果缓存⼤规模失效，怎么办？"><a href="#Redis的缓存穿透、缓存击穿是否了解？业界会使⽤什么⽅案？如果缓存⼤规模失效，怎么办？" class="headerlink" title="Redis的缓存穿透、缓存击穿是否了解？业界会使⽤什么⽅案？如果缓存⼤规模失效，怎么办？"></a>Redis的缓存穿透、缓存击穿是否了解？业界会使⽤什么⽅案？如果缓存⼤规模失效，怎么办？</h2><p>缓存穿透，即黑客故意去请求缓存中不存在的数据，导致所有的请求都怼到数据库上，从而数据库连接异常。</p>
+<p>解决方案:<br>(一)利用互斥锁，缓存失效的时候，先去获得锁，得到锁了，再去请求数据库。没得到锁，则休眠一段时间重试<br>(二)采用异步更新策略，无论key是否取到值，都直接返回。value值中维护一个缓存失效时间，缓存如果过期，异步起一个线程去读数据库，更新缓存。需要做缓存预热(项目启动前，先加载缓存)操作。<br>(三)提供一个能迅速判断请求是否有效的拦截机制，比如，利用布隆过滤器，内部维护一系列合法有效的key。迅速判断出，请求所携带的Key是否合法有效。如果不合法，则直接返回。</p>
+<p><a href="https://oss.redislabs.com/redisbloom/#references" target="_blank" rel="noopener">redis bloom</a></p>
+<h2 id="使⽤Redis的场景"><a href="#使⽤Redis的场景" class="headerlink" title="使⽤Redis的场景"></a>使⽤Redis的场景</h2><p> 签到，报名，投票： 位图</p>
+<pre><code>位图是一个byte数组，可以使用get/set直接设置跟读取整个位图的值，
+也可以使用位图操作getbit/setbit等将byte数组当做位数组来处理。
+Redis的位数组是自动扩展的，如果设置了阈值且当前超出了阈值会自动将数组进行扩充，
+还可以使用bitcount实现快速统计，使用位图查找指令bitpos查找某范围的位图值，
+两个指令也可以组合使用对某个范围的位图值进行统计。比如查找一个用户一年中每周末签到数总和。 </code></pre><p>地理位置GEO模块：附近人功能</p>
+<h2 id="ZSet底层是如何实现的"><a href="#ZSet底层是如何实现的" class="headerlink" title="ZSet底层是如何实现的"></a>ZSet底层是如何实现的</h2><p><a href="https://www.jianshu.com/p/e5a516831ac2" target="_blank" rel="noopener">ZSet底层是如何实现的</a></p>
+<h2 id="HashSet是如何实现的？"><a href="#HashSet是如何实现的？" class="headerlink" title="HashSet是如何实现的？"></a>HashSet是如何实现的？</h2><p>HashSet不能保证元素的顺序，TreeSet中的元素可以按照某个顺序排列。他们的元素都不能重复</p>
+<p><a href="https://zhuanlan.zhihu.com/p/80114601" target="_blank" rel="noopener">HashSet是如何实现的</a></p>
+<h2 id="redis和zookeeper做分布式锁各有什么优缺点？"><a href="#redis和zookeeper做分布式锁各有什么优缺点？" class="headerlink" title="redis和zookeeper做分布式锁各有什么优缺点？"></a>redis和zookeeper做分布式锁各有什么优缺点？</h2><p>Redis 分布式锁，其实需要自己不断去尝试获取锁，比较消耗性能。   </p>
+<p>Zookeeper分布式锁，获取不到锁，注册个监听器即可，不需要不断主动尝试获取锁，性能开销较小。
+  </p>
+<h2 id="Redis有什么缺点？"><a href="#Redis有什么缺点？" class="headerlink" title="Redis有什么缺点？"></a>Redis有什么缺点？</h2><p>(一)缓存和数据库双写一致性问题<br>(二)缓存雪崩问题<br>(三)缓存击穿问题<br>(四)缓存的并发竞争问题</p>
+<p>redis_cluster 不同的key的 set集合数据是在⼀个node还是多个node</p>
+<h2 id="为什么说redis能够快速执行"><a href="#为什么说redis能够快速执行" class="headerlink" title="为什么说redis能够快速执行"></a>为什么说redis能够快速执行</h2><pre><code>绝大部分请求是纯粹的内存操作（非常快速）
+采用单线程,避免了不必要的上下文切换和竞争条件
+非阻塞IO - IO多路复用</code></pre><h2 id="Redis常见性能问题和解决方案？"><a href="#Redis常见性能问题和解决方案？" class="headerlink" title="Redis常见性能问题和解决方案？"></a>Redis常见性能问题和解决方案？</h2><ul>
+<li>(1) Master最好不要做任何持久化工作，如RDB内存快照和AOF日志文件</li>
+<li>(2) 如果数据比较重要，某个Slave开启AOF备份数据，策略设置为每秒同步一次</li>
+<li>(3) 为了主从复制的速度和连接的稳定性，Master和Slave最好在同一个局域网内</li>
+<li>(4) 尽量避免在压力很大的主库上增加从库 </li>
+<li>(5) 主从复制不要用图状结构，用单向链表结构更为稳定，即：Master &lt;- Slave1 &lt;- Slave2 &lt;- Slave3…这样的结构方便解决单点故障问题，实现Slave对Master的替换。如果Master挂了，可以立刻启用Slave1做Master，其他不变。</li>
+</ul>
+<h2 id="为什么Redis不支持回滚"><a href="#为什么Redis不支持回滚" class="headerlink" title="为什么Redis不支持回滚"></a>为什么Redis不支持回滚</h2><p>Redis命令在事务期间可能会失败，但Redis仍将执行事务的其余部分而不是回滚</p>
+<ul>
+<li><p>仅当使用错误的语法（并且在命令队列期间无法检测到该问题）或针对持有错误数据类型的键调用Redis命令时，该命令才能失败：这实际上意味着失败的命令是编程错误的结果，还有一种很可能在开发过程中而不是生产过程中发现的错误。</p>
+</li>
+<li><p>Redis在内部得到了简化和更快，因为它不需要回滚的能力。</p>
+</li>
+<li><p><a href="https://redis.io/topics/transactions#why-redis-does-not-support-roll-backs" target="_blank" rel="noopener">为什么Redis不支持回滚</a></p>
+<h2 id="Redis使用epoll异步非阻塞模型-，Redis自身实现了事件处理模型将epoll中的链接、读写、关闭都转换为事件，不在网络IO上浪费过多的事"><a href="#Redis使用epoll异步非阻塞模型-，Redis自身实现了事件处理模型将epoll中的链接、读写、关闭都转换为事件，不在网络IO上浪费过多的事" class="headerlink" title="Redis使用epoll异步非阻塞模型 ，Redis自身实现了事件处理模型将epoll中的链接、读写、关闭都转换为事件，不在网络IO上浪费过多的事"></a>Redis使用epoll异步非阻塞模型 ，Redis自身实现了事件处理模型将epoll中的链接、读写、关闭都转换为事件，不在网络IO上浪费过多的事</h2><p><a href="https://www.cnblogs.com/allenwas3/p/8473614.html" target="_blank" rel="noopener">redis使用epoll</a></p>
+<h2 id="升级redis集群节点"><a href="#升级redis集群节点" class="headerlink" title="升级redis集群节点"></a>升级redis集群节点</h2><p>升级从节点：</p>
+<p>  停止节点并使用更新版本的Redis重新启动它即可。<br>  如果存在使用从属节点扩展读取的客户端，则在给定的从属节点不可用时，<br>  它们应该能够重新连接到其他从属节点</p>
+</li>
+</ul>
+<p>升级master节点：</p>
+<ul>
+<li>使用CLUSTER FAILOVER触发主服务器到其从服务器之一的手动故障转移。</li>
+<li>等待主机变成从机。</li>
+<li>最后，像对从属服务器一样升级节点。</li>
+<li>如果要将主节点作为刚刚升级的节点，请触发新的手动故障转移，以将升级后的节点转换回主节点。</li>
+</ul>
+<p><a href="https://redis.io/topics/cluster-tutorial/#upgrading-nodes-in-a-redis-cluster" target="_blank" rel="noopener">升级redis集群节点</a></p>
+<p>##<br>参考资料：</p>
+<p><a href="https://blog.csdn.net/qq_42322103/article/details/104159919/" target="_blank" rel="noopener">redis常用命令解析</a></p>
+<p><a href="https://redis.io/commands" target="_blank" rel="noopener">redis_commands_list</a></p>
+<p><a href="https://redis.io/topics/faq" target="_blank" rel="noopener">redis-FAQ</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/21/mysql/mysql面试题/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/17/redis/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="redis笔记" data-title="" data-url="http://yoursite.com/2020/03/21/redis笔记/"  data-images="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" data-content="">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2020 zhangyong
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

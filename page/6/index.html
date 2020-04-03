@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>zhangyong</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="zhangyong">
+<meta property="og:url" content="http://yoursite.com/page/6/index.html">
+<meta property="og:site_name" content="zhangyong">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zhangyong">
+  
+    <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head></html>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhangyong</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">zhangyong</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">zhangyong</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap">
+  
+    <article id="post-Fabric-notes" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/02/10/Fabric-notes/" class="article-date">
+  	<time datetime="2020-02-10T02:40:34.853Z" itemprop="datePublished">2020-02-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/10/Fabric-notes/">
+        Fabric笔记
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#1 简单描述Fabric数据上链过程</p>
+<p><img src="Fabric-notes/Fabric-tx.png" alt></p>
+<p>##1.1、模拟</p>
+<p>client发起交易请求，请求被发送至endorsers，模拟进行这些交易，会产生一个read set和一个write set记录这个交易的影响，模拟完成后，endorser对read set和write set进行签名并将其一起返回给client</p>
+<p>如果client收到的read set和write set是一致的（可能存在恶意endorser或者智能合约存在不确定的算法导致出现不一致），那么client就会生成一个真正的交易请求，包含read set、write set和对应的签名，并将这个请求发送给ordering service。</p>
+<p>##1.2、排序</p>
+<p>ordering service对来自client的交易进行排序，需要注意的是这里并不检查交易的内容，默认按照交易到达的顺序进行排序，ordering service将交易排序后打包成block，发送给网络中的peers，这里不保证所有的peer同时收到这个block，但保证收到的block的顺序是一致的（使用gossip协议）。</p>
+<p>##1.3、验证<br>当peer收到block后，就开始验证阶段。</p>
+<p>验证阶段主要包括两个检查：</p>
+<p>####Endorsement Policy检查</p>
+<p>检查交易是否满足endorsement policy以及是否包含有效的签名，否则说明交易可能被client或者恶意peer篡改过，直接丢弃。</p>
+<p>####交易冲突检查</p>
+<p>检查交易之间是否存在冲突，也就是是否读脏数据的问题（某个交易在读取ledger之前，ledger被前一个交易改变了），如果存在就丢弃该交易。<br>两次检查都通过的话就可以进入commit阶段了。</p>
+<p>##1.4、上链<br>peer将block添加到链上，注意这里是所有的交易（有效的和无效的）都加进来了。然后根据有效的交易改变当前的ledger状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://hyperledger-fabric-zh-cn.readthedocs.io/zh/latest/docs/Ledger.html#transaction-flow</span><br></pre></td></tr></table></figure>
+
+<p>#2 Fabric如何动态增加组织、节点</p>
+<p>调用k8s创建同一个namespace下containter–pod</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">func (service *channelService) updateChannelConfig(request module.PutChannelOrganizationRequest) error &#123;</span><br><span class="line">	namespace := request.OrderNamespace</span><br><span class="line">	clientset, err := kubernetes.NewKubernetesClient()</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return err</span><br><span class="line">	&#125;</span><br><span class="line">	dep, err := clientset.AppsV1beta1().Deployments(namespace).Get(CliDepName, v1.GetOptions&#123;&#125;)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	podLabels := dep.Spec.Selector.MatchLabels</span><br><span class="line">	podSelector := pkglabels.FormatLabels(podLabels)</span><br><span class="line">	podOpts := v1.ListOptions&#123;</span><br><span class="line">		LabelSelector: podSelector,</span><br><span class="line">	&#125;</span><br><span class="line">	podList, err := clientset.CoreV1().Pods(namespace).List(podOpts)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	if len(podList.Items) == 0 &#123;</span><br><span class="line">		return errors.New(&quot;can&apos;t find cli pod&quot;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	podName := podList.Items[0].Name</span><br><span class="line">	containerName := podList.Items[0].Spec.Containers[0].Name</span><br><span class="line">	peerOrgs := strings.Join(request.PeerOrgs, &quot;,&quot;)</span><br><span class="line">	command := fmt.Sprintf(&quot;/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/addorg.sh %s %s %s %s&quot;, request.ChannelName, request.OrderNamespace, request.OrgName, peerOrgs)</span><br><span class="line">	glog.Infof(&quot;ContainerExec  namespace :%s&quot;, namespace)</span><br><span class="line">	glog.Infof(&quot;ContainerExec  podName :%s&quot;, podName)</span><br><span class="line">	glog.Infof(&quot;ContainerExec  containerName :%s&quot;, containerName)</span><br><span class="line">	glog.Infof(&quot;ContainerExec  command :%s&quot;, command)</span><br><span class="line">	stdout, stderr, err := kubernetes.ContainerExec(namespace, podName, containerName, command)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		glog.Errorf(&quot;Invoke ContainerExec occur a error. It is %s&quot;, err)</span><br><span class="line">		return err</span><br><span class="line">	&#125;</span><br><span class="line">	glog.Info(&quot;stdout ==&gt;&quot;, stdout)</span><br><span class="line">	glog.Info(&quot;stderr ==&gt;&quot;, stderr)</span><br><span class="line">	return nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将节点加入通道</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">fabric网络中创建通道</span><br><span class="line">mspId, _ := db.GetMspIdByPeerId(peer)</span><br><span class="line">fabricClient, err := context.GetServer().GetClient(joinChl.NetId, &quot;Admin&quot;, mspId)</span><br><span class="line">if err != nil &#123;</span><br><span class="line">	log.Logger.Errorf(&quot;GetClient error: %v&quot;, err)</span><br><span class="line">	c.JSON(http.StatusInternalServerError, gin.H&#123;</span><br><span class="line">		&quot;err&quot;: err.Error(),</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line">// Resmgmt client</span><br><span class="line">clientProvider := fabricClient.GetClientProvider()</span><br><span class="line">resmgmtClient, err := resmgmt.New(clientProvider)</span><br><span class="line">ctx, err := clientProvider()</span><br><span class="line">log.Logger.Debugf(&quot;join channel resmgmtClient.ctx = %+v, %v&quot;, ctx, err)</span><br><span class="line">err = resmgmtClient.JoinChannel(channelName, resmgmt.WithTargetURLs(peerURL), resmgmt.WithOrdererURL(ordererURL))</span><br><span class="line">if err != nil &#123;</span><br><span class="line">	log.Logger.Errorf(&quot;JoinChannel error :%v &quot;, err)</span><br><span class="line">	c.JSON(http.StatusInternalServerError, gin.H&#123;</span><br><span class="line">		&quot;err&quot;: err.Error(),</span><br><span class="line">	&#125;)</span><br><span class="line">	return</span><br><span class="line">&#125;</span><br><span class="line">log.Logger.Info(&quot;JoinChannel SUCCESS!&quot;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//RefreshClient</span><br><span class="line">for _, peerOrg := range PeerOrgs &#123;</span><br><span class="line">		err = context.GetServer().RefreshClient(joinChl.NetId, &quot;Admin&quot;, fmt.Sprintf(&quot;%s%s&quot;, strings.ToUpper(peerOrg.Name[0:1]), peerOrg.Name[1:]))</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			log.Logger.Errorln(&quot;RefreshClient error:&quot;, err)</span><br><span class="line">			c.JSON(http.StatusInternalServerError, gin.H&#123;</span><br><span class="line">				&quot;err&quot;: err.Error(),</span><br><span class="line">			&#125;)</span><br><span class="line">			return</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>#3 如果一个peer节点服务器损坏，数据如何恢复</p>
+<p>// 如果CA等数据还在，再次加入节点，会自动同步区块</p>
+<p>#4 描述Fabric的创世区块的作用，世界状态的作用</p>
+<p>创世区块：创世区块文件，需要手动用官方提供的工具configtxgen生成，创建语句为configtxgen -profile TwoOrgsOrdererGenesis -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block,创世区块的主要作用是定义了系统通道的共识算法，准入的组织名称，策略等信息</p>
+<p>世界状态：世界状态代表了所有账本状态当前的值。这个世界状态非常有用，因为程序通常需要某个账本的当前状态值，并且总是很容易就能获取到。你不需要遍历整个区块链去计算账本当前的状态的值(余额)，你可以直接从世界状态获取</p>
+<p>#5 Fabric中一个区块的数据结构</p>
+<p><img src="Fabric-notes/blocks.png" alt></p>
+<p> 区块头 包含区块高度，上一个区块的哈希值，本区块的哈希值</p>
+<p> 交易数据集合，封装了打包的交易集合</p>
+<p> 区块元数据，封装了如下4个元数据索引项</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">BlockMetadataIndex_SIGNATURES：区块签名；</span><br><span class="line"></span><br><span class="line">BlockMetadataIndex_LAST_CONFIG：最新配置区块的区块号；</span><br><span class="line"></span><br><span class="line">BlockMetadataIndex_TRANSACTIONS_FILTER：最新交易过滤器，封装了交易数据集合Data中所有交易对应的交易验证码，标识其交易的有效性。</span><br><span class="line"></span><br><span class="line">BlockMetadataIndex_ORDERER：Orderer配置信息，如Kafka共识组件的初始化参数。</span><br></pre></td></tr></table></figure>
+
+<p>#6 描述CA 公私钥及常见的加密算法</p>
+<p>##Fabric-CA</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">https://www.cnblogs.com/kaixinyufeng/p/9803413.html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">https://blog.csdn.net/greedystar/article/details/80344984</span><br></pre></td></tr></table></figure>
+
+<p>##公私钥及常见的加密算法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">https://www.cnblogs.com/charlesblc/p/6130433.html</span><br><span class="line"></span><br><span class="line">https://blog.csdn.net/u011531425/article/details/89161392</span><br></pre></td></tr></table></figure>
+
+<p>#7 常用的共识算法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://blog.csdn.net/s_lisheng/article/details/78022645</span><br></pre></td></tr></table></figure>
+
+<p>#8 Merkie tree、GHOST协议、分叉</p>
+<p>##Merkie tree</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.cnblogs.com/fengzhiwu/p/5524324.html</span><br></pre></td></tr></table></figure>
+
+<p>##GHOST协议</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://blog.csdn.net/t46414704152abc/article/details/81191804</span><br></pre></td></tr></table></figure>
+
+<p>##分叉</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>#9 描述下http协议，session,cookie在其中的作用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https://blog.csdn.net/astro_boy/article/details/84054090</span><br><span class="line"></span><br><span class="line">http://m.elecfans.com/article/596778.html</span><br></pre></td></tr></table></figure>
+
+<p>#10 联盟链，Fabric比较其他联盟链的优势</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.elecfans.com/blockchain/800061.html</span><br></pre></td></tr></table></figure>
+
+<p><img src="Fabric-notes/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E3%80%81HyperledgerFabric%E5%92%8CCorda%E7%9A%84%E5%AF%B9%E6%AF%94.jpg" alt></p>
+<p>#11 链码的事件通知</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-Elasticsearch经典资料汇总" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/02/10/Elasticsearch经典资料汇总/" class="article-date">
+  	<time datetime="2020-02-10T02:40:34.851Z" itemprop="datePublished">2020-02-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/10/Elasticsearch经典资料汇总/">
+        Elasticsearch 经典资料汇总
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="中文资料"><a href="#中文资料" class="headerlink" title="中文资料"></a>中文资料</h2><p><a href="https://es.xiaoleilu.com" target="_blank" rel="noopener">https://es.xiaoleilu.com</a></p>
+<p><a href="https://github.com/elasticsearch-cn/elasticsearch-definitive-guide" target="_blank" rel="noopener">https://github.com/elasticsearch-cn/elasticsearch-definitive-guide</a></p>
+<p><a href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/index.html" target="_blank" rel="noopener">https://www.elastic.co/guide/cn/elasticsearch/guide/current/index.html</a></p>
+<h2 id="Elasticsearch-Client-Golang-SDK"><a href="#Elasticsearch-Client-Golang-SDK" class="headerlink" title="Elasticsearch Client Golang SDK"></a>Elasticsearch Client Golang SDK</h2><p><a href="https://github.com/olivere/elastic/tree/v6.2.11" target="_blank" rel="noopener">https://github.com/olivere/elastic/tree/v6.2.11</a></p>
+<h2 id="深度分页问题"><a href="#深度分页问题" class="headerlink" title="深度分页问题"></a>深度分页问题</h2><p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.3/search-request-search-after.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/6.3/search-request-search-after.html</a></p>
+<p><a href="https://blog.csdn.net/u011228889/article/details/79760167" target="_blank" rel="noopener">https://blog.csdn.net/u011228889/article/details/79760167</a></p>
+<p><a href="https://blog.csdn.net/WangPing1223/article/details/79148244" target="_blank" rel="noopener">https://blog.csdn.net/WangPing1223/article/details/79148244</a></p>
+<h2 id="Kubernetes上非常好用的Elasticsearch"><a href="#Kubernetes上非常好用的Elasticsearch" class="headerlink" title="Kubernetes上非常好用的Elasticsearch"></a>Kubernetes上非常好用的Elasticsearch</h2><p><a href="https://github.com/pires/kubernetes-elasticsearch-cluster/tree/6.3.0" target="_blank" rel="noopener">https://github.com/pires/kubernetes-elasticsearch-cluster/tree/6.3.0</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-Elasticsearch安装" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/02/10/Elasticsearch安装/" class="article-date">
+  	<time datetime="2020-02-10T02:40:34.848Z" itemprop="datePublished">2020-02-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/10/Elasticsearch安装/">
+        Elasticsearch安装
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#Elasticsearch安装</p>
+<p>安装Elasticsearch唯一的要求是安装官方新版的Java，地址：<a href="http://www.java.com" target="_blank" rel="noopener">www.java.com</a></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.4/install-elasticsearch.html" target="_blank" rel="noopener">Install Elasticsearch</a></p>
+<p>##1 Docker部署<br><a href="https://hub.docker.com/_/elasticsearch" target="_blank" rel="noopener">Install Elasticsearch with Docker</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull docker.elastic.co/elasticsearch/elasticsearch:6.4.3</span><br><span class="line"></span><br><span class="line">docker run -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; docker.elastic.co/elasticsearch/elasticsearch:6.4.3</span><br></pre></td></tr></table></figure>
+
+<p>##2 Download and install the .tar.gz package</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz</span><br><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz.sha512</span><br><span class="line">shasum -a 512 -c elasticsearch-6.4.3.tar.gz.sha512 </span><br><span class="line">tar -xzf elasticsearch-6.4.3.tar.gz</span><br><span class="line">cd elasticsearch-6.4.3/ </span><br><span class="line">./bin/elasticsearch</span><br></pre></td></tr></table></figure>
+
+<p>异常</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@JD elasticsearch]# shasum -a 512 -c elasticsearch-6.4.3.tar.gz.sha512 </span><br><span class="line">-bash: shasum: command not found</span><br></pre></td></tr></table></figure>
+
+<p>centos解决：yum install perl-Digest-SHA</p>
+<p>异常</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@JD elasticsearch-6.4.3]# ./bin/elasticsearch</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM warning: INFO: os::commit_memory(0x00000000ca660000, 899284992, 0) failed; error=&apos;Cannot allocate memory&apos; (errno=12)</span><br><span class="line">#</span><br><span class="line"># There is insufficient memory for the Java Runtime Environment to continue.</span><br><span class="line"># Native memory allocation (mmap) failed to map 899284992 bytes for committing reserved memory.</span><br><span class="line"># An error report file with more information is saved as:</span><br><span class="line"># logs/hs_err_pid16061.log</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-ElasticJob" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/02/10/ElasticJob/" class="article-date">
+  	<time datetime="2020-02-10T02:40:34.845Z" itemprop="datePublished">2020-02-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/10/ElasticJob/">
+        ElasticJob
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ElasticJob"><a href="#ElasticJob" class="headerlink" title="ElasticJob"></a>ElasticJob</h1><h2 id="来自官方的定义"><a href="#来自官方的定义" class="headerlink" title="来自官方的定义"></a>来自官方的定义</h2><p><a href="http://elasticjob.io/" target="_blank" rel="noopener">ElasticJob</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Elastic-Job is a distributed scheduling solution consisting of two separate projects, Lite and Cloud.</span><br><span class="line"></span><br><span class="line">Elastic-Job-Lite is a lightweight, decentralized solution that provides distributed task sharding services. Elastic-Job-Cloud is a Mesos Framework which provides additional resource management, App distribution, process isolation and task aggregation features.</span><br></pre></td></tr></table></figure>
+
+<h2 id="1、-基本概念"><a href="#1、-基本概念" class="headerlink" title="1、 基本概念"></a>1、 基本概念</h2><h3 id="1-1-分片概念"><a href="#1-1-分片概念" class="headerlink" title="1.1. 分片概念"></a>1.1. 分片概念</h3><p>任务的分布式执行，需要将一个任务拆分为多个独立的任务项，然后由分布式的服务器分别执行某一个或几个分片项。</p>
+<p>例如：有一个遍历数据库某张表的作业，现有2台服务器。为了快速的执行作业，那么每台服务器应执行作业的50%。 为满足此需求，可将作业分成2片，每台服务器执行1片。作业遍历数据的逻辑应为：服务器A遍历ID以奇数结尾的数据；服务器B遍历ID以偶数结尾的数据。 如果分成10片，则作业遍历数据的逻辑应为：每片分到的分片项应为ID%10，而服务器A被分配到分片项0,1,2,3,4；服务器B被分配到分片项5,6,7,8,9，直接的结果就是服务器A遍历ID以0-4结尾的数据；服务器B遍历ID以5-9结尾的数据。</p>
+<h3 id="1-2-分片项与业务处理解耦"><a href="#1-2-分片项与业务处理解耦" class="headerlink" title="1.2. 分片项与业务处理解耦"></a>1.2. 分片项与业务处理解耦</h3><p>Elastic-Job并不直接提供数据处理的功能，框架只会将分片项分配至各个运行中的作业服务器，开发者需要自行处理分片项与真实数据的对应关系。</p>
+<h3 id="1-3-个性化参数的适用场景"><a href="#1-3-个性化参数的适用场景" class="headerlink" title="1.3. 个性化参数的适用场景"></a>1.3. 个性化参数的适用场景</h3><p>个性化参数即shardingItemParameter，可以和分片项匹配对应关系，用于将分片项的数字转换为更加可读的业务代码。</p>
+<p>例如：按照地区水平拆分数据库，数据库A是北京的数据；数据库B是上海的数据；数据库C是广州的数据。 如果仅按照分片项配置，开发者需要了解0表示北京；1表示上海；2表示广州。 合理使用个性化参数可以让代码更可读，如果配置为0=北京,1=上海,2=广州，那么代码中直接使用北京，上海，广州的枚举值即可完成分片项和业务逻辑的对应关系。</p>
+<h2 id="2、-核心理念"><a href="#2、-核心理念" class="headerlink" title="2、 核心理念"></a>2、 核心理念</h2><h3 id="2-1-分布式调度"><a href="#2-1-分布式调度" class="headerlink" title="2.1. 分布式调度"></a>2.1. 分布式调度</h3><p>Elastic-Job-Lite并无作业调度中心节点，而是基于部署作业框架的程序在到达相应时间点时各自触发调度。</p>
+<p>注册中心仅用于作业注册和监控信息存储。而主作业节点仅用于处理分片和清理等功能。</p>
+<h3 id="2-2-作业高可用"><a href="#2-2-作业高可用" class="headerlink" title="2.2. 作业高可用"></a>2.2. 作业高可用</h3><p>Elastic-Job-Lite提供最安全的方式执行作业。将分片总数设置为1，并使用多于1台的服务器执行作业，作业将会以1主n从的方式执行。</p>
+<p>一旦执行作业的服务器崩溃，等待执行的服务器将会在下次作业启动时替补执行。开启失效转移功能效果更好，可以保证在本次作业执行时崩溃，备机立即启动替补执行。</p>
+<h3 id="2-3-最大限度利用资源"><a href="#2-3-最大限度利用资源" class="headerlink" title="2.3. 最大限度利用资源"></a>2.3. 最大限度利用资源</h3><p>Elastic-Job-Lite也提供最灵活的方式，最大限度的提高执行作业的吞吐量。将分片项设置为大于服务器的数量，最好是大于服务器倍数的数量，作业将会合理的利用分布式资源，动态的分配分片项。</p>
+<p>例如：3台服务器，分成10片，则分片项分配结果为服务器A=0,1,2;服务器B=3,4,5;服务器C=6,7,8,9。 如果服务器C崩溃，则分片项分配结果为服务器A=0,1,2,3,4;服务器B=5,6,7,8,9。在不丢失分片项的情况下，最大限度的利用现有资源提高吞吐量。</p>
+<h2 id="3、-功能列表"><a href="#3、-功能列表" class="headerlink" title="3、 功能列表"></a>3、 功能列表</h2><ul>
+<li>分布式调度协调</li>
+<li>弹性扩容缩容</li>
+<li>失效转移</li>
+<li>错过执行作业重触发</li>
+<li>作业分片一致性，保证同一分片在分布式环境中仅一个执行实例</li>
+<li>自诊断并修复分布式不稳定造成的问题</li>
+<li>支持并行调度</li>
+<li>支持作业生命周期操作</li>
+<li>丰富的作业类型</li>
+<li>Spring整合以及命名空间提供</li>
+<li>运维平台</li>
+</ul>
+<h2 id="4、-快速入门"><a href="#4、-快速入门" class="headerlink" title="4、 快速入门"></a>4、 快速入门</h2><p>以springBoot为例</p>
+<h3 id="4-1、-引入maven依赖"><a href="#4-1、-引入maven依赖" class="headerlink" title="4.1、 引入maven依赖"></a>4.1、 引入maven依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.dangdang&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;elastic-job-lite-core&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;$&#123;elastic-job.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.dangdang&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;elastic-job-lite-spring&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;$&#123;elastic-job.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2、-作业开发"><a href="#4-2、-作业开发" class="headerlink" title="4.2、 作业开发"></a>4.2、 作业开发</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">import com.dangdang.ddframe.job.api.ShardingContext;</span><br><span class="line">import DynamicJobConfig;</span><br><span class="line">import SimpleDeliveryJob;</span><br><span class="line">import lombok.extern.slf4j.Slf4j;</span><br><span class="line">import org.springframework.beans.BeansException;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.beans.factory.annotation.Value;</span><br><span class="line">import org.springframework.context.ApplicationContext;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @Author: zy</span><br><span class="line"> * @Date: 2019/7/20/0020 10:55</span><br><span class="line"> */</span><br><span class="line">@Slf4j</span><br><span class="line">@Component</span><br><span class="line">public class InPolygonJob implements SimpleDeliveryJob &#123;</span><br><span class="line"></span><br><span class="line">    @Value(&quot;$&#123;elastic-job.task.InPolygon.cron&#125;&quot;)</span><br><span class="line">    private String cron;</span><br><span class="line"></span><br><span class="line">    @Value(&quot;$&#123;elastic-job.task.InPolygon.shardingTotalCount&#125;&quot;)</span><br><span class="line">    private int shardingTotalCount;</span><br><span class="line"></span><br><span class="line">    @Value(&quot;$&#123;elastic-job.task.InPolygon.shardingItemParameters&#125;&quot;)</span><br><span class="line">    private String shardingItemParameters;</span><br><span class="line"></span><br><span class="line">    @Value(&quot;$&#123;elastic-job.task.InPolygon.description&#125;&quot;)</span><br><span class="line">    private String description;</span><br><span class="line"></span><br><span class="line">    private ApplicationContext applicationContext;</span><br><span class="line">    @Autowired</span><br><span class="line">    private ISyncInPolygonService syncInPolygonService;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    public void execute(ShardingContext shardingContext) &#123;</span><br><span class="line">         // do something </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void afterPropertiesSet() throws Exception &#123;</span><br><span class="line">        DynamicJobConfig dynamicJobConfig = (DynamicJobConfig) applicationContext.getBean(&quot;dynamicJobConfig&quot;);</span><br><span class="line">        dynamicJobConfig.dynamicAddSimpleJobScheduler(this, cron, shardingTotalCount, shardingItemParameters, description);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException &#123;</span><br><span class="line">        this.applicationContext = applicationContext;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import com.dangdang.ddframe.job.api.simple.SimpleJob;</span><br><span class="line">import org.springframework.beans.factory.InitializingBean;</span><br><span class="line">import org.springframework.context.ApplicationContextAware;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @Description :</span><br><span class="line"> * @author: zy</span><br><span class="line"> * @Date : 2019-06-14 13:59</span><br><span class="line"> */</span><br><span class="line">public interface SimpleDeliveryJob extends SimpleJob, InitializingBean, ApplicationContextAware &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">import com.dangdang.ddframe.job.api.simple.SimpleJob;</span><br><span class="line">import com.dangdang.ddframe.job.event.rdb.JobEventRdbConfiguration;</span><br><span class="line">import com.dangdang.ddframe.job.lite.spring.api.SpringJobScheduler;</span><br><span class="line">import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperRegistryCenter;</span><br><span class="line">import lombok.extern.slf4j.Slf4j;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.beans.factory.annotation.Qualifier;</span><br><span class="line">import org.springframework.scheduling.annotation.Async;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line">import javax.sql.DataSource;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @Description : 动态调度任务</span><br><span class="line"> * @author: zy</span><br><span class="line"> * @Date : 2019-06-12 18:11</span><br><span class="line"> */</span><br><span class="line">@Slf4j</span><br><span class="line">@Component</span><br><span class="line">public class DynamicJobConfig &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private ZookeeperRegistryCenter regCenter;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    @Qualifier(&quot;taskDataSource&quot;)</span><br><span class="line">    private DataSource taskDataSource;</span><br><span class="line"></span><br><span class="line">    @Async(&quot;taskExecutor&quot;)</span><br><span class="line">    public void dynamicAddSimpleJobScheduler(SimpleJob simpleJob, String cron,</span><br><span class="line">                                             int shardingTotalCount, String shardingItemParameters, String description) &#123;</span><br><span class="line">        new SpringJobScheduler(simpleJob, regCenter,</span><br><span class="line">                LiteJobConfigUtil.getLiteJobConfiguration(simpleJob.getClass(), cron, shardingTotalCount,shardingItemParameters, description),</span><br><span class="line">                new JobEventRdbConfiguration(taskDataSource)).init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5、 作业配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">elastic-job:</span><br><span class="line">  datasource:</span><br><span class="line">    driver-class-name: com.mysql.jdbc.Driver</span><br><span class="line">    username: root</span><br><span class="line">    password: root</span><br><span class="line">    url: jdbc:mysql://192.168.0.1:3306/elastic_job?autoReconnect=true&amp;allowMultiQueries=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;useSSL=false</span><br><span class="line">    type: com.alibaba.druid.pool.DruidDataSource</span><br><span class="line">    initialSize: 5</span><br><span class="line">    minIdle: 5</span><br><span class="line">    maxActive: 20</span><br><span class="line">    maxWait: 60000</span><br><span class="line">    timeBetweenEvictionRunsMillis: 60000</span><br><span class="line">    minEvictableIdleTimeMillis: 300000</span><br><span class="line">    validationQuery: SELECT 1 FROM DUAL</span><br><span class="line">    testWhileIdle: true</span><br><span class="line">    testOnBorrow: false</span><br><span class="line">    testOnReturn: false</span><br><span class="line">    filters: stat,wall,log4j</span><br><span class="line">    logSlowSql: true</span><br><span class="line"></span><br><span class="line">  registry-center:</span><br><span class="line">    address: 192.168.0.2:2181  </span><br><span class="line">    namespace: elastic-job</span><br><span class="line"></span><br><span class="line">  task:</span><br><span class="line">    test:</span><br><span class="line">      cron: 0/5 * * * * ?</span><br><span class="line">      #作业分片总数</span><br><span class="line">      shardingTotalCount: 3</span><br><span class="line">      shardingItemParameters: 0=Beijing,1=Shanghai,2=Guangzhou</span><br><span class="line">      description: 描述</span><br></pre></td></tr></table></figure>
+
+<p>其他方式见<a href="http://elasticjob.io/docs/elastic-job-lite/01-start/dev-guide/" target="_blank" rel="noopener">开发指南</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-CORS" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/02/10/CORS/" class="article-date">
+  	<time datetime="2020-02-10T02:40:34.841Z" itemprop="datePublished">2020-02-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#1、跨域<br><a href="https://blog.csdn.net/xcbeyond/article/details/84453832" target="_blank" rel="noopener">https://blog.csdn.net/xcbeyond/article/details/84453832</a></p>
+<p>1、内网项目，第三方vpn和梯子也会引起跨域现象<br><img src="CORS/cors.png" alt></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-hello-Hexo" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/06/18/hello-Hexo/" class="article-date">
+  	<time datetime="2019-06-18T10:43:55.000Z" itemprop="datePublished">2019-06-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/18/hello-Hexo/">
+        hello_Hexo
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>hexo clean<br>hexo generate<br>hexo deploy</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+    </nav>
+  
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2020 zhangyong
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: true,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

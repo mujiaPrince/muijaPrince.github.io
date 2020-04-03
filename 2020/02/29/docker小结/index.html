@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>zhangyong</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="容器和虚拟机容器在Linux上本地运行，并与其他容器共享主机的内核。它运行一个离散进程，不占用任何其他可执行文件更多的内存，从而使其轻巧。 相比之下，虚拟机（VM）运行具有“ 虚拟机管理程序”对主机资源的虚拟访问权的成熟guest操作系统。通常，VM会产生大量开销，超出了应用程序逻辑所消耗的开销。  安装dockerwindows下安装docker在Windows上安装Docker Desktop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zhangyong">
+<meta property="og:url" content="http://yoursite.com/2020/02/29/docker小结/index.html">
+<meta property="og:site_name" content="zhangyong">
+<meta property="og:description" content="容器和虚拟机容器在Linux上本地运行，并与其他容器共享主机的内核。它运行一个离散进程，不占用任何其他可执行文件更多的内存，从而使其轻巧。 相比之下，虚拟机（VM）运行具有“ 虚拟机管理程序”对主机资源的虚拟访问权的成熟guest操作系统。通常，VM会产生大量开销，超出了应用程序逻辑所消耗的开销。  安装dockerwindows下安装docker在Windows上安装Docker Desktop">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2020/02/29/docker小结/docker%E5%B0%8F%E7%BB%93/docker%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA.png">
+<meta property="og:updated_time" content="2020-04-03T14:50:56.691Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zhangyong">
+<meta name="twitter:description" content="容器和虚拟机容器在Linux上本地运行，并与其他容器共享主机的内核。它运行一个离散进程，不占用任何其他可执行文件更多的内存，从而使其轻巧。 相比之下，虚拟机（VM）运行具有“ 虚拟机管理程序”对主机资源的虚拟访问权的成熟guest操作系统。通常，VM会产生大量开销，超出了应用程序逻辑所消耗的开销。  安装dockerwindows下安装docker在Windows上安装Docker Desktop">
+<meta name="twitter:image" content="http://yoursite.com/2020/02/29/docker小结/docker%E5%B0%8F%E7%BB%93/docker%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA.png">
+  
+    <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head></html>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhangyong</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">zhangyong</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">zhangyong</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-docker小结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/02/29/docker小结/" class="article-date">
+  	<time datetime="2020-02-29T07:09:35.529Z" itemprop="datePublished">2020-02-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="容器和虚拟机"><a href="#容器和虚拟机" class="headerlink" title="容器和虚拟机"></a>容器和虚拟机</h1><p>容器在Linux上本地运行，并与其他容器共享主机的内核。它运行一个离散进程，不占用任何其他可执行文件更多的内存，从而使其轻巧。</p>
+<p>相比之下，虚拟机（VM）运行具有“ 虚拟机管理程序”对主机资源的虚拟访问权的成熟<code>guest</code>操作系统。通常，VM会产生大量开销，超出了应用程序逻辑所消耗的开销。</p>
+<p><img src="docker%E5%B0%8F%E7%BB%93/docker%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA.png" alt="docker和虚拟机"></p>
+<h1 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h1><h2 id="windows下安装docker"><a href="#windows下安装docker" class="headerlink" title="windows下安装docker"></a>windows下安装docker</h2><p><a href="https://docs.docker.com/docker-for-windows/install/" target="_blank" rel="noopener">在Windows上安装Docker Desktop</a></p>
+<p><a href="https://hub.docker.com/editions/community/docker-ce-desktop-windows/" target="_blank" rel="noopener">下载Docker Desktop</a></p>
+<h4 id="需要注意的是："><a href="#需要注意的是：" class="headerlink" title="需要注意的是："></a>需要注意的是：</h4><p>运行Docker Desktop需要Microsoft Hyper-V。必要时，Docker桌面Windows安装程序会启用Hyper-V，然后重新启动计算机。启用Hyper-V后，VirtualBox不再起作用。但是，将保留所有现有的VirtualBox VM映像。</p>
+<p>用docker-machine（包括default通常在Toolbox安装过程中创建的虚拟机）创建的VirtualBox VM 不再启动。这些VM不能与Docker Desktop并排使用。但是，您仍然可以 docker-machine用来管理远程VM。</p>
+<p><a href="https://blog.csdn.net/huryer/article/details/91126391" target="_blank" rel="noopener">安装Docker后VMware和VirtualBox无法启动 VT-x is not available</a></p>
+<h2 id="linux下安装docker"><a href="#linux下安装docker" class="headerlink" title="linux下安装docker"></a>linux下安装docker</h2><p>用yum源安装</p>
+<p>查看是否已安装docker列表</p>
+<pre><code>yum list installed | grep docker</code></pre><p>安装docker</p>
+<pre><code>yum -y install docker</code></pre><p>启动docker</p>
+<pre><code>systemctl start docker</code></pre><p>查看docker服务状态</p>
+<pre><code>systemctl status docker</code></pre><h2 id="配置-加速器"><a href="#配置-加速器" class="headerlink" title="配置 加速器"></a>配置 加速器</h2><p>对于使用 upstart 的系统而言，编辑  /etc/default/docker  文件，在其中的  DOCKER_OPTS  中<br>添加获得的加速器配置：</p>
+<pre><code>DOCKER_OPTS=&quot;--registry-mirror=https://registry.docker-cn.com&quot;</code></pre><p>重新启动服务。</p>
+<pre><code>$ sudo service docker restart</code></pre><p>对于使用 systemd 的系统，请在  /etc/docker/daemon.json  中写入如下内容（如果文件不存<br>在请新建该文件）</p>
+<pre><code>{
+    &quot;registry-mirrors&quot;: [
+        &quot;https://registry.docker-cn.com&quot;
+    ]
+}</code></pre><p>注意，一定要保证该文件符合 json 规范，否则 Docker 将不能启动。<br>之后重新启动服务。</p>
+<pre><code>$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker    </code></pre><p>​    </p>
+<h1 id="创建镜像"><a href="#创建镜像" class="headerlink" title="创建镜像"></a>创建镜像</h1><h2 id="基于dockerfile创建镜像"><a href="#基于dockerfile创建镜像" class="headerlink" title="基于dockerfile创建镜像"></a>基于dockerfile创建镜像</h2><h3 id="编写docker-file"><a href="#编写docker-file" class="headerlink" title="编写docker file"></a>编写docker file</h3><p><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener">dockerfile命令参考</a></p>
+<pre><code># Use the official image as a parent image
+FROM node:current-slim
+
+# Set the working directory
+WORKDIR /usr/src/app
+
+# Copy the file from your host to your current location
+COPY package.json .
+
+# Run the command inside your image filesystem
+RUN npm install
+
+# Inform Docker that the container is listening on the specified port at runtime.
+EXPOSE 8080
+
+# Run the specified command within the container.
+CMD [ &quot;npm&quot;, &quot;start&quot; ]
+
+# Copy the rest of your app&apos;s source code from your host to your image filesystem.
+COPY . .    </code></pre><h3 id="dockerfile-命令"><a href="#dockerfile-命令" class="headerlink" title="dockerfile 命令"></a>dockerfile 命令</h3><h4 id="MAINTAINER"><a href="#MAINTAINER" class="headerlink" title="MAINTAINER"></a>MAINTAINER</h4><pre><code>格式
+MAINTAINER &lt;name&gt;
+指定该dockerfilr文件的维护者信息。</code></pre><h4 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h4><pre><code>格式：
+RUN &lt;command&gt;                             (shell模式)
+RUN[&quot;executable&quot;, &quot;param1&quot;,&quot;param2&quot;]      (exec模式)</code></pre><p>表示当前镜像构建时候运行的命令，如果有确认输入的话，一定要在命令中添加 -v</p>
+<p>如果命令较长，那么可以在命令结尾使用 \ 换行</p>
+<p>shell模式：类似于 <code>/bin/bash -c command</code></p>
+<p>实例：<code>RUN echo hello</code></p>
+<p>exec模式：类似于 RUN<code>[&quot;/bin/bash&quot;, &quot;-c&quot;, &quot;command&quot;]</code></p>
+<p>实例： <code>RUN[&quot;echo&quot;, &quot;hello&quot;]</code><br>​</p>
+<h4 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h4><pre><code>格式：EXPOSE &lt;port&gt; [&lt;port&gt;...]</code></pre><p>设置docker容器对外暴露的端口号，docker 为了安全，不会自动对外打开端口，如果需要外部提供访问，还需要启动容器时增加<code>-p</code>或者<code>-P</code>参数对容器的端口进行分配。</p>
+<h2 id="基于容器创建镜像"><a href="#基于容器创建镜像" class="headerlink" title="基于容器创建镜像"></a>基于容器创建镜像</h2><p> <code>不要使用  docker commit  定制镜像，定制镜像应该使用  Dockerfile  来完成</code></p>
+<p> docker commit :从容器创建一个新的镜像。</p>
+<p> 语法</p>
+<pre><code>docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</code></pre><p> OPTIONS说明：</p>
+<ul>
+<li><p>a :提交的镜像作者；</p>
+</li>
+<li><p>c :使用Dockerfile指令来创建镜像；</p>
+</li>
+<li><p>m :提交时的说明文字；</p>
+</li>
+<li><p>p :在commit时，将容器暂停。   </p>
+</li>
+</ul>
+<p>示例：</p>
+<pre><code>[root@JD ~]# docker ps -a |grep mysql
+e718ed5b4e32        mysql:5.7                           &quot;docker-entrypoint.s…&quot;   3 weeks ago         Up 3 weeks                 0.0.0.0:3306-&gt;3306/tcp, 33060/tcp                                mysql
+[root@JD ~]# docker commit -a &quot;mujia_prince&quot; -m &quot;test docker commit mysql&quot; e718ed5b4e32 my-test-mysql:v1.0
+sha256:bb9c07f10ff04f0fa0f486afc07221110029e13ab3dd61bc495b7bd5ad93978f
+
+[root@JD ~]# docker images -a
+REPOSITORY                     TAG                 IMAGE ID            CREATED             SIZE
+my-test-mysql                  v1.0                bb9c07f10ff0        41 seconds ago      437MB
+mysql                          5.7                 db39680b63ac        3 months ago        437MB</code></pre><h1 id="搭建镜像仓库"><a href="#搭建镜像仓库" class="headerlink" title="搭建镜像仓库"></a>搭建镜像仓库</h1><p><a href="https://blog.csdn.net/prince_mujia/article/details/105273055" target="_blank" rel="noopener">搭建docker镜像仓库</a></p>
+<h1 id="docker-volumes"><a href="#docker-volumes" class="headerlink" title="docker volumes"></a>docker volumes</h1><p><a href="https://docs.docker.com/storage/volumes/" target="_blank" rel="noopener">docker volumes</a></p>
+<p>-v：把宿主机的/root/data/registry目录绑定到容器/var/lib/registry目录(这个目录是registry容器中存放镜像文件的目录)，来实现数据的持久化；</p>
+<p>示例：</p>
+<pre><code>docker run -itd -v /root/data/registry:/var/lib/registry -p 5000:5000 --restart=always --name docker-registry registry:latest </code></pre><p>在镜像仓库中推送镜像<code>registry-mysql</code>之后，在<code>/root/data/registry</code>下能找到：</p>
+<pre><code>[root@JD repositories]# pwd
+/root/data/registry/docker/registry/v2/repositories
+[root@JD repositories]# ll
+total 0
+drwxr-xr-x 5 root root 55 Apr  1 23:32 registry-mysql</code></pre><p>使用  -v  参数时如果本地目录不存在 Docker 会自动为创建一个文件夹，现在使用  –mount  参数时如果本地目录不存在，Docker 会报错</p>
+<p>挂载一个本地主机文件作为数据卷</p>
+<p>–mount  标记也可以从主机挂载单个文件到容器中</p>
+<pre><code>docker run --rm -it \
+# -v $HOME/.bash_history:/root/.bash_history \
+--mount type=bind,source=$HOME/.bash_history,target=/root/.bash_history \
+ubuntu:17.10 \
+bash</code></pre><p><code>--rm</code> :在Docker容器退出时，默认容器内部的文件系统仍然被保留，以方便调试并保留用户数据。</p>
+<p>但是，对于foreground容器，由于其只是在开发调试过程中短期运行，其用户数据并无保留的必要，因而可以在容器启动时设置–rm选项，这样在容器退出时就能够自动清理容器内部的文件系统</p>
+<h2 id="docker-volume-container"><a href="#docker-volume-container" class="headerlink" title="docker volume container"></a>docker volume container</h2><h2 id="数据备份"><a href="#数据备份" class="headerlink" title="数据备份"></a>数据备份</h2><h1 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker compose"></a>docker compose</h1><p><a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">docker compose install</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line">$ sudo chmod +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line">$ docker-compose --version</span><br><span class="line">docker-compose version 1.24.1, build 1110ad01</span><br></pre></td></tr></table></figure>
+
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><h2 id="删除已经停止的容器"><a href="#删除已经停止的容器" class="headerlink" title="删除已经停止的容器"></a>删除已经停止的容器</h2><pre><code>$ docker rm [OPTIONS] CONTAINER [CONTAINER...]
+docker rm 2d85b99b03b2</code></pre><h2 id="查看镜像、容器、数据卷所占用的空间"><a href="#查看镜像、容器、数据卷所占用的空间" class="headerlink" title="查看镜像、容器、数据卷所占用的空间"></a>查看镜像、容器、数据卷所占用的空间</h2><pre><code>docker system df   </code></pre><h2 id="查看当前宿主机开放了哪些端口"><a href="#查看当前宿主机开放了哪些端口" class="headerlink" title="查看当前宿主机开放了哪些端口"></a>查看当前宿主机开放了哪些端口</h2><pre><code>netstat -tnulp</code></pre><h2 id="查看docker-信息"><a href="#查看docker-信息" class="headerlink" title="查看docker 信息"></a>查看docker 信息</h2><pre><code>docker inspect [image id]</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/01/Hyperledger Fabric v2.0 更新说明/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/29/kafka/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="docker小结" data-title="" data-url="http://yoursite.com/2020/02/29/docker小结/"  data-images="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" data-content="">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2020 zhangyong
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

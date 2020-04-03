@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>MySQL锁 | zhangyong</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="参考资料： innodb-locking-transaction-model 1、概述不同存储引擎支持不同的锁机制。  MyISAM和MEMORY存储引擎采用的是表级锁（table-level locking）；  BDB存储引擎采用的是页面锁（page-level locking），但也支持表级锁；  InnoDB存储引擎既支持行级锁（row-level locking），也支持表级锁，但是默认">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL锁">
+<meta property="og:url" content="http://yoursite.com/2020/03/11/mysql/mysql锁/index.html">
+<meta property="og:site_name" content="zhangyong">
+<meta property="og:description" content="参考资料： innodb-locking-transaction-model 1、概述不同存储引擎支持不同的锁机制。  MyISAM和MEMORY存储引擎采用的是表级锁（table-level locking）；  BDB存储引擎采用的是页面锁（page-level locking），但也支持表级锁；  InnoDB存储引擎既支持行级锁（row-level locking），也支持表级锁，但是默认">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/%E6%9F%A5%E8%AF%A2%E8%A1%A8%E7%BA%A7%E9%94%81%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/session%E5%AF%B9%E9%94%81%E7%9A%84%E5%BD%B1%E5%93%8D.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/%E5%B9%B6%E5%8F%91%E6%8F%92%E5%85%A5.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/%E8%A1%8C%E9%94%81%E5%8F%98%E8%A1%A8%E9%94%81.png">
+<meta property="og:updated_time" content="2020-03-15T14:17:52.280Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL锁">
+<meta name="twitter:description" content="参考资料： innodb-locking-transaction-model 1、概述不同存储引擎支持不同的锁机制。  MyISAM和MEMORY存储引擎采用的是表级锁（table-level locking）；  BDB存储引擎采用的是页面锁（page-level locking），但也支持表级锁；  InnoDB存储引擎既支持行级锁（row-level locking），也支持表级锁，但是默认">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/11/mysql/MySQL%E9%94%81/%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png">
+  
+    <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head></html>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhangyong</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">zhangyong</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">zhangyong</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-mysql/mysql锁" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/11/mysql/mysql锁/" class="article-date">
+  	<time datetime="2020-03-11T02:12:11.580Z" itemprop="datePublished">2020-03-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MySQL锁
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考资料：</p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-locking-transaction-model.html" target="_blank" rel="noopener">innodb-locking-transaction-model</a></p>
+<h1 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h1><p>不同存储引擎支持不同的锁机制。</p>
+<ul>
+<li><p>MyISAM和MEMORY存储引擎采用的是表级锁（table-level locking）；</p>
+</li>
+<li><p>BDB存储引擎采用的是页面锁（page-level locking），但也支持表级锁；</p>
+</li>
+<li><p>InnoDB存储引擎既支持行级锁（row-level locking），也支持表级锁，但是默认情况下采用行级锁。</p>
+</li>
+</ul>
+<h2 id="表级锁、行级锁、页面锁"><a href="#表级锁、行级锁、页面锁" class="headerlink" title="表级锁、行级锁、页面锁"></a>表级锁、行级锁、页面锁</h2><ul>
+<li><p>表级锁：开销小，加锁快；不会出现死锁；锁粒度大。发生冲突几率最大，并发度最低。</p>
+</li>
+<li><p>行级锁：开销大，加锁慢；会出现死锁，发生锁冲突几率最低，并发度最高。</p>
+</li>
+<li><p>页面锁：介于表级锁和行级锁之间。</p>
+</li>
+</ul>
+<h2 id="查看当前数据库支持的引擎"><a href="#查看当前数据库支持的引擎" class="headerlink" title="查看当前数据库支持的引擎"></a>查看当前数据库支持的引擎</h2><pre><code>mysql&gt; show engines;
++--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
+| Engine             | Support | Comment                                                        | Transactions | XA   | Savepoints |
++--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
+| InnoDB             | DEFAULT | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |
+| MRG_MYISAM         | YES     | Collection of identical MyISAM tables                          | NO           | NO   | NO         |
+| MEMORY             | YES     | Hash based, stored in memory, useful for temporary tables      | NO           | NO   | NO         |
+| BLACKHOLE          | YES     | /dev/null storage engine (anything you write to it disappears) | NO           | NO   | NO         |
+| MyISAM             | YES     | MyISAM storage engine                                          | NO           | NO   | NO         |
+| CSV                | YES     | CSV storage engine                                             | NO           | NO   | NO         |
+| ARCHIVE            | YES     | Archive storage engine                                         | NO           | NO   | NO         |
+| PERFORMANCE_SCHEMA | YES     | Performance Schema                                             | NO           | NO   | NO         |
+| FEDERATED          | NO      | Federated MySQL storage engine                                 | NULL         | NULL | NULL       |
++--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
+9 rows in set (0.00 sec)</code></pre><h2 id="查看当前默认的引擎"><a href="#查看当前默认的引擎" class="headerlink" title="查看当前默认的引擎"></a>查看当前默认的引擎</h2><pre><code>mysql&gt; show variables like &apos;default_storage_engine&apos;;
++------------------------+--------+
+| Variable_name          | Value  |
++------------------------+--------+
+| default_storage_engine | InnoDB |
++------------------------+--------+
+1 row in set (0.00 sec)</code></pre><h2 id="修改数据库当前引擎"><a href="#修改数据库当前引擎" class="headerlink" title="修改数据库当前引擎"></a>修改数据库当前引擎</h2><pre><code>alter table table_name engine=MyISAM;</code></pre><h2 id="查看指定表当前的引擎"><a href="#查看指定表当前的引擎" class="headerlink" title="查看指定表当前的引擎"></a>查看指定表当前的引擎</h2><pre><code>show table status where NAME =&apos;table_name&apos; </code></pre><h2 id="修改mysql默认的数据库引擎"><a href="#修改mysql默认的数据库引擎" class="headerlink" title="修改mysql默认的数据库引擎"></a>修改mysql默认的数据库引擎</h2><pre><code>打开配置文件my.ini，将“default-storage-engine=MYISAM”改为你想设定的，然后重启即可</code></pre><h1 id="2、MyISAM表级锁"><a href="#2、MyISAM表级锁" class="headerlink" title="2、MyISAM表级锁"></a>2、MyISAM表级锁</h1><p>Mysql的表级锁有两种模式：表共享锁（Table Read Lock）和表独占锁（Table Write Lock）.</p>
+<h2 id="2-1、共享读锁"><a href="#2-1、共享读锁" class="headerlink" title="2.1、共享读锁"></a>2.1、共享读锁</h2><pre><code>lock table 表名 read
+unlock table table_name</code></pre><p>现在用两个窗口模拟多个client请求mysql,当开启共享读锁时，其他client在修改表数据时，进入等待状态。<br><img src="../MySQL%E9%94%81/%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png" alt></p>
+<p>解除共享读锁后，其他client才会进行提交操作。<br><img src="../MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png" alt></p>
+<h2 id="2-2、表独占锁"><a href="#2-2、表独占锁" class="headerlink" title="2.2、表独占锁"></a>2.2、表独占锁</h2><pre><code>lock table 表名 write 
+unlock table table_name</code></pre><p>现在用两个窗口模拟多个client请求mysql,当开启表独占锁时，其他client在查询表数据时，进入等待状态。<br><img src="../MySQL%E9%94%81/%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png" alt></p>
+<p>解除表独占锁后，其他client才会进行提交操作。<br><img src="../MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png" alt></p>
+<h2 id="2-3、查询表级锁使用情况"><a href="#2-3、查询表级锁使用情况" class="headerlink" title="2.3、查询表级锁使用情况"></a>2.3、查询表级锁使用情况</h2><pre><code>show status like &apos;table%&apos;
+show variables like &apos;%table%&apos;</code></pre><p><img src="../MySQL%E9%94%81/%E6%9F%A5%E8%AF%A2%E8%A1%A8%E7%BA%A7%E9%94%81%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png" alt></p>
+<pre><code>Table_locks_immediate：产生表级锁定的次数；
+Table_locks_waited：出现表级锁定争用而等待的次数。</code></pre><p>两个参数值都是系统启动后开始记录的，出现一次对应的事件，则数量加一。当Table_locks_waited状态值比较高时，那么说明系统中表级锁定争用现象比较明显。</p>
+<h2 id="2-4-别名"><a href="#2-4-别名" class="headerlink" title="2.4 别名"></a>2.4 别名</h2><p>表名以别名的形式进行操作时，需要在锁操作时添加别名<code>lock table 表名 as 别名 write</code></p>
+<h2 id="2-5-session和锁"><a href="#2-5-session和锁" class="headerlink" title="2.5 session和锁"></a>2.5 session和锁</h2><p>一个session使用<code>lock table</code>命令给表加了锁，这个session可以查询锁定表中的记录，但是更新或访问其他表都会提示错误；<br>同时，另外一个session可以查询表中的记录，但更新就会出现锁等待，查询其他表数据不受影响。<br><img src="../MySQL%E9%94%81/session%E5%AF%B9%E9%94%81%E7%9A%84%E5%BD%B1%E5%93%8D.png" alt></p>
+<h2 id="2-6-并发插入"><a href="#2-6-并发插入" class="headerlink" title="2.6 并发插入"></a>2.6 并发插入</h2><ul>
+<li>当concurrent_insert=0时，此时读不能与insert写共存。</li>
+<li>当concurrent_insert=1时，如果表中没有空数据块时（即表中没有被删除的行），MyISAM允许在一个进程读表的同时，另一个进程从表尾插入数据。（默认设置）。</li>
+<li>当concurrent_insert=2时，不论有没有空数据块，都允许在表尾插入数据。</li>
+</ul>
+<h3 id="2-6-1-查看当前设置状态"><a href="#2-6-1-查看当前设置状态" class="headerlink" title="2.6.1 查看当前设置状态"></a>2.6.1 查看当前设置状态</h3><pre><code>mysql&gt; show variables like &apos;concurrent_insert&apos;;
++-------------------+-------+
+| Variable_name     | Value |
++-------------------+-------+
+| concurrent_insert | AUTO  |
++-------------------+-------+
+1 row in set (0.00 sec)</code></pre><h3 id="2-6-2-设置并发插入状态"><a href="#2-6-2-设置并发插入状态" class="headerlink" title="2.6.2 设置并发插入状态"></a>2.6.2 设置并发插入状态</h3><pre><code>mysql&gt; set global concurrent_insert = 2;
+Query OK, 0 rows affected (0.00 sec)</code></pre><h3 id="2-6-3-举例并发插入状态为2（ALWAYS）时"><a href="#2-6-3-举例并发插入状态为2（ALWAYS）时" class="headerlink" title="2.6.3 举例并发插入状态为2（ALWAYS）时"></a>2.6.3 举例并发插入状态为2（ALWAYS）时</h3><pre><code>show variables like &apos;concurrent_insert&apos;;
++-------------------+--------+
+| Variable_name     | Value  |
++-------------------+--------+
+| concurrent_insert | ALWAYS |
++-------------------+--------+
+1 row in set (0.00 sec)</code></pre><p>现在用两个窗口模拟多个client请求mysql,当client_A开启并发插入时，</p>
+<pre><code>mysql&gt; lock table student read local;
+Query OK, 0 rows affected (0.00 sec)</code></pre><p>client_B在操作表数据时，可以直接修改表中数据。<br>但是此时client_A对该表进行查询操作时，表中数据依然为未修改数据；而其他client为已修改数据。<br><img src="../MySQL%E9%94%81/%E5%B9%B6%E5%8F%91%E6%8F%92%E5%85%A5.png" alt></p>
+<h2 id="2-7-一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？"><a href="#2-7-一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？" class="headerlink" title="2.7 一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？"></a>2.7 一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？</h2><pre><code>写进程先获得锁，即使读请求先到锁等待队列，写请求后到，写锁也会插到读锁队列。
+Mysql认为写请求写请求比读请求更重要。
+MyISAM不太适合有大量更新操作和查询操作的原因，因为大量的更新操作会造成查询操作很难获得读锁，从而可能永远阻塞。
+
+解决方法：
+执行`set low_priority_updates=1`,使该连接发出的更新请求优先级降低。同理insert,delete也可以通过此方法指定。</code></pre><p>另外MySQL也提供了一种折中的方法调节读写冲突，即给系统参数max_write_lock_count设置一个合适的值，当一个表的读锁达到这个值后，MySQL就暂时将写请求的优先级降低，给读进程一定的获取锁的机会</p>
+<h1 id="3-Innodb锁"><a href="#3-Innodb锁" class="headerlink" title="3 Innodb锁"></a>3 Innodb锁</h1><pre><code>关闭自动提交 `set autocommit=0;`</code></pre><ul>
+<li>共享锁（S） ：读锁</li>
+<li>排它锁（X） ：写锁</li>
+<li>意向共享锁（IS）</li>
+<li>意向排他锁（IX）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">排它锁（X）</th>
+<th align="center">意向排他锁（IX）</th>
+<th align="center">共享锁（S）</th>
+<th align="center">意向共享锁（IS）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">排它锁（X）</td>
+<td align="center">冲突</td>
+<td align="center">冲突</td>
+<td align="center">冲突</td>
+<td align="center">冲突</td>
+</tr>
+<tr>
+<td align="center">意向排他锁（IX）</td>
+<td align="center">冲突</td>
+<td align="center">兼容</td>
+<td align="center">冲突</td>
+<td align="center">兼容</td>
+</tr>
+<tr>
+<td align="center">共享锁（S）</td>
+<td align="center">冲突</td>
+<td align="center">冲突</td>
+<td align="center">兼容</td>
+<td align="center">兼容</td>
+</tr>
+<tr>
+<td align="center">意向共享锁（IS）</td>
+<td align="center">冲突</td>
+<td align="center">兼容</td>
+<td align="center">兼容</td>
+<td align="center">兼容</td>
+</tr>
+</tbody></table>
+<h2 id="3-1-意向锁"><a href="#3-1-意向锁" class="headerlink" title="3.1 意向锁"></a>3.1 意向锁</h2><h3 id="3-1-1-意向锁"><a href="#3-1-1-意向锁" class="headerlink" title="3.1.1 意向锁"></a>3.1.1 意向锁</h3><p><a href="https://dev.mysql.com/doc/refman/8.0/en/glossary.html#glos_intention_lock" target="_blank" rel="noopener">意向锁</a></p>
+<p>对于update、delete和insert语句，Innodb会自动给涉及数据集加排他锁(X)；<br>对于普通的select语句，Innodb不会加任何锁。</p>
+<p>事务可以通过以下语句显式的给记录集加锁：</p>
+<pre><code>//共享锁
+select * from table_name where  ... lock in share mode;
+//排它锁
+select * from table_name where ... for update;</code></pre><h3 id="3-1-2-行锁变表锁"><a href="#3-1-2-行锁变表锁" class="headerlink" title="3.1.2 行锁变表锁"></a>3.1.2 行锁变表锁</h3><p><strong><em>InnoDB行锁是通过给索引上的索引项加锁来实现的：只有通过索引检索数据，InnoDB才使用<br>行锁，否则，InnoDB使用表锁。</em></strong></p>
+<p>现在用两个窗口模拟多个client请求mysql,当client_A对表中某一行数据进行修改时，触发了索引失效。<br>client_A未进行<code>commit</code>时，则client_B对该表中其他行数据进行修改时，发生了表锁事件。</p>
+<p><img src="../MySQL%E9%94%81/%E8%A1%8C%E9%94%81%E5%8F%98%E8%A1%A8%E9%94%81.png" alt></p>
+<pre><code>注释：实例中 `name`字段为`varchar`类型的索引，在更新操作时字段赋值为 666（而不是&apos;666&apos;） ，此时mysql数据库会自动将其类型转化。
+转化条件需要设置sql模式为非严格模式
+
+mysql&gt; show session variables like &apos;%sql_mode%&apos;;
++---------------+-------------------------------------------------------------------------------------------------------------------------------------------+
+| Variable_name | Value                                                                                                                                     |
++---------------+-------------------------------------------------------------------------------------------------------------------------------------------+
+| sql_mode      | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION |
++---------------+-------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql&gt; set sql_mode=&apos;NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION&apos;;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt; show session variables like &apos;%sql_mode%&apos;;
++---------------+--------------------------------------------+
+| Variable_name | Value                                      |
++---------------+--------------------------------------------+
+| sql_mode      | NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION |
++---------------+--------------------------------------------+
+1 row in set (0.01 sec)</code></pre><h3 id="3-1-3-间隙锁-gap-lock"><a href="#3-1-3-间隙锁-gap-lock" class="headerlink" title="3.1.3 间隙锁(gap lock)"></a>3.1.3 间隙锁(gap lock)</h3><p>InnoDB使用间隙锁的目的：</p>
+<ul>
+<li>防止幻读，以满足相关隔离级别的要求；</li>
+<li>满足恢复和复制的需要；</li>
+</ul>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-gap-locks" target="_blank" rel="noopener">间隙锁</a></p>
+<p><a href="http://blog.itpub.net/15498/viewspace-2141515/" target="_blank" rel="noopener">如何开启和关闭MySQL 间隙锁(gap lock)</a></p>
+<p>间隙锁定是对索引记录之间的间隙的锁定，或者是对第一个或最后一个索引记录之前的间隙的锁定。</p>
+<pre><code>例如，SELECT c1 FROM t WHERE c1 BETWEEN 10 and 20 FOR UPDATE;
+
+防止其他事务将value 15插入column中t.c1，无论该列 中是否已有这样的值，
+因为该范围中所有现有值之间的间隙都是锁定的。</code></pre><p>间隙可能跨越单个索引值，多个索引值，甚至为空。</p>
+<p>对于使用唯一索引来锁定唯一行来锁定行的语句，不需要间隙锁定。<br>（这不包括搜索条件仅包含多列唯一索引的某些列的情况；在这种情况下，会发生间隙锁定。）<br>例如，如果该id列具有唯一索引，则以下语句仅使用一个具有id值100 的行的索引记录锁定，<br>其他会话是否在前面的间隙中插入行并不重要：<br>    SELECT * FROM child WHERE id = 100;</p>
+<p>间隙锁定InnoDB是“ 纯粹抑制性的 ”，这意味着它们的唯一目的是防止其他事务插入间隙。</p>
+<h3 id="3-1-4-InnoDB使用索引的条件"><a href="#3-1-4-InnoDB使用索引的条件" class="headerlink" title="3.1.4 InnoDB使用索引的条件"></a>3.1.4 InnoDB使用索引的条件</h3><ul>
+<li>在不通过索引条件查询的时候，InnoDB确实使用的是表锁，而不是行锁。</li>
+<li>mysql的行锁是针对索引加的锁。不是针对记录加的锁，虽然是访问不同的行，但是若是相同的索引，会出现锁锁冲突的。<br>当表中含有多个索引的时候，不同的事务可以使用不同的索引锁定不同的行。</li>
+<li>即使在条件中使用了索引，但是是否使用索引来检索数据是由MySQL通过判断不同执行计划的代价决定的，如果MySQL认为全表扫描效率更高，比如很小的表，他也不会使用索引，此时InnoDB将使用表锁，而不是行锁。因此，在分析锁冲突的时候，不要忘记检查SQL的执行计划，以确定是否真正使用了索引。</li>
+</ul>
+<pre><code>关于InnoDB到底是使用行锁还是表锁，我们需要依据索引来决定的，本质上行锁是针对索引加的锁，而非记录！！！
+虽然是访问不同的行，但是若是含有相同的索引，还是会发生锁冲突的！！！
+而且就算条件里面使用了索引，Mysql也不一定走索引，还是要看SQL的执行计划！！！</code></pre><p>参考资料：</p>
+<p><a href="https://www.jianshu.com/p/95a0d10eb881" target="_blank" rel="noopener">InnoDB使用索引的条件</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/13/k8s/k8s/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/08/mysql/mysql优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="mysql/mysql锁" data-title="MySQL锁" data-url="http://yoursite.com/2020/03/11/mysql/mysql锁/"  data-images="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" data-content="MySQL锁">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2020 zhangyong
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

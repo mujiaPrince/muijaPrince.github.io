@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>zhangyong</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="go dep安装执行以下命令安装godep工具。 go get github.com/tools/godep基本命令安装好godep之后，在终端输入godep查看支持的所有命令。 godep save     将依赖项输出并复制到Godeps.json文件中 godep go       使用保存的依赖项运行go工具 godep get      下载并安装具有指定依赖项的包 godep path">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zhangyong">
+<meta property="og:url" content="http://yoursite.com/2020/02/29/golang/golang包管理工具/index.html">
+<meta property="og:site_name" content="zhangyong">
+<meta property="og:description" content="go dep安装执行以下命令安装godep工具。 go get github.com/tools/godep基本命令安装好godep之后，在终端输入godep查看支持的所有命令。 godep save     将依赖项输出并复制到Godeps.json文件中 godep go       使用保存的依赖项运行go工具 godep get      下载并安装具有指定依赖项的包 godep path">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2020/02/29/golang/golang%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/%E5%BC%80%E5%90%AFgomodule.png">
+<meta property="og:updated_time" content="2020-03-30T14:29:34.323Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zhangyong">
+<meta name="twitter:description" content="go dep安装执行以下命令安装godep工具。 go get github.com/tools/godep基本命令安装好godep之后，在终端输入godep查看支持的所有命令。 godep save     将依赖项输出并复制到Godeps.json文件中 godep go       使用保存的依赖项运行go工具 godep get      下载并安装具有指定依赖项的包 godep path">
+<meta name="twitter:image" content="http://yoursite.com/2020/02/29/golang/golang%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/%E5%BC%80%E5%90%AFgomodule.png">
+  
+    <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head></html>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhangyong</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">zhangyong</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">zhangyong</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-golang/golang包管理工具" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/02/29/golang/golang包管理工具/" class="article-date">
+  	<time datetime="2020-02-29T02:46:57.979Z" itemprop="datePublished">2020-02-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="go-dep"><a href="#go-dep" class="headerlink" title="go dep"></a>go dep</h1><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>执行以下命令安装<code>godep</code>工具。</p>
+<pre><code>go get github.com/tools/godep</code></pre><h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><p>安装好<code>godep</code>之后，在终端输入<code>godep</code>查看支持的所有命令。</p>
+<pre><code>godep save     将依赖项输出并复制到Godeps.json文件中
+godep go       使用保存的依赖项运行go工具
+godep get      下载并安装具有指定依赖项的包
+godep path     打印依赖的GOPATH路径
+godep restore  在GOPATH中拉取依赖的版本
+godep update   更新选定的包或go版本
+godep diff     显示当前和以前保存的依赖项集之间的差异
+godep version  查看版本信息</code></pre><p>使用<code>godep help [command]</code>可以看看具体命令的帮助信息。</p>
+<p>使用godep<br>在项目目录下执行godep save命令，会在当前项目中创建Godeps和vender两个文件夹。</p>
+<p>其中Godeps文件夹下有一个Godeps.json的文件，里面记录了项目所依赖的包信息。 vender文件夹下是项目依赖的包的源代码文件。</p>
+<h3 id="go-dep开发流程"><a href="#go-dep开发流程" class="headerlink" title="go dep开发流程"></a>go dep开发流程</h3><p>保证程序能够正常编译</p>
+<p>执行<code>godep save</code>保存当前项目的所有第三方依赖的版本信息和代码</p>
+<p>提交<code>Godeps</code>目录和<code>vender</code>目录到代码库。</p>
+<p>如果要更新依赖的版本，可以直接修改<code>Godeps.json</code>文件中的对应项</p>
+<h3 id="vender机制"><a href="#vender机制" class="headerlink" title="vender机制"></a>vender机制</h3><p>Go1.5版本之后开始支持，能够控制Go语言程序编译时依赖包搜索路径的优先级。</p>
+<p>例如查找项目的某个依赖包，首先会在项目根目录下的<code>vender</code>文件夹中查找，如果没有找到就会去<code>$GOAPTH/src</code>目录下查找。</p>
+<p>##go module<br>go module是Go1.11版本之后官方推出的版本管理工具，并且从Go1.13版本开始，go module将是Go语言默认的依赖管理工具。</p>
+<h3 id="go-mod命令"><a href="#go-mod命令" class="headerlink" title="go mod命令"></a>go mod命令</h3><p>常用的go mod命令如下：</p>
+<pre><code>go mod download    下载依赖的module到本地cache（默认为$GOPATH/pkg/mod目录）
+go mod edit        编辑go.mod文件
+go mod graph       打印模块依赖图
+go mod init        初始化当前文件夹, 创建go.mod文件
+go mod tidy        增加缺少的module，删除无用的module
+go mod vendor      将依赖复制到vendor下
+go mod verify      校验依赖
+go mod why         解释为什么需要依赖
+
+module用来定义包名
+require用来定义依赖包及版本
+indirect表示间接引用</code></pre><h3 id="GOPROXY"><a href="#GOPROXY" class="headerlink" title="GOPROXY"></a>GOPROXY</h3><p>GOPROXY 的默认值是：</p>
+<pre><code>https://proxy.golang.org,direct</code></pre><p>这有一个很严重的问题，就是 <code>proxy.golang.org</code> 在国内是无法访问的，<br>因此这会直接卡住你的第一步，所以你必须在开启 Go modules 的时<br>，同时设置国内的 Go 模块代理，执行如下命令：</p>
+<pre><code>$ go env -w GOPROXY=https://goproxy.cn,direct</code></pre><h3 id="命令行开启-Go-Modules"><a href="#命令行开启-Go-Modules" class="headerlink" title="命令行开启 Go Modules"></a>命令行开启 Go Modules</h3><p>目前 Go modules 并不是默认开启，因此Go语言提供了 GO111MODULE 这个环境变量来作为 Go modules 的开关，其允许设置以下参数：</p>
+<ul>
+<li>auto：只要项目包含了 go.mod 文件的话启用 Go modules，目前在Go1.11至 Go1.14 中仍然是默认值。</li>
+<li>on：启用 Go modules，推荐设置，将会是未来版本中的默认值。</li>
+<li>off：禁用 Go modules，不推荐设置。</li>
+</ul>
+<p>如果你不确定你当前的值是什么，可以执行go env命令，查看结果：</p>
+<pre><code>$ go env
+GO111MODULE=&quot;off&quot;</code></pre><p>如果需要对 GO111MODULE 的值进行变更，推荐通过go env命令进行设置：</p>
+<pre><code>$ go env -w GO111MODULE=on</code></pre><h3 id="goland中启用go-module"><a href="#goland中启用go-module" class="headerlink" title="goland中启用go module"></a>goland中启用go module</h3><p><img src="../golang%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/%E5%BC%80%E5%90%AFgomodule.png" alt></p>
+<p>代理可以设置为：<code>https://goproxy.cn</code></p>
+<h3 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h3><pre><code>go mod init</code></pre><h3 id="go-mod-文件"><a href="#go-mod-文件" class="headerlink" title="go.mod 文件"></a>go.mod 文件</h3><p>在初始化项目时，会生成一个 go.mod 文件，是启用了 Go modules 项目所必须的最重要的标识.</p>
+<p>示例：</p>
+<pre><code>module github.com/example
+go 1.13
+
+require (
+    github.com/jinzhu/gorm v1.9.12 // indirect
+)
+exclude github.com/jinzhu/gorm v1.9.11
+replace github.com/go-kit/kit v0.9.0 =&gt; github.com/go-kit/kit v0.8.0</code></pre><ul>
+<li>module：用于定义当前项目的模块路径。</li>
+<li>go：用于标识当前模块的 Go 语言版本，值为初始化模块时的版本，<code>升级golang版本时，要注意是否需要更改此处</code></li>
+<li>require：用于设置一个特定的模块版本。</li>
+<li>exclude：用于从使用中排除一个特定的模块版本。</li>
+<li>replace：用于将一个模块版本替换为另外一个模块版本  </li>
+</ul>
+<h3 id="go-sum-文件"><a href="#go-sum-文件" class="headerlink" title="go.sum 文件"></a>go.sum 文件</h3><p>go.sum 文件详细罗列了当前项目直接或间接依赖的所有模块版本，并写明了那些模块版本的 SHA-256 哈希值以备 Go 在今后的操作中保证项目所依赖的那些模块版本不会被篡改。</p>
+<pre><code>cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
+github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=
+github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
+....</code></pre><p>h1 hash 是 Go modules 将目标模块版本的 zip 文件开包后，针对所有包内文件依次进行 hash，然后再把它们的 hash 结果按照固定格式和算法组成总的 hash 值。</p>
+<p>而 h1 hash 和 go.mod hash 两者，要不就是同时存在，要不就是只存在 go.mod hash。那什么情况下会不存在 h1 hash 呢，就是当 Go 认为肯定用不到某个模块版本的时候就会省略它的 h1 hash，就会出现不存在 h1 hash，只存在 go.mod hash 的情况。</p>
+<h2 id="替代包"><a href="#替代包" class="headerlink" title="替代包"></a>替代包</h2><p>在管理过程中，导入的包为 <code>0.9.0</code> 版本，实际需要<code>0.8.0</code>版本，需要将导入的<code>0.9.0</code>版本<br>用<code>replace</code>替代为 <code>0.8.0</code> 版本</p>
+<pre><code>go 1.13
+
+require (
+    github.com/jinzhu/gorm v1.9.12 // indirect
+)
+replace github.com/go-kit/kit v0.9.0 =&gt; github.com/go-kit/kit v0.8.0</code></pre><p>也可以用命令行模式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go mod edit -replace=old[@v]=new[@v]</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><p><a href="https://mp.weixin.qq.com/s/nd8ic1Qk812ZqmHKSFITUQ" target="_blank" rel="noopener">学习 Go Modules 这一篇就够：终极入门</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/02/29/kafka/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/29/golang/利用goland搭建gin框架/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="golang/golang包管理工具" data-title="" data-url="http://yoursite.com/2020/02/29/golang/golang包管理工具/"  data-images="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" data-content="">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2020 zhangyong
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

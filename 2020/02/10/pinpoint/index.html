@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>pinpoint笔记 | zhangyong</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、关于pinpoointGitHub：naver/pinpoint Pinpoint是用于用Java / PHP编写的大规模分布式系统的APM（应用程序性能管理）工具。受Dapper的启发，Pinpoint提供了一种解决方案，可通过跟踪跨分布式应用程序的事务来帮助分析系统的整体结构以及其中的组件如何互连。  一目了然地了解您的应用程序拓扑 监控应用程序的实时 获得每笔交易的代码级可见性 安装AP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pinpoint笔记">
+<meta property="og:url" content="http://yoursite.com/2020/02/10/pinpoint/index.html">
+<meta property="og:site_name" content="zhangyong">
+<meta property="og:description" content="1、关于pinpoointGitHub：naver/pinpoint Pinpoint是用于用Java / PHP编写的大规模分布式系统的APM（应用程序性能管理）工具。受Dapper的启发，Pinpoint提供了一种解决方案，可通过跟踪跨分布式应用程序的事务来帮助分析系统的整体结构以及其中的组件如何互连。  一目了然地了解您的应用程序拓扑 监控应用程序的实时 获得每笔交易的代码级可见性 安装AP">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-04-01T08:15:29.538Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pinpoint笔记">
+<meta name="twitter:description" content="1、关于pinpoointGitHub：naver/pinpoint Pinpoint是用于用Java / PHP编写的大规模分布式系统的APM（应用程序性能管理）工具。受Dapper的启发，Pinpoint提供了一种解决方案，可通过跟踪跨分布式应用程序的事务来帮助分析系统的整体结构以及其中的组件如何互连。  一目了然地了解您的应用程序拓扑 监控应用程序的实时 获得每笔交易的代码级可见性 安装AP">
+  
+    <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head></html>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhangyong</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">zhangyong</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">zhangyong</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-pinpoint" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/02/10/pinpoint/" class="article-date">
+  	<time datetime="2020-02-10T02:40:34.884Z" itemprop="datePublished">2020-02-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      pinpoint笔记
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1、关于pinpooint"><a href="#1、关于pinpooint" class="headerlink" title="1、关于pinpooint"></a>1、关于pinpooint</h1><p><a href="https://github.com/naver/pinpoint" target="_blank" rel="noopener">GitHub：naver/pinpoint</a></p>
+<p>Pinpoint是用于用Java / PHP编写的大规模分布式系统的APM（应用程序性能管理）工具。受Dapper的启发，Pinpoint提供了一种解决方案，可通过跟踪跨分布式应用程序的事务来帮助分析系统的整体结构以及其中的组件如何互连。</p>
+<ul>
+<li>一目了然地了解您的应用程序拓扑</li>
+<li>监控应用程序的实时</li>
+<li>获得每笔交易的代码级可见性</li>
+<li>安装APM代理而无需更改任何代码</li>
+<li>对性能的影响最小（资源使用量增加约3％）</li>
+</ul>
+<h1 id="2、安装"><a href="#2、安装" class="headerlink" title="2、安装"></a>2、安装</h1><h2 id="2-1、-脚本安装"><a href="#2-1、-脚本安装" class="headerlink" title="2.1、 脚本安装"></a>2.1、 脚本安装</h2><p>使用git clone <a href="https://github.com/naver/pinpoint.git或用zip文件下载Pinpoint" target="_blank" rel="noopener">https://github.com/naver/pinpoint.git或用zip文件下载Pinpoint</a> 或<a href="https://github.com/naver/pinpoint/archive/master.zip" target="_blank" rel="noopener">下载</a>该项目并解压缩。</p>
+<p>通过运行安装Pinpoint ./mvnw install -Dmaven.test.skip=true</p>
+<h3 id="异常："><a href="#异常：" class="headerlink" title="异常："></a>异常：</h3><h4 id="2-1-1"><a href="#2-1-1" class="headerlink" title="2.1.1"></a>2.1.1</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ERROR] Failed to execute goal org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M2:enforce (enforce-pinpoint-build-requirements) on project pinpoint: Some Enforcer rules have failed. Look above for specific messages explaining why the rule failed. -&gt; [Help 1]</span><br></pre></td></tr></table></figure>
+
+<p>解决：<br><a href="https://my.oschina.net/chengxiaoyuan/blog/822994" target="_blank" rel="noopener">https://my.oschina.net/chengxiaoyuan/blog/822994</a></p>
+<p><a href="https://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException</a></p>
+<h2 id="2-2、使用Docker安装"><a href="#2-2、使用Docker安装" class="headerlink" title="2.2、使用Docker安装"></a>2.2、使用Docker安装</h2><h4 id="安装Docker-Compose"><a href="#安装Docker-Compose" class="headerlink" title="安装Docker Compose"></a>安装Docker Compose</h4><p><a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">https://docs.docker.com/compose/install/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line">$ sudo chmod +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line">$ docker-compose --version</span><br><span class="line">docker-compose version 1.24.1, build 1110ad01</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用Docker安装"><a href="#使用Docker安装" class="headerlink" title="使用Docker安装"></a>使用Docker安装</h3><p><a href="https://github.com/naver/pinpoint-docker" target="_blank" rel="noopener">https://github.com/naver/pinpoint-docker</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/naver/pinpoint-docker.git</span><br><span class="line">cd pinpoint-docker</span><br><span class="line">docker-compose pull &amp;&amp; docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、Mysql（可选，1-8-1-）"><a href="#3、Mysql（可选，1-8-1-）" class="headerlink" title="3、Mysql（可选，1.8.1+）"></a>3、Mysql（可选，1.8.1+）</h1><p>Pinpoint-Mysql是使用“警报”功能所必需的。它的服务器在端口13306上运行，并包含用于注册用户，组和要发送的警报的数据结构。</p>
+<p>要发送电子邮件警报，必须使BATCH_ENABLE = true并将其他与邮件相关的环境变量（MAIL_HOST，MAIL_PORT，MAIL_USERNAME，MAIL_PASSWORD，MAIL_PROPERTIES_MAIL_SMTP_FROM等）更改为.env文件中的Pinpoint-Web服务器。</p>
+<p>有关更多信息，请参见Pinpoint文档中的“ <a href="http://naver.github.io/pinpoint/alarm.html" target="_blank" rel="noopener">设置警报</a>”。</p>
+<h1 id="4、Flink配置（可选）"><a href="#4、Flink配置（可选）" class="headerlink" title="4、Flink配置（可选）"></a>4、Flink配置（可选）</h1><p>Pinpoint-Flink是使用“应用程序检查器”功能所必需的。</p>
+<p>启动所有容器并准备就绪后。在Pinpoint中使用此功能还有另一件事。此功能不是强制性的，但是由于启用它是一项简单的任务，因此请注意它。</p>
+<p>在jobon上定位到flink服务器。<br>可以job从Pinpoint的开放源代码构建，<a href="https://github.com/naver/pinpoint/blob/master/doc/application-inspector.md#application-inspector" target="_blank" rel="noopener">更多指南</a>。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/02/10/swagger传参为list的方法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          swagger传参为list的方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/10/Node设置正确时区（以CentOS-7.5.1804为例）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Node设置正确时区（以CentOS 7.5.1804 为例）</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="pinpoint" data-title="pinpoint笔记" data-url="http://yoursite.com/2020/02/10/pinpoint/"  data-images="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" data-content="pinpoint笔记">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2020 zhangyong
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

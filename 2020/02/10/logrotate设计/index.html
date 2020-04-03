@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>logrotate 设计 | zhangyong</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="logrotate 设计底层的日志分散在三种数据源之上，它们分别是：1. docker 容器的对应目录，默认在 /var/lib/docker/containers/；2. kubernetes 的 kubelet 创建的容器对应的目录，默认在 /var/log/containers/，但是它们都是软连接（symbolic link），不会占用磁盘空间，因此可以忽略不计；3. 各个宿主机操作系统使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="logrotate 设计">
+<meta property="og:url" content="http://yoursite.com/2020/02/10/logrotate设计/index.html">
+<meta property="og:site_name" content="zhangyong">
+<meta property="og:description" content="logrotate 设计底层的日志分散在三种数据源之上，它们分别是：1. docker 容器的对应目录，默认在 /var/lib/docker/containers/；2. kubernetes 的 kubelet 创建的容器对应的目录，默认在 /var/log/containers/，但是它们都是软连接（symbolic link），不会占用磁盘空间，因此可以忽略不计；3. 各个宿主机操作系统使">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-11-15T03:35:11.027Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="logrotate 设计">
+<meta name="twitter:description" content="logrotate 设计底层的日志分散在三种数据源之上，它们分别是：1. docker 容器的对应目录，默认在 /var/lib/docker/containers/；2. kubernetes 的 kubelet 创建的容器对应的目录，默认在 /var/log/containers/，但是它们都是软连接（symbolic link），不会占用磁盘空间，因此可以忽略不计；3. 各个宿主机操作系统使">
+  
+    <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head></html>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhangyong</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">zhangyong</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">zhangyong</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-logrotate设计" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/02/10/logrotate设计/" class="article-date">
+  	<time datetime="2020-02-10T02:40:34.869Z" itemprop="datePublished">2020-02-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      logrotate 设计
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="logrotate-设计"><a href="#logrotate-设计" class="headerlink" title="logrotate 设计"></a>logrotate 设计</h1><p><br>底层的日志分散在三种数据源之上，它们分别是：<br><br><br>1. docker 容器的对应目录，默认在 /var/lib/docker/containers/；<br><br><br>2. kubernetes 的 kubelet 创建的容器对应的目录，默认在 /var/log/containers/，但是它们都是软连接（symbolic link），不会占用磁盘空间，因此可以忽略不计；<br><br><br>3. 各个宿主机操作系统使用systemd管理的进程产生的日志，一般在/var/log/journal/ 或者 /run/log/journal，由 systemd-journald 管理，它本身是一个服务端程序，其客户端就是 journalctl 。<br><br><br><br><br><br>底层的日志汇总在一种数据源之上，它就是日志后端，我们选用 Elasticsearch 。<br><br><br><br><br><br>分散在三种数据源之上的日志由日志代理统一采集，日志代理我们选用Fluentd，最后汇总到日志后端（Elasticsearch）统一存储管理。<br><br><br><br><br><br>可以看出，日志的数据源包括三种分散数据源和一种汇总数据源。<br><br><br><br><br><br>在此基础上，考虑 logrotate 的设计：<br><br><br>1. 分散数据源的第一种，即 docker 容器的对应目录，需要做 rotate ；<br><br><br>实现方案：<br><br><br>第一种，配置 docker 的日志 rotate 规则，即在宿主机操作系统层面解决。具体配置示例如下：<br></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;log-driver&quot;:&quot;json-file&quot;,</span><br><span class="line">  &quot;log-opts&quot;: &#123;</span><br><span class="line">     &quot;max-size&quot;: &quot;10m&quot;,</span><br><span class="line">     &quot;max-file&quot;: &quot;3&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><br>第二种，利用社区提供的针对 docker 的 logrotate 镜像解决，详情见下面的参考资料。<br><br><br>参考资料：<br><br><br><a href="https://blog.csdn.net/qcloudcommunity/article/details/77824015" target="_blank" rel="noopener">https://blog.csdn.net/qcloudcommunity/article/details/77824015</a> <br><br><br><a href="https://github.com/blacklabelops/logrotate" target="_blank" rel="noopener">https://github.com/blacklabelops/logrotate</a> <br><br><br><br><br><br><br><br><br>2. 分散数据源的第三种，即 systemd-journald 管理的日志，需要做 rotate ；<br><br><br>实现方案：配置 systemd-journald 保存的最大日志容量，即在宿主机操作系统层面解决。<br><br><br>参考资料：<br><br><br><a href="https://superuser.com/questions/982620/is-it-safe-to-remove-journal-files-in-centos" target="_blank" rel="noopener">https://superuser.com/questions/982620/is-it-safe-to-remove-journal-files-in-centos</a><br><br><br><br><br><br>3. 汇总数据源，即 Elasticsearch 上的汇总日志，需要做 rotate 。 <br><br><br>实现方案：根据要求保留的时间周期，删除不在时间周期内的 Elasticsearch 索引。例如：curl -XDELETE <a href="http://10.96.151.162:9200/logstash-2018.07.21" target="_blank" rel="noopener">http://10.96.151.162:9200/logstash-2018.07.21</a><br><br><br><br></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/02/10/MapTools/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          MapTools
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/10/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="logrotate设计" data-title="logrotate 设计" data-url="http://yoursite.com/2020/02/10/logrotate设计/"  data-images="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" data-content="logrotate 设计">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2020 zhangyong
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

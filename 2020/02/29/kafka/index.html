@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>zhangyong</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#1、安装kafka kafka-quickstart #2 分区存储文件原理 #3 kafka选择分区模式 #4 生产者往kafka发送数据的模式 #5 为什么kafka快 #6 消费者组消费数据的原理 #7 生产者往kafka发送数据原理 kafka和rocketmq都能实现消息队列，为什么要引入rocket，不直接使用kafkazk 分布式锁慢 除了IO慢之外还有其他原因吗？排它锁的粒度大，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zhangyong">
+<meta property="og:url" content="http://yoursite.com/2020/02/29/kafka/index.html">
+<meta property="og:site_name" content="zhangyong">
+<meta property="og:description" content="#1、安装kafka kafka-quickstart #2 分区存储文件原理 #3 kafka选择分区模式 #4 生产者往kafka发送数据的模式 #5 为什么kafka快 #6 消费者组消费数据的原理 #7 生产者往kafka发送数据原理 kafka和rocketmq都能实现消息队列，为什么要引入rocket，不直接使用kafkazk 分布式锁慢 除了IO慢之外还有其他原因吗？排它锁的粒度大，">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-03-23T14:06:49.727Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zhangyong">
+<meta name="twitter:description" content="#1、安装kafka kafka-quickstart #2 分区存储文件原理 #3 kafka选择分区模式 #4 生产者往kafka发送数据的模式 #5 为什么kafka快 #6 消费者组消费数据的原理 #7 生产者往kafka发送数据原理 kafka和rocketmq都能实现消息队列，为什么要引入rocket，不直接使用kafkazk 分布式锁慢 除了IO慢之外还有其他原因吗？排它锁的粒度大，">
+  
+    <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head></html>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhangyong</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">zhangyong</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">zhangyong</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-kafka" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/02/29/kafka/" class="article-date">
+  	<time datetime="2020-02-29T04:18:45.165Z" itemprop="datePublished">2020-02-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#1、安装kafka</p>
+<p><a href="http://kafka.apache.org/quickstart" target="_blank" rel="noopener">kafka-quickstart</a></p>
+<p>#2 分区存储文件原理</p>
+<p>#3 kafka选择分区模式</p>
+<p>#4 生产者往kafka发送数据的模式</p>
+<p>#5 为什么kafka快</p>
+<p>#6 消费者组消费数据的原理</p>
+<p>#7 生产者往kafka发送数据原理</p>
+<h2 id="kafka和rocketmq都能实现消息队列，为什么要引入rocket，不直接使用kafka"><a href="#kafka和rocketmq都能实现消息队列，为什么要引入rocket，不直接使用kafka" class="headerlink" title="kafka和rocketmq都能实现消息队列，为什么要引入rocket，不直接使用kafka"></a>kafka和rocketmq都能实现消息队列，为什么要引入rocket，不直接使用kafka</h2><h2 id="zk-分布式锁慢-除了IO慢之外还有其他原因吗？"><a href="#zk-分布式锁慢-除了IO慢之外还有其他原因吗？" class="headerlink" title="zk 分布式锁慢 除了IO慢之外还有其他原因吗？"></a>zk 分布式锁慢 除了IO慢之外还有其他原因吗？</h2><p>排它锁的粒度大，没有区分读、写操作，如果读多写少，则十分影响性能<br>羊群效应：锁释放后会通知所有等待中的 ZooKeeper 客户端，然后同时发起加锁请求，瞬时压力很大</p>
+<p>解决方案是：</p>
+<p>1.缩小通知范围：等待锁的小伙伴们按先来后到的顺序排队吧，排好队了，接下来我只需要关心我前面一个节点的状态，当前一个节点被释放，我再去抢锁。</p>
+<p>2.缩小锁的粒度：锁不关心业务，但是可以简单地通过操作的读、写性质来二分锁的粒度：<br>读锁：又称共享锁，如果前面没有写节点，可以直接上锁；当前面有写节点时，则等待距离自己最近的写节点释放（ 删除 ）。<br>写锁：如果前面没有节点，可以直接上锁；如果前面有节点，则等待前一个节点释放（ 删除 ）。  </p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/02/29/docker小结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/29/golang/golang包管理工具/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="kafka" data-title="" data-url="http://yoursite.com/2020/02/29/kafka/"  data-images="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" data-content="">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2020 zhangyong
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>
