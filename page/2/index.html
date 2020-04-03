@@ -163,88 +163,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-k8s/k8s" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-golang/golang包管理工具" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2020/03/13/k8s/k8s/" class="article-date">
-  	<time datetime="2020-03-13T06:48:10.844Z" itemprop="datePublished">2020-03-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#1、基础概念</p>
-<h2 id="1-容器编排系统"><a href="#1-容器编排系统" class="headerlink" title="1 容器编排系统"></a>1 容器编排系统</h2><pre><code>- Service Discovery  [服务注册和发现]
-- Load Balancing     [负载均衡]
-- Secrets/configuration/storage management  [配置和存储管理]
-- Health checks  [健康检查]
-- Auto-[scaling/restart/healing] of containers and nodes [自动扩容、缩容、重启]
-- Zero - downtime deploys  [零宕机]</code></pre><h2 id="2-容器编排系统种类"><a href="#2-容器编排系统种类" class="headerlink" title="2 容器编排系统种类"></a>2 容器编排系统种类</h2><pre><code>1 Kubernetes
-2 Docker Swarm 
-3 Apache Mesos and Marathon</code></pre><h1 id="2、集群部署及陈述式命令管理"><a href="#2、集群部署及陈述式命令管理" class="headerlink" title="2、集群部署及陈述式命令管理"></a>2、集群部署及陈述式命令管理</h1><h1 id="3、资源类型及配置清单"><a href="#3、资源类型及配置清单" class="headerlink" title="3、资源类型及配置清单"></a>3、资源类型及配置清单</h1><h1 id="4、Pod资源"><a href="#4、Pod资源" class="headerlink" title="4、Pod资源"></a>4、Pod资源</h1><h1 id="5、Pod控制器"><a href="#5、Pod控制器" class="headerlink" title="5、Pod控制器"></a>5、Pod控制器</h1><h1 id="6、Service资源"><a href="#6、Service资源" class="headerlink" title="6、Service资源"></a>6、Service资源</h1><h1 id="7、存储卷"><a href="#7、存储卷" class="headerlink" title="7、存储卷"></a>7、存储卷</h1><h1 id="8、ConfigMap与Secret资源"><a href="#8、ConfigMap与Secret资源" class="headerlink" title="8、ConfigMap与Secret资源"></a>8、ConfigMap与Secret资源</h1><h1 id="9、StatefulSet控制器"><a href="#9、StatefulSet控制器" class="headerlink" title="9、StatefulSet控制器"></a>9、StatefulSet控制器</h1><h1 id="10、认证、授权及准入控制"><a href="#10、认证、授权及准入控制" class="headerlink" title="10、认证、授权及准入控制"></a>10、认证、授权及准入控制</h1><h1 id="11、网络模型及网络策略"><a href="#11、网络模型及网络策略" class="headerlink" title="11、网络模型及网络策略"></a>11、网络模型及网络策略</h1><h1 id="12、Pod资源调度"><a href="#12、Pod资源调度" class="headerlink" title="12、Pod资源调度"></a>12、Pod资源调度</h1><h1 id="13、CRD、自定义资源、自定义控制器及自定义APR-server"><a href="#13、CRD、自定义资源、自定义控制器及自定义APR-server" class="headerlink" title="13、CRD、自定义资源、自定义控制器及自定义APR server"></a>13、CRD、自定义资源、自定义控制器及自定义APR server</h1><h1 id="14、资源指标与HPA控制器"><a href="#14、资源指标与HPA控制器" class="headerlink" title="14、资源指标与HPA控制器"></a>14、资源指标与HPA控制器</h1><h1 id="15、Helm管理器"><a href="#15、Helm管理器" class="headerlink" title="15、Helm管理器"></a>15、Helm管理器</h1><h1 id="16、高可用k8s"><a href="#16、高可用k8s" class="headerlink" title="16、高可用k8s"></a>16、高可用k8s</h1><h1 id="17、部署要点"><a href="#17、部署要点" class="headerlink" title="17、部署要点"></a>17、部署要点</h1><ul>
-<li><p>测试环境</p>
-<ul>
-<li>可以使用单<code>master</code>节点，单<code>etcd</code>实例；</li>
-<li><code>Node</code>主机数量按需而定</li>
-<li><code>nfs</code>或<code>glusterfs</code>等存储系统</li>
-</ul>
-</li>
-<li><p>生产环境</p>
-<ul>
-<li>高可用<code>etcd</code>集群，建立3、5或7个节点；</li>
-<li>高可用<code>Master</code><ul>
-<li>kube-apiserver 无状态，可多实例；<ul>
-<li>借助于<code>keepalived</code>进行vip流动实现多实例冗余；</li>
-<li>或在多实例前端通过<code>HAProxy</code>或<code>Ngind</code>反代，并借助于<code>keepalived</code>对代理服务器进行冗余</li>
-</ul>
-</li>
-<li><code>kube-scheduler</code>及<code>kube-controller-manager</code>各自只能有一个活动实例，但可以有多个备用；<ul>
-<li>各自自带<code>leader</code>选举功能，并默认处于启用状态；</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>多<code>Node</code>主机，数量越多，冗余能力越强；</li>
-<li><code>ceph</code>、<code>glusterfs</code>、<code>iSCSI</code>、<code>FC SAN</code>及各种云储存等；</li>
-</ul>
-</li>
-</ul>
-<h1 id="18、常用命令"><a href="#18、常用命令" class="headerlink" title="18、常用命令"></a>18、常用命令</h1><pre><code>kubectl create namespace ***
-kubectl get namespaces</code></pre>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-mysql/mysql锁" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/03/11/mysql/mysql锁/" class="article-date">
-  	<time datetime="2020-03-11T02:12:11.580Z" itemprop="datePublished">2020-03-11</time>
+      <a href="/2020/03/18/golang/golang包管理工具/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
 </a>
     </div>
   
@@ -257,8 +180,8 @@ kubectl get namespaces</code></pre>
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/11/mysql/mysql锁/">
-        MySQL锁
+      <a class="article-title" href="/2020/03/18/golang/golang包管理工具/">
+        go包管理工具小结
         
       </a>
     </h1>
@@ -269,468 +192,82 @@ kubectl get namespaces</code></pre>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>参考资料：</p>
-<p><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-locking-transaction-model.html" target="_blank" rel="noopener">innodb-locking-transaction-model</a></p>
-<h1 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h1><p>不同存储引擎支持不同的锁机制。</p>
+        <h1 id="go-dep"><a href="#go-dep" class="headerlink" title="go dep"></a>go dep</h1><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>执行以下命令安装<code>godep</code>工具。</p>
+<pre><code>go get github.com/tools/godep</code></pre><h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><p>安装好<code>godep</code>之后，在终端输入<code>godep</code>查看支持的所有命令。</p>
+<pre><code>godep save     将依赖项输出并复制到Godeps.json文件中
+godep go       使用保存的依赖项运行go工具
+godep get      下载并安装具有指定依赖项的包
+godep path     打印依赖的GOPATH路径
+godep restore  在GOPATH中拉取依赖的版本
+godep update   更新选定的包或go版本
+godep diff     显示当前和以前保存的依赖项集之间的差异
+godep version  查看版本信息</code></pre><p>使用<code>godep help [command]</code>可以看看具体命令的帮助信息。</p>
+<p>使用godep<br>在项目目录下执行godep save命令，会在当前项目中创建Godeps和vender两个文件夹。</p>
+<p>其中Godeps文件夹下有一个Godeps.json的文件，里面记录了项目所依赖的包信息。 vender文件夹下是项目依赖的包的源代码文件。</p>
+<h3 id="go-dep开发流程"><a href="#go-dep开发流程" class="headerlink" title="go dep开发流程"></a>go dep开发流程</h3><p>保证程序能够正常编译</p>
+<p>执行<code>godep save</code>保存当前项目的所有第三方依赖的版本信息和代码</p>
+<p>提交<code>Godeps</code>目录和<code>vender</code>目录到代码库。</p>
+<p>如果要更新依赖的版本，可以直接修改<code>Godeps.json</code>文件中的对应项</p>
+<h3 id="vender机制"><a href="#vender机制" class="headerlink" title="vender机制"></a>vender机制</h3><p>Go1.5版本之后开始支持，能够控制Go语言程序编译时依赖包搜索路径的优先级。</p>
+<p>例如查找项目的某个依赖包，首先会在项目根目录下的<code>vender</code>文件夹中查找，如果没有找到就会去<code>$GOAPTH/src</code>目录下查找。</p>
+<p>##go module<br>go module是Go1.11版本之后官方推出的版本管理工具，并且从Go1.13版本开始，go module将是Go语言默认的依赖管理工具。</p>
+<h3 id="go-mod命令"><a href="#go-mod命令" class="headerlink" title="go mod命令"></a>go mod命令</h3><p>常用的go mod命令如下：</p>
+<pre><code>go mod download    下载依赖的module到本地cache（默认为$GOPATH/pkg/mod目录）
+go mod edit        编辑go.mod文件
+go mod graph       打印模块依赖图
+go mod init        初始化当前文件夹, 创建go.mod文件
+go mod tidy        增加缺少的module，删除无用的module
+go mod vendor      将依赖复制到vendor下
+go mod verify      校验依赖
+go mod why         解释为什么需要依赖
+
+module用来定义包名
+require用来定义依赖包及版本
+indirect表示间接引用</code></pre><h3 id="GOPROXY"><a href="#GOPROXY" class="headerlink" title="GOPROXY"></a>GOPROXY</h3><p>GOPROXY 的默认值是：</p>
+<pre><code>https://proxy.golang.org,direct</code></pre><p>这有一个很严重的问题，就是 <code>proxy.golang.org</code> 在国内是无法访问的，<br>因此这会直接卡住你的第一步，所以你必须在开启 Go modules 的时<br>，同时设置国内的 Go 模块代理，执行如下命令：</p>
+<pre><code>$ go env -w GOPROXY=https://goproxy.cn,direct</code></pre><h3 id="命令行开启-Go-Modules"><a href="#命令行开启-Go-Modules" class="headerlink" title="命令行开启 Go Modules"></a>命令行开启 Go Modules</h3><p>目前 Go modules 并不是默认开启，因此Go语言提供了 GO111MODULE 这个环境变量来作为 Go modules 的开关，其允许设置以下参数：</p>
 <ul>
-<li><p>MyISAM和MEMORY存储引擎采用的是表级锁（table-level locking）；</p>
-</li>
-<li><p>BDB存储引擎采用的是页面锁（page-level locking），但也支持表级锁；</p>
-</li>
-<li><p>InnoDB存储引擎既支持行级锁（row-level locking），也支持表级锁，但是默认情况下采用行级锁。</p>
-</li>
+<li>auto：只要项目包含了 go.mod 文件的话启用 Go modules，目前在Go1.11至 Go1.14 中仍然是默认值。</li>
+<li>on：启用 Go modules，推荐设置，将会是未来版本中的默认值。</li>
+<li>off：禁用 Go modules，不推荐设置。</li>
 </ul>
-<h2 id="表级锁、行级锁、页面锁"><a href="#表级锁、行级锁、页面锁" class="headerlink" title="表级锁、行级锁、页面锁"></a>表级锁、行级锁、页面锁</h2><ul>
-<li><p>表级锁：开销小，加锁快；不会出现死锁；锁粒度大。发生冲突几率最大，并发度最低。</p>
-</li>
-<li><p>行级锁：开销大，加锁慢；会出现死锁，发生锁冲突几率最低，并发度最高。</p>
-</li>
-<li><p>页面锁：介于表级锁和行级锁之间。</p>
-</li>
+<p>如果你不确定你当前的值是什么，可以执行go env命令，查看结果：</p>
+<pre><code>$ go env
+GO111MODULE=&quot;off&quot;</code></pre><p>如果需要对 GO111MODULE 的值进行变更，推荐通过go env命令进行设置：</p>
+<pre><code>$ go env -w GO111MODULE=on</code></pre><h3 id="goland中启用go-module"><a href="#goland中启用go-module" class="headerlink" title="goland中启用go module"></a>goland中启用go module</h3><p><img src="../golang%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/%E5%BC%80%E5%90%AFgomodule.png" alt></p>
+<p>代理可以设置为：<code>https://goproxy.cn</code></p>
+<h3 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h3><pre><code>go mod init</code></pre><h3 id="go-mod-文件"><a href="#go-mod-文件" class="headerlink" title="go.mod 文件"></a>go.mod 文件</h3><p>在初始化项目时，会生成一个 go.mod 文件，是启用了 Go modules 项目所必须的最重要的标识.</p>
+<p>示例：</p>
+<pre><code>module github.com/example
+go 1.13
+
+require (
+    github.com/jinzhu/gorm v1.9.12 // indirect
+)
+exclude github.com/jinzhu/gorm v1.9.11
+replace github.com/go-kit/kit v0.9.0 =&gt; github.com/go-kit/kit v0.8.0</code></pre><ul>
+<li>module：用于定义当前项目的模块路径。</li>
+<li>go：用于标识当前模块的 Go 语言版本，值为初始化模块时的版本，<code>升级golang版本时，要注意是否需要更改此处</code></li>
+<li>require：用于设置一个特定的模块版本。</li>
+<li>exclude：用于从使用中排除一个特定的模块版本。</li>
+<li>replace：用于将一个模块版本替换为另外一个模块版本  </li>
 </ul>
-<h2 id="查看当前数据库支持的引擎"><a href="#查看当前数据库支持的引擎" class="headerlink" title="查看当前数据库支持的引擎"></a>查看当前数据库支持的引擎</h2><pre><code>mysql&gt; show engines;
-+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
-| Engine             | Support | Comment                                                        | Transactions | XA   | Savepoints |
-+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
-| InnoDB             | DEFAULT | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |
-| MRG_MYISAM         | YES     | Collection of identical MyISAM tables                          | NO           | NO   | NO         |
-| MEMORY             | YES     | Hash based, stored in memory, useful for temporary tables      | NO           | NO   | NO         |
-| BLACKHOLE          | YES     | /dev/null storage engine (anything you write to it disappears) | NO           | NO   | NO         |
-| MyISAM             | YES     | MyISAM storage engine                                          | NO           | NO   | NO         |
-| CSV                | YES     | CSV storage engine                                             | NO           | NO   | NO         |
-| ARCHIVE            | YES     | Archive storage engine                                         | NO           | NO   | NO         |
-| PERFORMANCE_SCHEMA | YES     | Performance Schema                                             | NO           | NO   | NO         |
-| FEDERATED          | NO      | Federated MySQL storage engine                                 | NULL         | NULL | NULL       |
-+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
-9 rows in set (0.00 sec)</code></pre><h2 id="查看当前默认的引擎"><a href="#查看当前默认的引擎" class="headerlink" title="查看当前默认的引擎"></a>查看当前默认的引擎</h2><pre><code>mysql&gt; show variables like &apos;default_storage_engine&apos;;
-+------------------------+--------+
-| Variable_name          | Value  |
-+------------------------+--------+
-| default_storage_engine | InnoDB |
-+------------------------+--------+
-1 row in set (0.00 sec)</code></pre><h2 id="修改数据库当前引擎"><a href="#修改数据库当前引擎" class="headerlink" title="修改数据库当前引擎"></a>修改数据库当前引擎</h2><pre><code>alter table table_name engine=MyISAM;</code></pre><h2 id="查看指定表当前的引擎"><a href="#查看指定表当前的引擎" class="headerlink" title="查看指定表当前的引擎"></a>查看指定表当前的引擎</h2><pre><code>show table status where NAME =&apos;table_name&apos; </code></pre><h2 id="修改mysql默认的数据库引擎"><a href="#修改mysql默认的数据库引擎" class="headerlink" title="修改mysql默认的数据库引擎"></a>修改mysql默认的数据库引擎</h2><pre><code>打开配置文件my.ini，将“default-storage-engine=MYISAM”改为你想设定的，然后重启即可</code></pre><h1 id="2、MyISAM表级锁"><a href="#2、MyISAM表级锁" class="headerlink" title="2、MyISAM表级锁"></a>2、MyISAM表级锁</h1><p>Mysql的表级锁有两种模式：表共享锁（Table Read Lock）和表独占锁（Table Write Lock）.</p>
-<h2 id="2-1、共享读锁"><a href="#2-1、共享读锁" class="headerlink" title="2.1、共享读锁"></a>2.1、共享读锁</h2><pre><code>lock table 表名 read
-unlock table table_name</code></pre><p>现在用两个窗口模拟多个client请求mysql,当开启共享读锁时，其他client在修改表数据时，进入等待状态。<br><img src="../MySQL%E9%94%81/%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png" alt></p>
-<p>解除共享读锁后，其他client才会进行提交操作。<br><img src="../MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%BA%A7%E5%85%B1%E4%BA%AB%E9%94%81.png" alt></p>
-<h2 id="2-2、表独占锁"><a href="#2-2、表独占锁" class="headerlink" title="2.2、表独占锁"></a>2.2、表独占锁</h2><pre><code>lock table 表名 write 
-unlock table table_name</code></pre><p>现在用两个窗口模拟多个client请求mysql,当开启表独占锁时，其他client在查询表数据时，进入等待状态。<br><img src="../MySQL%E9%94%81/%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png" alt></p>
-<p>解除表独占锁后，其他client才会进行提交操作。<br><img src="../MySQL%E9%94%81/%E8%A7%A3%E9%99%A4%E8%A1%A8%E7%8B%AC%E5%8D%A0%E9%94%81.png" alt></p>
-<h2 id="2-3、查询表级锁使用情况"><a href="#2-3、查询表级锁使用情况" class="headerlink" title="2.3、查询表级锁使用情况"></a>2.3、查询表级锁使用情况</h2><pre><code>show status like &apos;table%&apos;
-show variables like &apos;%table%&apos;</code></pre><p><img src="../MySQL%E9%94%81/%E6%9F%A5%E8%AF%A2%E8%A1%A8%E7%BA%A7%E9%94%81%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png" alt></p>
-<pre><code>Table_locks_immediate：产生表级锁定的次数；
-Table_locks_waited：出现表级锁定争用而等待的次数。</code></pre><p>两个参数值都是系统启动后开始记录的，出现一次对应的事件，则数量加一。当Table_locks_waited状态值比较高时，那么说明系统中表级锁定争用现象比较明显。</p>
-<h2 id="2-4-别名"><a href="#2-4-别名" class="headerlink" title="2.4 别名"></a>2.4 别名</h2><p>表名以别名的形式进行操作时，需要在锁操作时添加别名<code>lock table 表名 as 别名 write</code></p>
-<h2 id="2-5-session和锁"><a href="#2-5-session和锁" class="headerlink" title="2.5 session和锁"></a>2.5 session和锁</h2><p>一个session使用<code>lock table</code>命令给表加了锁，这个session可以查询锁定表中的记录，但是更新或访问其他表都会提示错误；<br>同时，另外一个session可以查询表中的记录，但更新就会出现锁等待，查询其他表数据不受影响。<br><img src="../MySQL%E9%94%81/session%E5%AF%B9%E9%94%81%E7%9A%84%E5%BD%B1%E5%93%8D.png" alt></p>
-<h2 id="2-6-并发插入"><a href="#2-6-并发插入" class="headerlink" title="2.6 并发插入"></a>2.6 并发插入</h2><ul>
-<li>当concurrent_insert=0时，此时读不能与insert写共存。</li>
-<li>当concurrent_insert=1时，如果表中没有空数据块时（即表中没有被删除的行），MyISAM允许在一个进程读表的同时，另一个进程从表尾插入数据。（默认设置）。</li>
-<li>当concurrent_insert=2时，不论有没有空数据块，都允许在表尾插入数据。</li>
-</ul>
-<h3 id="2-6-1-查看当前设置状态"><a href="#2-6-1-查看当前设置状态" class="headerlink" title="2.6.1 查看当前设置状态"></a>2.6.1 查看当前设置状态</h3><pre><code>mysql&gt; show variables like &apos;concurrent_insert&apos;;
-+-------------------+-------+
-| Variable_name     | Value |
-+-------------------+-------+
-| concurrent_insert | AUTO  |
-+-------------------+-------+
-1 row in set (0.00 sec)</code></pre><h3 id="2-6-2-设置并发插入状态"><a href="#2-6-2-设置并发插入状态" class="headerlink" title="2.6.2 设置并发插入状态"></a>2.6.2 设置并发插入状态</h3><pre><code>mysql&gt; set global concurrent_insert = 2;
-Query OK, 0 rows affected (0.00 sec)</code></pre><h3 id="2-6-3-举例并发插入状态为2（ALWAYS）时"><a href="#2-6-3-举例并发插入状态为2（ALWAYS）时" class="headerlink" title="2.6.3 举例并发插入状态为2（ALWAYS）时"></a>2.6.3 举例并发插入状态为2（ALWAYS）时</h3><pre><code>show variables like &apos;concurrent_insert&apos;;
-+-------------------+--------+
-| Variable_name     | Value  |
-+-------------------+--------+
-| concurrent_insert | ALWAYS |
-+-------------------+--------+
-1 row in set (0.00 sec)</code></pre><p>现在用两个窗口模拟多个client请求mysql,当client_A开启并发插入时，</p>
-<pre><code>mysql&gt; lock table student read local;
-Query OK, 0 rows affected (0.00 sec)</code></pre><p>client_B在操作表数据时，可以直接修改表中数据。<br>但是此时client_A对该表进行查询操作时，表中数据依然为未修改数据；而其他client为已修改数据。<br><img src="../MySQL%E9%94%81/%E5%B9%B6%E5%8F%91%E6%8F%92%E5%85%A5.png" alt></p>
-<h2 id="2-7-一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？"><a href="#2-7-一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？" class="headerlink" title="2.7 一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？"></a>2.7 一个进程请求某个MyISAM表的读锁，同时另一个进程也请求同一个表的写锁，mysql如何处理？</h2><pre><code>写进程先获得锁，即使读请求先到锁等待队列，写请求后到，写锁也会插到读锁队列。
-Mysql认为写请求写请求比读请求更重要。
-MyISAM不太适合有大量更新操作和查询操作的原因，因为大量的更新操作会造成查询操作很难获得读锁，从而可能永远阻塞。
+<h3 id="go-sum-文件"><a href="#go-sum-文件" class="headerlink" title="go.sum 文件"></a>go.sum 文件</h3><p>go.sum 文件详细罗列了当前项目直接或间接依赖的所有模块版本，并写明了那些模块版本的 SHA-256 哈希值以备 Go 在今后的操作中保证项目所依赖的那些模块版本不会被篡改。</p>
+<pre><code>cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
+github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=
+github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
+....</code></pre><p>h1 hash 是 Go modules 将目标模块版本的 zip 文件开包后，针对所有包内文件依次进行 hash，然后再把它们的 hash 结果按照固定格式和算法组成总的 hash 值。</p>
+<p>而 h1 hash 和 go.mod hash 两者，要不就是同时存在，要不就是只存在 go.mod hash。那什么情况下会不存在 h1 hash 呢，就是当 Go 认为肯定用不到某个模块版本的时候就会省略它的 h1 hash，就会出现不存在 h1 hash，只存在 go.mod hash 的情况。</p>
+<h2 id="替代包"><a href="#替代包" class="headerlink" title="替代包"></a>替代包</h2><p>在管理过程中，导入的包为 <code>0.9.0</code> 版本，实际需要<code>0.8.0</code>版本，需要将导入的<code>0.9.0</code>版本<br>用<code>replace</code>替代为 <code>0.8.0</code> 版本</p>
+<pre><code>go 1.13
 
-解决方法：
-执行`set low_priority_updates=1`,使该连接发出的更新请求优先级降低。同理insert,delete也可以通过此方法指定。</code></pre><p>另外MySQL也提供了一种折中的方法调节读写冲突，即给系统参数max_write_lock_count设置一个合适的值，当一个表的读锁达到这个值后，MySQL就暂时将写请求的优先级降低，给读进程一定的获取锁的机会</p>
-<h1 id="3-Innodb锁"><a href="#3-Innodb锁" class="headerlink" title="3 Innodb锁"></a>3 Innodb锁</h1><pre><code>关闭自动提交 `set autocommit=0;`</code></pre><ul>
-<li>共享锁（S） ：读锁</li>
-<li>排它锁（X） ：写锁</li>
-<li>意向共享锁（IS）</li>
-<li>意向排他锁（IX）</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">排它锁（X）</th>
-<th align="center">意向排他锁（IX）</th>
-<th align="center">共享锁（S）</th>
-<th align="center">意向共享锁（IS）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">排它锁（X）</td>
-<td align="center">冲突</td>
-<td align="center">冲突</td>
-<td align="center">冲突</td>
-<td align="center">冲突</td>
-</tr>
-<tr>
-<td align="center">意向排他锁（IX）</td>
-<td align="center">冲突</td>
-<td align="center">兼容</td>
-<td align="center">冲突</td>
-<td align="center">兼容</td>
-</tr>
-<tr>
-<td align="center">共享锁（S）</td>
-<td align="center">冲突</td>
-<td align="center">冲突</td>
-<td align="center">兼容</td>
-<td align="center">兼容</td>
-</tr>
-<tr>
-<td align="center">意向共享锁（IS）</td>
-<td align="center">冲突</td>
-<td align="center">兼容</td>
-<td align="center">兼容</td>
-<td align="center">兼容</td>
-</tr>
-</tbody></table>
-<h2 id="3-1-意向锁"><a href="#3-1-意向锁" class="headerlink" title="3.1 意向锁"></a>3.1 意向锁</h2><h3 id="3-1-1-意向锁"><a href="#3-1-1-意向锁" class="headerlink" title="3.1.1 意向锁"></a>3.1.1 意向锁</h3><p><a href="https://dev.mysql.com/doc/refman/8.0/en/glossary.html#glos_intention_lock" target="_blank" rel="noopener">意向锁</a></p>
-<p>对于update、delete和insert语句，Innodb会自动给涉及数据集加排他锁(X)；<br>对于普通的select语句，Innodb不会加任何锁。</p>
-<p>事务可以通过以下语句显式的给记录集加锁：</p>
-<pre><code>//共享锁
-select * from table_name where  ... lock in share mode;
-//排它锁
-select * from table_name where ... for update;</code></pre><h3 id="3-1-2-行锁变表锁"><a href="#3-1-2-行锁变表锁" class="headerlink" title="3.1.2 行锁变表锁"></a>3.1.2 行锁变表锁</h3><p><strong><em>InnoDB行锁是通过给索引上的索引项加锁来实现的：只有通过索引检索数据，InnoDB才使用<br>行锁，否则，InnoDB使用表锁。</em></strong></p>
-<p>现在用两个窗口模拟多个client请求mysql,当client_A对表中某一行数据进行修改时，触发了索引失效。<br>client_A未进行<code>commit</code>时，则client_B对该表中其他行数据进行修改时，发生了表锁事件。</p>
-<p><img src="../MySQL%E9%94%81/%E8%A1%8C%E9%94%81%E5%8F%98%E8%A1%A8%E9%94%81.png" alt></p>
-<pre><code>注释：实例中 `name`字段为`varchar`类型的索引，在更新操作时字段赋值为 666（而不是&apos;666&apos;） ，此时mysql数据库会自动将其类型转化。
-转化条件需要设置sql模式为非严格模式
+require (
+    github.com/jinzhu/gorm v1.9.12 // indirect
+)
+replace github.com/go-kit/kit v0.9.0 =&gt; github.com/go-kit/kit v0.8.0</code></pre><p>也可以用命令行模式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go mod edit -replace=old[@v]=new[@v]</span><br></pre></td></tr></table></figure>
 
-mysql&gt; show session variables like &apos;%sql_mode%&apos;;
-+---------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| Variable_name | Value                                                                                                                                     |
-+---------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| sql_mode      | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION |
-+---------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-1 row in set (0.01 sec)
-
-mysql&gt; set sql_mode=&apos;NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION&apos;;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; show session variables like &apos;%sql_mode%&apos;;
-+---------------+--------------------------------------------+
-| Variable_name | Value                                      |
-+---------------+--------------------------------------------+
-| sql_mode      | NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION |
-+---------------+--------------------------------------------+
-1 row in set (0.01 sec)</code></pre><h3 id="3-1-3-间隙锁-gap-lock"><a href="#3-1-3-间隙锁-gap-lock" class="headerlink" title="3.1.3 间隙锁(gap lock)"></a>3.1.3 间隙锁(gap lock)</h3><p>InnoDB使用间隙锁的目的：</p>
-<ul>
-<li>防止幻读，以满足相关隔离级别的要求；</li>
-<li>满足恢复和复制的需要；</li>
-</ul>
-<p><a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-gap-locks" target="_blank" rel="noopener">间隙锁</a></p>
-<p><a href="http://blog.itpub.net/15498/viewspace-2141515/" target="_blank" rel="noopener">如何开启和关闭MySQL 间隙锁(gap lock)</a></p>
-<p>间隙锁定是对索引记录之间的间隙的锁定，或者是对第一个或最后一个索引记录之前的间隙的锁定。</p>
-<pre><code>例如，SELECT c1 FROM t WHERE c1 BETWEEN 10 and 20 FOR UPDATE;
-
-防止其他事务将value 15插入column中t.c1，无论该列 中是否已有这样的值，
-因为该范围中所有现有值之间的间隙都是锁定的。</code></pre><p>间隙可能跨越单个索引值，多个索引值，甚至为空。</p>
-<p>对于使用唯一索引来锁定唯一行来锁定行的语句，不需要间隙锁定。<br>（这不包括搜索条件仅包含多列唯一索引的某些列的情况；在这种情况下，会发生间隙锁定。）<br>例如，如果该id列具有唯一索引，则以下语句仅使用一个具有id值100 的行的索引记录锁定，<br>其他会话是否在前面的间隙中插入行并不重要：<br>    SELECT * FROM child WHERE id = 100;</p>
-<p>间隙锁定InnoDB是“ 纯粹抑制性的 ”，这意味着它们的唯一目的是防止其他事务插入间隙。</p>
-<h3 id="3-1-4-InnoDB使用索引的条件"><a href="#3-1-4-InnoDB使用索引的条件" class="headerlink" title="3.1.4 InnoDB使用索引的条件"></a>3.1.4 InnoDB使用索引的条件</h3><ul>
-<li>在不通过索引条件查询的时候，InnoDB确实使用的是表锁，而不是行锁。</li>
-<li>mysql的行锁是针对索引加的锁。不是针对记录加的锁，虽然是访问不同的行，但是若是相同的索引，会出现锁锁冲突的。<br>当表中含有多个索引的时候，不同的事务可以使用不同的索引锁定不同的行。</li>
-<li>即使在条件中使用了索引，但是是否使用索引来检索数据是由MySQL通过判断不同执行计划的代价决定的，如果MySQL认为全表扫描效率更高，比如很小的表，他也不会使用索引，此时InnoDB将使用表锁，而不是行锁。因此，在分析锁冲突的时候，不要忘记检查SQL的执行计划，以确定是否真正使用了索引。</li>
-</ul>
-<pre><code>关于InnoDB到底是使用行锁还是表锁，我们需要依据索引来决定的，本质上行锁是针对索引加的锁，而非记录！！！
-虽然是访问不同的行，但是若是含有相同的索引，还是会发生锁冲突的！！！
-而且就算条件里面使用了索引，Mysql也不一定走索引，还是要看SQL的执行计划！！！</code></pre><p>参考资料：</p>
-<p><a href="https://www.jianshu.com/p/95a0d10eb881" target="_blank" rel="noopener">InnoDB使用索引的条件</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-mysql/mysql优化" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/03/08/mysql/mysql优化/" class="article-date">
-  	<time datetime="2020-03-08T00:44:28.562Z" itemprop="datePublished">2020-03-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#1、选择优化的数据类型</p>
-<p>##1 更小的通常更好<br>一般情况下，应该尽量使用可以正确存储数据的最小的数据类型</p>
-<pre><code>例如只需要存储 `0-200`， `tinyint unsigned`更好一些</code></pre><p>更小的数据类型通常更快，因为它们占用更少的磁盘、内存和CPU缓存，并且处理时需要的CPU周期也更少</p>
-<p>##2 简单就好<br>简单数据类型的操作通常需要更少的CPU周期。</p>
-<pre><code>例如，整型比字符型操作代价更低，因为字符集和校对规则（排序规则）是字符比较比整型比较更复杂。
-ex: 一个是应该使用Mysql内建的类型(date,time,datetime)而不是字符串来存储日期和时间，另外一个是应该用整型存储IP地。</code></pre><p>##3 尽量避免NULL<br>很多表都包含可为NULL的列，即使应用程序并不需要保存NULL也是如此，这是因为NULL是列的默认属性。<br>通常情况下最好指定列为NOT NULL，除非真的需要存储NULL值。</p>
-<p>如果查询中包含可为NULL的列，对Mysql来说更难优化，因为可为NULL的列使得索引、索引统计和值比较都更复杂。<br>可为NULL的列会使用更多的存储空间，在Mysql中也需要特殊处理。当可为NULL的列被索引时，每个索引记录需要一个额外的字节，<br>在MyISAM里甚至还可能导致固定大小的索引（例如只有一个整数列的索引）变成可变大小的索引。<br>通常此项改动对于InnoDB的性能提升比较小。InnoDB使用单独的位（bit）存储NULL值，所以对于稀疏数据有很好的空间效率。    </p>
-<h1 id="优化工具"><a href="#优化工具" class="headerlink" title="优化工具"></a>优化工具</h1><h2 id="explain"><a href="#explain" class="headerlink" title="explain"></a>explain</h2><p><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html" target="_blank" rel="noopener">explain-output</a></p>
-<h2 id="show-profile"><a href="#show-profile" class="headerlink" title="show-profile"></a>show-profile</h2><p><a href="https://dev.mysql.com/doc/refman/5.7/en/show-profile.html" target="_blank" rel="noopener">show-profile</a></p>
-<p><strong>* The SHOW PROFILE and SHOW PROFILES statements are deprecated and will be removed in a future MySQL release.<br>Use the Performance Schema instead; <a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema-query-profiling.html" target="_blank" rel="noopener">see Section 25.19.1, “Query Profiling Using Performance Schema”</a>. *</strong></p>
-<pre><code>set profiling=1;
-select * from student;
-show profile for query 1;
-show profile all for query 1;
-show profile all for query 1\G               (后面没有分号！！！)
-
----------------------------------------
-
-mysql&gt; set profiling=1;
-Query OK, 0 rows affected, 1 warning (0.00 sec)
-
-mysql&gt; select * from student;
-+----+-----------+------+------+
-| id | name      | age  | sex  |
-+----+-----------+------+------+
-|  1 | xiaoming  |   19 |    1 |
-|  2 | xiaohong  |   18 |    0 |
-|  3 | xiaolan   |   20 |    0 |
-|  4 | xiaolv    |   20 |    0 |
-|  5 | xiaohuang |   20 |    0 |
-|  6 | 666       |   17 |    0 |
-+----+-----------+------+------+
-6 rows in set (0.00 sec)
-
-mysql&gt; show profile for query 1;
-+----------------------+----------+
-| Status               | Duration |
-+----------------------+----------+
-| starting             | 0.000081 |
-| checking permissions | 0.000011 |
-| Opening tables       | 0.000019 |
-| init                 | 0.000018 |
-| System lock          | 0.000009 |
-| optimizing           | 0.000006 |
-| statistics           | 0.000016 |
-| preparing            | 0.000013 |
-| executing            | 0.000005 |
-| Sending data         | 0.000056 |
-| end                  | 0.000006 |
-| query end            | 0.000009 |
-| closing tables       | 0.000008 |
-| freeing items        | 0.000013 |
-| cleaning up          | 0.000016 |
-+----------------------+----------+
-15 rows in set, 1 warning (0.00 sec)
-
-mysql&gt; show profile all for query 1;
-+----------------------+----------+----------+------------+-------------------+---------------------+--------------+---------------+---------------+-------------------+-------------------+-------------------+-------+-----------------------+----------------------+-------------+
-| Status               | Duration | CPU_user | CPU_system | Context_voluntary | Context_involuntary | Block_ops_in | Block_ops_out | Messages_sent | Messages_received | Page_faults_major | Page_faults_minor | Swaps | Source_function       | Source_file          | Source_line |
-+----------------------+----------+----------+------------+-------------------+---------------------+--------------+---------------+---------------+-------------------+-------------------+-------------------+-------+-----------------------+----------------------+-------------+
-| starting             | 0.000081 | 0.000032 |   0.000045 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | NULL                  | NULL                 |        NULL |
-| checking permissions | 0.000011 | 0.000005 |   0.000006 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | check_access          | sql_authorization.cc |         809 |
-| Opening tables       | 0.000019 | 0.000007 |   0.000010 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | open_tables           | sql_base.cc          |        5753 |
-| init                 | 0.000018 | 0.000007 |   0.000011 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | handle_query          | sql_select.cc        |         128 |
-| System lock          | 0.000009 | 0.000005 |   0.000006 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | mysql_lock_tables     | lock.cc              |         330 |
-| optimizing           | 0.000006 | 0.000002 |   0.000004 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | optimize              | sql_optimizer.cc     |         158 |
-| statistics           | 0.000016 | 0.000007 |   0.000009 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | optimize              | sql_optimizer.cc     |         374 |
-| preparing            | 0.000013 | 0.000005 |   0.000008 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | optimize              | sql_optimizer.cc     |         482 |
-| executing            | 0.000005 | 0.000002 |   0.000002 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | exec                  | sql_executor.cc      |         126 |
-| Sending data         | 0.000056 | 0.000023 |   0.000033 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | exec                  | sql_executor.cc      |         202 |
-| end                  | 0.000006 | 0.000002 |   0.000003 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | handle_query          | sql_select.cc        |         206 |
-| query end            | 0.000009 | 0.000004 |   0.000006 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | mysql_execute_command | sql_parse.cc         |        4956 |
-| closing tables       | 0.000008 | 0.000003 |   0.000004 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | mysql_execute_command | sql_parse.cc         |        5009 |
-| freeing items        | 0.000013 | 0.000005 |   0.000008 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | mysql_parse           | sql_parse.cc         |        5622 |
-| cleaning up          | 0.000016 | 0.000007 |   0.000008 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | dispatch_command      | sql_parse.cc         |        1931 |
-+----------------------+----------+----------+------------+-------------------+---------------------+--------------+---------------+---------------+-------------------+-------------------+-------------------+-------+-----------------------+----------------------+-------------+
-15 rows in set, 1 warning (0.00 sec)</code></pre><h2 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h2><p><a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema-quick-start.html" target="_blank" rel="noopener">performance-schema-quick-start</a></p>
-<p><a href="https://dev.mysql.com/doc/refman/8.0/en/optimization.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/8.0/en/optimization.html</a></p>
-<h1 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h1><p><a href="https://www.jianshu.com/p/5b2bb76d26d6" target="_blank" rel="noopener">分库分表</a></p>
-<p><a href="https://www.bbsmax.com/A/xl56PpKYzr/" target="_blank" rel="noopener">mysql中间件分享（Mysql-prxoy,Atlas,DBProxy,Amoeba,cobar,TDDL）</a></p>
-<h1 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h1><p><a href="https://blog.csdn.net/A_man_only/article/details/84257702" target="_blank" rel="noopener">MTS： 并行复制技术</a></p>
-<h1 id="读写分离"><a href="#读写分离" class="headerlink" title="读写分离"></a>读写分离</h1>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-golang/go_map" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/03/06/golang/go_map/" class="article-date">
-  	<time datetime="2020-03-06T06:55:31.667Z" itemprop="datePublished">2020-03-06</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://mp.weixin.qq.com/s/BGjJt86MhpbSNPgh2CLRKw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/BGjJt86MhpbSNPgh2CLRKw</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-golang/go_channel" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/03/05/golang/go_channel/" class="article-date">
-  	<time datetime="2020-03-05T08:40:52.467Z" itemprop="datePublished">2020-03-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://mp.weixin.qq.com/s/MF3o5Jr7h-EiSN8amKW0QA" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/MF3o5Jr7h-EiSN8amKW0QA</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-golang/初探 Go 的编译命令执行过程" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/03/05/golang/初探 Go 的编译命令执行过程/" class="article-date">
-  	<time datetime="2020-03-05T07:06:51.461Z" itemprop="datePublished">2020-03-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://www.jianshu.com/p/35a4ec1b3067" target="_blank" rel="noopener">https://www.jianshu.com/p/35a4ec1b3067</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-golang/protocol-buffer" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/03/05/golang/protocol-buffer/" class="article-date">
-  	<time datetime="2020-03-05T05:58:28.170Z" itemprop="datePublished">2020-03-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://blog.csdn.net/mzpmzk/article/details/80824839" target="_blank" rel="noopener">https://blog.csdn.net/mzpmzk/article/details/80824839</a></p>
-<p>Source: <a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/Protocol/Protocol-buffers-decode.md" target="_blank" rel="noopener">https://github.com/halfrost/Halfrost-Field/blob/master/contents/Protocol/Protocol-buffers-decode.md</a></p>
+<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><p><a href="https://mp.weixin.qq.com/s/nd8ic1Qk812ZqmHKSFITUQ" target="_blank" rel="noopener">学习 Go Modules 这一篇就够：终极入门</a></p>
 
       
     </div>
@@ -759,8 +296,8 @@ mysql&gt; show profile all for query 1;
     <article id="post-golang/golang面试题" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2020/03/04/golang/golang面试题/" class="article-date">
-  	<time datetime="2020-03-04T06:55:17.764Z" itemprop="datePublished">2020-03-04</time>
+      <a href="/2020/03/18/golang/golang面试题/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
 </a>
     </div>
   
@@ -768,6 +305,20 @@ mysql&gt; show profile all for query 1;
     
       <input type="hidden" class="isFancy" />
     
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/golang/golang面试题/">
+        go 面试题小结
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -1025,11 +576,11 @@ Web-Server端要能识别Connection:keep-alive字段，
 
 
   
-    <article id="post-Hyperledger Fabric v2.0 更新说明" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-golang/go跨平台编译" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2020/03/01/Hyperledger Fabric v2.0 更新说明/" class="article-date">
-  	<time datetime="2020-03-01T10:12:38.034Z" itemprop="datePublished">2020-03-01</time>
+      <a href="/2020/03/18/golang/go跨平台编译/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
 </a>
     </div>
   
@@ -1038,38 +589,151 @@ Web-Server端要能识别Connection:keep-alive字段，
       <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/golang/go跨平台编译/">
+        go跨平台编译小结
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>从 v1.0以来，第一个 Hyperledger Fabric 主版本，Fabric v2.0为用户和运营商提供了重要的新功能和更改，包括对新应用程序和隐私模式的支持，围绕智能合约对管理增强，操作节点的新选择。</p>
-<p>   保持不变的是根据您自己的条件升级网络组件的能力，支持从 v1.4.x 开始滚动升级，以及只有在成员组织准备好时才启用新功能的能力。</p>
-<p>   下面我们就来看看 Fabric v2.0 发布的一些亮点……</p>
-<p>##智能合约的去中心化治理<br>Fabric v2.0 引入了智能合约的去中心化治理，它提供了一个新的流程，用于在您的 Peer 节点上安装链码，并在通道上启动它。新的 Fabric 链码生命周期允许多个组织在它用于与账本交互之前认同链码的参数，例如链码背书策略。对于比以前的生命周期，新的模式有几个改进:</p>
-<p>###多组织必须认同链码参数<br>在 Fabric 1.x 版本中，一个组织有能力为所有其他通道成员设置链码的参数（例如背书策略），这些通道成员只有拒绝安装链码的权力，因此不能参与调用它的事务。新的 Fabric 链码生命周期更加灵活，因为它既支持中心化的信任模式（如以前的生命周期模式），也支持去中心化的模式，去中心化的模式要求在链码于通道上变为活动状态之前，有足够数量的组织就背书策略和其他细节达成一致意见。</p>
-<p>###更周密的链码升级过程<br>在以前的链码生命周期中，升级交易可能由单个组织发出，这会给尚未安装新链码的通道成员带来风险。新的模式允许只有在足够数量的组织批准升级后才能升级链码。</p>
-<p>###更简单的背书政策和私有数据收集更新<br>Fabric生命周期允许您更改背书策略或私有数据收集配置，而无需重新打包或重新安装链码。用户还可以利用新的默认背书策略，该策略要求获得通道上大多数组织的背书。在通道中添加或删除组织时，会自动更新此策略。</p>
-<p>###可被检查的链码包<br>Fabric生命周期将链码封装在易于阅读的 tar 文件中。这使得检查链码包和跨多个组织协调安装变得更加容易。</p>
-<p>###使用一个包在通道上启动多个链码<br>以前的生命周期在安装链码包时使用指定的名称和版本定义通道上的每个链码。您现在可以使用单个链码包，并以不同的名称在同一通道或不同通道上多次部署它。例如，如果您想在链码自己的“副本”中跟踪不同类型的资产。</p>
-<p>###链码包不需要在通道成员之间相同<br>组织可以用他们自己的用例扩展链码，例如为了他们组织的利益执行不同的验证。只要所需数量的组织为链码交易背书和结果相匹配，该交易将被验证并提交到帐本中。这还允许组织按照自己的时间表单独推出小的修补程序，而不需要整个网络同步进行。</p>
-<p>##使用新的链码生命周期<br>对于现有的 Fabric 部署，您可以继续使用 Fabric v2.0 之前的链码生命周期。新的链码生命周期只有在通道应用程序功能更新到 v2.0 时才会生效。 关于新的链码生命周期完整细节教程请看 <a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/chaincode4noah.html" target="_blank" rel="noopener">Chaincode for Operators</a></p>
-<h3 id="用于协作和共识的新链码应用程序模式"><a href="#用于协作和共识的新链码应用程序模式" class="headerlink" title="用于协作和共识的新链码应用程序模式"></a>用于协作和共识的新链码应用程序模式</h3><p>支持新的链码生命周期管理的相同的去中心化的达成协议的方法也可以用于您自己的链码应用程序中，以确保组织在数据交易被提交到帐本之前同意它们。</p>
-<p>####自动检查<br>如上所述，组织可以在链码功能中添加自动检查，以便在背书事务提案之前验证附加信息。</p>
-<p>####去中心化协议<br>链码可能要求来自不同组织的参与者在账本交易中指明他们的协议条款和条件。然后，最终的链码提案可以验证来自所有单个交易者的条件是否得到满足，并最终在所有通道成员之间“解决”业务交易。有关以非公开方式指示条款和条件的具体示例，请参见资产转移场景，于文档中 私有数据.</p>
-<p>##私有数据增强<br>Fabric v2.0还支持使用和共享私有数据的新模式，而不需要为所有可能要进行交易的通道成员组合创建私有数据集合。具体地说，您不是在多个成员的集合中共享私有数据，而是可能想要跨集合共享私有数据，其中每个集合可能包括单个组织，或者带有一个监管者或审计师的单个组织。</p>
-<p>Fabric v2.0 中的几个增强使得这些新的私有数据模式成为可能:</p>
-<p>###共享和验证私有数据<br>当私有数据与不是集合成员的通道成员共享时，或者与包含一个或多个通道成员的另一个私有数据集合共享时（通过向该集合写入密钥），接收方可以利用 GetPrivateDataHash() 链码 API 验证私有数据是否与以前交易中被创建的来自私有数据的链上哈希匹配。</p>
-<p>###集合水平的背书策略<br>现在可以选择使用背书策略来定义私有数据集合，该背书策略覆盖集合内密钥的链码级别背书策略。该特性可用于限制哪些组织可以将数据写入集合，并且正是它启用了前面提到的新的链码生命周期和链码应用程序模式。例如，您可能有一个链码背书策略，该策略要求大多数组织背书，但对于任何给定的交易，您可能需要两个交易处理组织在它们自己的私有数据集合中单独背书它们的协议。</p>
-<p>###每个组织的隐式集合<br>如果您想利用每个组织的私有数据模式，那么在 Fabric v2.0 中部署链码时甚至不需要定义集合。不需要任何前期定义就可以使用隐式的特定组织集合。<br>了解更多关于新的私有数据模式请看 <a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/private-data/private-data.html" target="_blank" rel="noopener">私有数据</a> (概念文档). 更多关于私有数据集合配置和隐式集合请看 <a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/private-data-arch.html" target="_blank" rel="noopener">Private Data</a> (参考文档).</p>
-<p>##外部的链码启动器<br>外部链码启动器功能使运营商能够使用他们选择的技术构建和启动链码。不需要使用外部构建器和启动器，因为默认行为构建和运行链码的方式与使用 Docker API 的先前版本相同。</p>
-<p>###消除 Docker<br>守护进程依赖 Fabric 以前的版本要求 Peer 节点能够访问 Docker 守护进程，以便构建和启动链码——由于 Peer 节点进程所需的特权，这在生产环境中可能是不可取的。</p>
-<p>###容器的替代品<br>不再要求链码在 Docker 容器中运行，可以在运营商选择的环境（包括容器）中执行。</p>
-<p>###外部构建器可执行文件<br>操作员可以提供一组外部构建器可执行文件，以覆盖 Peer 节点构建和启动链码方式。</p>
-<p>###作为外部服务的链码<br>传统上，链码由 Peer 节点启动，然后连接回 Peer 节点。现在可以将链码作为外部服务运行，例如在 Kubernetes pod 中， Peer 节点可以连接到该 pod，并利用该 pod 执行链码。了解更多信息请看 <a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/cc_service.html" target="_blank" rel="noopener">Chaincode as an external service</a><br>了解更多关于外部链码启动功能请看 <a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/cc_launcher.html" target="_blank" rel="noopener">External Builders and Launchers</a> 。</p>
-<p>##用于提高 CouchDB 性能的状态数据库缓存<br>在使用外部 CouchDB 状态数据库时，背书和验证阶段的读取延迟历来是性能瓶颈。<br>在 Fabric v2.0 中，一个新的 Peer 节点缓存用快速的本地缓存读取取代了许多昂贵的查找。可以使用 core.yaml 文件中的属性 cachesize 来配置缓存大小。</p>
-<p>##基于 Alpine 的 docker 镜像<br>   从 v2.0 开始，Hyperledger Fabric Docker 镜像将使用 Alpine Linux 作为基础镜像，这是一个面向安全的轻量级 Linux 发行版。这意味着 Docker 镜像现在要小得多，提供更快的下载和启动时间，以及占用主机系统上更少的磁盘空间。Alpine Linux 的设计从一开始就考虑到了安全性，Alpine 发行版的最小化特性大大降低了安全漏洞的风险。</p>
-<p>##示例测试网络<br>Fabric-Samples 仓库现在包括一个新的 Fabric 测试网络。测试网络被构建为模块化的和用户友好的示例 Fabric 网络，这使测试您的应用程序和智能合约变得容易。除了 Cryptogen 之外，该网络还支持使用 Certificate Authorities 部署网络的能力。</p>
-<p>了解更多关于这个网络的信息，请查看 Using the Fabric test network.</p>
-<p>##升级到 Fabric v2.0<br>一个主要的新版本带来了一些额外的升级注意事项。不过请放心，我们支持从 v1.4.x 到 v2.0 的滚动升级，因此可以一次升级一个网络组件而不会停机。</p>
-<p>升级文档得到了显著的扩展和修改，现在在文档中有了一个独立的主页 <a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/upgrade.html" target="_blank" rel="noopener">Upgrading to the latest release</a>. 这里您将会发现文档<br><a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/upgrading_your_components.html" target="_blank" rel="noopener">Upgrading your components</a> 和 <a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/updating_capabilities.html" target="_blank" rel="noopener">Updating the capability level of a channel</a>， 以及对升级到 v2.0 的注意事项的具体了解， <a href="https://hyperledger-fabric.readthedocs.io/zh_CN/latest/upgrade_to_newest_version.html" target="_blank" rel="noopener">Considerations for getting to v2.0</a>。</p>
+        <p>#1、跨平台编译<br><a href="https://studygolang.com/articles/20471" target="_blank" rel="noopener">https://studygolang.com/articles/20471</a></p>
+<h2 id="windows平台下编译linux可执行文件："><a href="#windows平台下编译linux可执行文件：" class="headerlink" title="windows平台下编译linux可执行文件："></a>windows平台下编译linux可执行文件：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SET CGO_ENABLED=0 //禁用CGO</span><br><span class="line">SET GOOS=linux //目标平台是linux</span><br><span class="line">SET GOARCH=amd64 // 目标处理器架构是amd64</span><br></pre></td></tr></table></figure>
+
+<p>再执行 ‘go bulid’ 命令，就可以得到在linux平台运行的可执行文件了</p>
+<h2 id="Mac-下编译-Linux-和windows平台64位可执行文件"><a href="#Mac-下编译-Linux-和windows平台64位可执行文件" class="headerlink" title="Mac 下编译 Linux 和windows平台64位可执行文件"></a>Mac 下编译 Linux 和windows平台64位可执行文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CGO_ENABLED=0 </span><br><span class="line">GOOS=darwin </span><br><span class="line">GOARCH=amd64</span><br><span class="line">go bulid</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CGO_ENABLED=0 </span><br><span class="line">GOOS=windows </span><br><span class="line">GOARCH=amd64</span><br><span class="line">go bulid</span><br></pre></td></tr></table></figure>
+
+<h2 id="windows下编译Mac平台64位可执行文件"><a href="#windows下编译Mac平台64位可执行文件" class="headerlink" title="windows下编译Mac平台64位可执行文件"></a>windows下编译Mac平台64位可执行文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CGO_ENABLED=0 </span><br><span class="line">GOOS=darwin </span><br><span class="line">GOARCH=amd64</span><br><span class="line">go bulid</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-golang/go数据类型" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/18/golang/go数据类型/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/golang/go数据类型/">
+        go数据类型小结
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://www.cnblogs.com/itbsl/p/9854681.html" target="_blank" rel="noopener">https://www.cnblogs.com/itbsl/p/9854681.html</a></p>
+<h1 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h1><h2 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h2><p>无符号整型：<code>uint8</code>、<code>uint16</code>、<code>uint32</code>、<code>uint64</code></p>
+<p>带符号整型：<code>int8</code> <code>int16</code> <code>int32</code> <code>int64</code></p>
+<p><code>uint</code>和<code>int</code>具体是32位还是64位看操作系统</p>
+<h2 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h2><p>float32和float64 </p>
+<p>Go语言中浮点数默认是float64</p>
+<h2 id="复数"><a href="#复数" class="headerlink" title="复数"></a>复数</h2><p>complex128和complex64</p>
+<h2 id="布尔值"><a href="#布尔值" class="headerlink" title="布尔值"></a>布尔值</h2><p>boolean</p>
+<p>##字符串<br>string</p>
+<h2 id="byte和rune类型"><a href="#byte和rune类型" class="headerlink" title="byte和rune类型"></a>byte和rune类型</h2><p>go语言中字符串都是UTF-8编码，UTF-8编码中一个常用汉字一般占3个字符</p>
+<p>由于rune可表示的范围更大，所以能处理一切字符，当然也包括中文字符。在平时计算中文字符，可用rune。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">func main() &#123;</span><br><span class="line">    var chinese = &quot;我是中国人， I am Chinese&quot;</span><br><span class="line">    fmt.Println(&quot;chinese length&quot;, len(chinese))</span><br><span class="line">    fmt.Println(&quot;chinese word length&quot;, len([]rune(chinese)))</span><br><span class="line">    fmt.Println(&quot;chinese word length&quot;, utf8.RuneCountInString(chinese))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//输出，注意在golang中一个汉字占3个byte</span><br><span class="line">chinese length 31</span><br><span class="line">chinese word length 19</span><br><span class="line">chinese word length 19</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-golang/protocol-buffer" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/18/golang/protocol-buffer/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/golang/protocol-buffer/">
+        go protocol-buffer小结
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://blog.csdn.net/mzpmzk/article/details/80824839" target="_blank" rel="noopener">https://blog.csdn.net/mzpmzk/article/details/80824839</a></p>
+<p>Source: <a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/Protocol/Protocol-buffers-decode.md" target="_blank" rel="noopener">https://github.com/halfrost/Halfrost-Field/blob/master/contents/Protocol/Protocol-buffers-decode.md</a></p>
 
       
     </div>
@@ -1095,11 +759,11 @@ Web-Server端要能识别Connection:keep-alive字段，
 
 
   
-    <article id="post-docker小结" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-golang/初探 Go 的编译命令执行过程" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2020/02/29/docker小结/" class="article-date">
-  	<time datetime="2020-02-29T07:09:35.529Z" itemprop="datePublished">2020-02-29</time>
+      <a href="/2020/03/18/golang/初探 Go 的编译命令执行过程/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
 </a>
     </div>
   
@@ -1108,108 +772,884 @@ Web-Server端要能识别Connection:keep-alive字段，
       <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/golang/初探 Go 的编译命令执行过程/">
+        go编译命令执行过程小结
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="容器和虚拟机"><a href="#容器和虚拟机" class="headerlink" title="容器和虚拟机"></a>容器和虚拟机</h1><p>容器在Linux上本地运行，并与其他容器共享主机的内核。它运行一个离散进程，不占用任何其他可执行文件更多的内存，从而使其轻巧。</p>
-<p>相比之下，虚拟机（VM）运行具有“ 虚拟机管理程序”对主机资源的虚拟访问权的成熟<code>guest</code>操作系统。通常，VM会产生大量开销，超出了应用程序逻辑所消耗的开销。</p>
-<p><img src="docker%E5%B0%8F%E7%BB%93/docker%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA.png" alt="docker和虚拟机"></p>
-<h1 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h1><h2 id="windows下安装docker"><a href="#windows下安装docker" class="headerlink" title="windows下安装docker"></a>windows下安装docker</h2><p><a href="https://docs.docker.com/docker-for-windows/install/" target="_blank" rel="noopener">在Windows上安装Docker Desktop</a></p>
-<p><a href="https://hub.docker.com/editions/community/docker-ce-desktop-windows/" target="_blank" rel="noopener">下载Docker Desktop</a></p>
-<h4 id="需要注意的是："><a href="#需要注意的是：" class="headerlink" title="需要注意的是："></a>需要注意的是：</h4><p>运行Docker Desktop需要Microsoft Hyper-V。必要时，Docker桌面Windows安装程序会启用Hyper-V，然后重新启动计算机。启用Hyper-V后，VirtualBox不再起作用。但是，将保留所有现有的VirtualBox VM映像。</p>
-<p>用docker-machine（包括default通常在Toolbox安装过程中创建的虚拟机）创建的VirtualBox VM 不再启动。这些VM不能与Docker Desktop并排使用。但是，您仍然可以 docker-machine用来管理远程VM。</p>
-<p><a href="https://blog.csdn.net/huryer/article/details/91126391" target="_blank" rel="noopener">安装Docker后VMware和VirtualBox无法启动 VT-x is not available</a></p>
-<h2 id="linux下安装docker"><a href="#linux下安装docker" class="headerlink" title="linux下安装docker"></a>linux下安装docker</h2><p>用yum源安装</p>
-<p>查看是否已安装docker列表</p>
-<pre><code>yum list installed | grep docker</code></pre><p>安装docker</p>
-<pre><code>yum -y install docker</code></pre><p>启动docker</p>
-<pre><code>systemctl start docker</code></pre><p>查看docker服务状态</p>
-<pre><code>systemctl status docker</code></pre><h2 id="配置-加速器"><a href="#配置-加速器" class="headerlink" title="配置 加速器"></a>配置 加速器</h2><p>对于使用 upstart 的系统而言，编辑  /etc/default/docker  文件，在其中的  DOCKER_OPTS  中<br>添加获得的加速器配置：</p>
-<pre><code>DOCKER_OPTS=&quot;--registry-mirror=https://registry.docker-cn.com&quot;</code></pre><p>重新启动服务。</p>
-<pre><code>$ sudo service docker restart</code></pre><p>对于使用 systemd 的系统，请在  /etc/docker/daemon.json  中写入如下内容（如果文件不存<br>在请新建该文件）</p>
-<pre><code>{
-    &quot;registry-mirrors&quot;: [
-        &quot;https://registry.docker-cn.com&quot;
-    ]
-}</code></pre><p>注意，一定要保证该文件符合 json 规范，否则 Docker 将不能启动。<br>之后重新启动服务。</p>
-<pre><code>$ sudo systemctl daemon-reload
-$ sudo systemctl restart docker    </code></pre><p>​    </p>
-<h1 id="创建镜像"><a href="#创建镜像" class="headerlink" title="创建镜像"></a>创建镜像</h1><h2 id="基于dockerfile创建镜像"><a href="#基于dockerfile创建镜像" class="headerlink" title="基于dockerfile创建镜像"></a>基于dockerfile创建镜像</h2><h3 id="编写docker-file"><a href="#编写docker-file" class="headerlink" title="编写docker file"></a>编写docker file</h3><p><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener">dockerfile命令参考</a></p>
-<pre><code># Use the official image as a parent image
-FROM node:current-slim
+        <p><a href="https://www.jianshu.com/p/35a4ec1b3067" target="_blank" rel="noopener">https://www.jianshu.com/p/35a4ec1b3067</a></p>
 
-# Set the working directory
-WORKDIR /usr/src/app
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
 
-# Copy the file from your host to your current location
-COPY package.json .
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
 
-# Run the command inside your image filesystem
-RUN npm install
 
-# Inform Docker that the container is listening on the specified port at runtime.
-EXPOSE 8080
 
-# Run the specified command within the container.
-CMD [ &quot;npm&quot;, &quot;start&quot; ]
 
-# Copy the rest of your app&apos;s source code from your host to your image filesystem.
-COPY . .    </code></pre><h3 id="dockerfile-命令"><a href="#dockerfile-命令" class="headerlink" title="dockerfile 命令"></a>dockerfile 命令</h3><h4 id="MAINTAINER"><a href="#MAINTAINER" class="headerlink" title="MAINTAINER"></a>MAINTAINER</h4><pre><code>格式
-MAINTAINER &lt;name&gt;
-指定该dockerfilr文件的维护者信息。</code></pre><h4 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h4><pre><code>格式：
-RUN &lt;command&gt;                             (shell模式)
-RUN[&quot;executable&quot;, &quot;param1&quot;,&quot;param2&quot;]      (exec模式)</code></pre><p>表示当前镜像构建时候运行的命令，如果有确认输入的话，一定要在命令中添加 -v</p>
-<p>如果命令较长，那么可以在命令结尾使用 \ 换行</p>
-<p>shell模式：类似于 <code>/bin/bash -c command</code></p>
-<p>实例：<code>RUN echo hello</code></p>
-<p>exec模式：类似于 RUN<code>[&quot;/bin/bash&quot;, &quot;-c&quot;, &quot;command&quot;]</code></p>
-<p>实例： <code>RUN[&quot;echo&quot;, &quot;hello&quot;]</code><br>​</p>
-<h4 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h4><pre><code>格式：EXPOSE &lt;port&gt; [&lt;port&gt;...]</code></pre><p>设置docker容器对外暴露的端口号，docker 为了安全，不会自动对外打开端口，如果需要外部提供访问，还需要启动容器时增加<code>-p</code>或者<code>-P</code>参数对容器的端口进行分配。</p>
-<h2 id="基于容器创建镜像"><a href="#基于容器创建镜像" class="headerlink" title="基于容器创建镜像"></a>基于容器创建镜像</h2><p> <code>不要使用  docker commit  定制镜像，定制镜像应该使用  Dockerfile  来完成</code></p>
-<p> docker commit :从容器创建一个新的镜像。</p>
-<p> 语法</p>
-<pre><code>docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</code></pre><p> OPTIONS说明：</p>
+
+
+
+  
+    <article id="post-golang/利用goland搭建gin框架" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/18/golang/利用goland搭建gin框架/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/golang/利用goland搭建gin框架/">
+        gin框架搭建小结
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##1 go gin</p>
+<p>##2 安装</p>
+<p><a href="https://gin-gonic.com/zh-cn/docs/" target="_blank" rel="noopener">gin-gonic</a></p>
+<p><a href="https://github.com/gin-gonic/gin" target="_blank" rel="noopener">gin</a></p>
+<pre><code>go get -u github.com/gin-gonic/gin</code></pre><p>##3 导入<br>    package main</p>
+<pre><code>import &quot;github.com/gin-gonic/gin&quot;
+
+func main() {
+    r := gin.Default()
+    r.GET(&quot;/ping&quot;, func(c *gin.Context) {
+        c.JSON(200, gin.H{
+            &quot;message&quot;: &quot;pong&quot;,
+        })
+    })
+    r.Run() // listen and serve on 0.0.0.0:8080 (for windows &quot;localhost:8080&quot;)
+}</code></pre><p>##4 API Examples</p>
+<p>Using GET, POST, PUT, PATCH, DELETE and OPTIONS</p>
+<pre><code>func main() {
+    // Creates a gin router with default middleware:
+    // logger and recovery (crash-free) middleware
+    router := gin.Default()
+
+    router.GET(&quot;/someGet&quot;, getting)
+    router.POST(&quot;/somePost&quot;, posting)
+    router.PUT(&quot;/somePut&quot;, putting)
+    router.DELETE(&quot;/someDelete&quot;, deleting)
+    router.PATCH(&quot;/somePatch&quot;, patching)
+    router.HEAD(&quot;/someHead&quot;, head)
+    router.OPTIONS(&quot;/someOptions&quot;, options)
+
+    // By default it serves on :8080 unless a
+    // PORT environment variable was defined.
+    router.Run()
+    // router.Run(&quot;:3000&quot;) for a hard coded port
+}</code></pre><p>Parameters in path</p>
+<pre><code>func main() {
+    router := gin.Default()
+
+    // This handler will match /user/john but will not match /user/ or /user
+    router.GET(&quot;/user/:name&quot;, func(c *gin.Context) {
+        name := c.Param(&quot;name&quot;)
+        c.String(http.StatusOK, &quot;Hello %s&quot;, name)
+    })
+
+    // However, this one will match /user/john/ and also /user/john/send
+    // If no other routers match /user/john, it will redirect to /user/john/
+    router.GET(&quot;/user/:name/*action&quot;, func(c *gin.Context) {
+        name := c.Param(&quot;name&quot;)
+        action := c.Param(&quot;action&quot;)
+        message := name + &quot; is &quot; + action
+        c.String(http.StatusOK, message)
+    })
+
+    // For each matched request Context will hold the route definition
+    router.POST(&quot;/user/:name/*action&quot;, func(c *gin.Context) {
+        c.FullPath() == &quot;/user/:name/*action&quot; // true
+    })
+
+    router.Run(&quot;:8080&quot;)
+}</code></pre><p>Querystring parameters</p>
+<pre><code>func main() {
+    router := gin.Default()
+
+    // Query string parameters are parsed using the existing underlying request object.
+    // The request responds to a url matching:  /welcome?firstname=Jane&amp;lastname=Doe
+    router.GET(&quot;/welcome&quot;, func(c *gin.Context) {
+        firstname := c.DefaultQuery(&quot;firstname&quot;, &quot;Guest&quot;)
+        lastname := c.Query(&quot;lastname&quot;) // shortcut for c.Request.URL.Query().Get(&quot;lastname&quot;)
+
+        c.String(http.StatusOK, &quot;Hello %s %s&quot;, firstname, lastname)
+    })
+    router.Run(&quot;:8080&quot;)
+}</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-mysql/mysql事务" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/18/mysql/mysql事务/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/mysql/mysql事务/">
+        mysql事务
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1、原子性实现原理：Undo-log"><a href="#1、原子性实现原理：Undo-log" class="headerlink" title="1、原子性实现原理：Undo log"></a>1、原子性实现原理：Undo log</h1><pre><code>- Undo log是为了实现事务的原子性，在mysql数据库InnoDB存储引擎中，
+还用Undo log来实现多版本并发控制（MVCC）
+- 在操作任何数据之前，首先将数据备份到一个地方（这个存储数据备份的地方称为Undo log）.
+然后进行数据修改。如果出现了错误或者用户执行了ROLLBACK语句，
+系统可以利用undo log中的备份将数据恢复到事务之前的状态
+- 注意：undo log是逻辑日志，可以理解为：
+    - 当delete一条记录时，undo log中会记录一条对应的insert记录
+    - 当insert一条记录时，undo log中会记录一条对应的delete记录
+    - 当update一条记录时，undo log中会记录一条相反的update记录
+
+
+（逻辑日志的意思是记录某一行数据的修改，物理日志是记录某一页的数据修改）</code></pre><h1 id="2、持久性原理：-Redo-log"><a href="#2、持久性原理：-Redo-log" class="headerlink" title="2、持久性原理： Redo log"></a>2、持久性原理： Redo log</h1><pre><code>- 和undo log相反，redo log记录的是新数据的备份。(异步写)
+在事务提交前，只要将redo log持久化即可，不需要将数据持久化。
+当系统崩溃时，虽然数据没有持久化，但是redo log已经持久化。
+系统可以根据 redo log 的内容，将所有数据恢复到最新的状态
+（innodb_flush_log_at_trx_commit）
+WAL(write ahead log):预写日志</code></pre><p>当我们每次执行update,insert,delete等语句后，commit操作后，redo log执行持久化操作</p>
+<p>innodb_flush_log_at_trx_commit = 0/1/2</p>
+<pre><code>set global innodb_flush_log_at_trx_commit=2;
+show variables like &apos;innodb_flush_log_at_trx_commit&apos;;</code></pre><p>默认值为：1</p>
+<p>由于实时将数据刷到磁盘中，在并发条件下，性能较低，<br><img src="../mysql%E4%BA%8B%E5%8A%A1/1.png" alt></p>
+<h1 id="3、mysql的隔离级别"><a href="#3、mysql的隔离级别" class="headerlink" title="3、mysql的隔离级别"></a>3、mysql的隔离级别</h1><ul>
+<li>读未提交(read_uncommitted):对事务处理的读取没有任何限制；</li>
+<li>读已提交(read_committed)：</li>
+<li>可重复读(repeatable_read):默认级别</li>
+<li>串行化(seriauzable)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">事务的隔离级别</th>
+<th align="center">脏读</th>
+<th align="center">不可重复读</th>
+<th align="center">幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">读未提交(read_uncommitted)</td>
+<td align="center">√</td>
+<td align="center">√</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">读已提交(read_committed)</td>
+<td align="center"></td>
+<td align="center">√</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">可重复读(repeatable_read)</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">串行化(seriauzable)</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h1 id="一致性"><a href="#一致性" class="headerlink" title="一致性"></a>一致性</h1><p>事务的并发执行，事务故障或系统故障  会对事务的一致性造成破坏</p>
+<p>数据库系统通过并发控制技术和日志恢复技术来避免这种情况的发生：<br>    - 并发控制技术保证了事务的隔离性（加锁），使数据库的一致性状态不会<br>    因为并发执行的操作被破坏。<br>    - 日志恢复技术保证了事务的原子性，是一致性状态下不会因事务或系统故障被破坏。<br>    同时使已提交的对数据库的修改不会因为系统崩溃而丢失，保证了事务的持久性。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-mysql/mysql优化" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/18/mysql/mysql优化/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/mysql/mysql优化/">
+        mysql优化
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#1、选择优化的数据类型</p>
+<p>##1 更小的通常更好<br>一般情况下，应该尽量使用可以正确存储数据的最小的数据类型</p>
+<pre><code>例如只需要存储 `0-200`， `tinyint unsigned`更好一些</code></pre><p>更小的数据类型通常更快，因为它们占用更少的磁盘、内存和CPU缓存，并且处理时需要的CPU周期也更少</p>
+<p>##2 简单就好<br>简单数据类型的操作通常需要更少的CPU周期。</p>
+<pre><code>例如，整型比字符型操作代价更低，因为字符集和校对规则（排序规则）是字符比较比整型比较更复杂。
+ex: 一个是应该使用Mysql内建的类型(date,time,datetime)而不是字符串来存储日期和时间，另外一个是应该用整型存储IP地。</code></pre><p>##3 尽量避免NULL<br>很多表都包含可为NULL的列，即使应用程序并不需要保存NULL也是如此，这是因为NULL是列的默认属性。<br>通常情况下最好指定列为NOT NULL，除非真的需要存储NULL值。</p>
+<p>如果查询中包含可为NULL的列，对Mysql来说更难优化，因为可为NULL的列使得索引、索引统计和值比较都更复杂。<br>可为NULL的列会使用更多的存储空间，在Mysql中也需要特殊处理。当可为NULL的列被索引时，每个索引记录需要一个额外的字节，<br>在MyISAM里甚至还可能导致固定大小的索引（例如只有一个整数列的索引）变成可变大小的索引。<br>通常此项改动对于InnoDB的性能提升比较小。InnoDB使用单独的位（bit）存储NULL值，所以对于稀疏数据有很好的空间效率。    </p>
+<h1 id="优化工具"><a href="#优化工具" class="headerlink" title="优化工具"></a>优化工具</h1><h2 id="explain"><a href="#explain" class="headerlink" title="explain"></a>explain</h2><p><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html" target="_blank" rel="noopener">explain-output</a></p>
+<h2 id="show-profile"><a href="#show-profile" class="headerlink" title="show-profile"></a>show-profile</h2><p><a href="https://dev.mysql.com/doc/refman/5.7/en/show-profile.html" target="_blank" rel="noopener">show-profile</a></p>
+<p><strong>* The SHOW PROFILE and SHOW PROFILES statements are deprecated and will be removed in a future MySQL release.<br>Use the Performance Schema instead; <a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema-query-profiling.html" target="_blank" rel="noopener">see Section 25.19.1, “Query Profiling Using Performance Schema”</a>. *</strong></p>
+<pre><code>set profiling=1;
+select * from student;
+show profile for query 1;
+show profile all for query 1;
+show profile all for query 1\G               (后面没有分号！！！)
+
+---------------------------------------
+
+mysql&gt; set profiling=1;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql&gt; select * from student;
++----+-----------+------+------+
+| id | name      | age  | sex  |
++----+-----------+------+------+
+|  1 | xiaoming  |   19 |    1 |
+|  2 | xiaohong  |   18 |    0 |
+|  3 | xiaolan   |   20 |    0 |
+|  4 | xiaolv    |   20 |    0 |
+|  5 | xiaohuang |   20 |    0 |
+|  6 | 666       |   17 |    0 |
++----+-----------+------+------+
+6 rows in set (0.00 sec)
+
+mysql&gt; show profile for query 1;
++----------------------+----------+
+| Status               | Duration |
++----------------------+----------+
+| starting             | 0.000081 |
+| checking permissions | 0.000011 |
+| Opening tables       | 0.000019 |
+| init                 | 0.000018 |
+| System lock          | 0.000009 |
+| optimizing           | 0.000006 |
+| statistics           | 0.000016 |
+| preparing            | 0.000013 |
+| executing            | 0.000005 |
+| Sending data         | 0.000056 |
+| end                  | 0.000006 |
+| query end            | 0.000009 |
+| closing tables       | 0.000008 |
+| freeing items        | 0.000013 |
+| cleaning up          | 0.000016 |
++----------------------+----------+
+15 rows in set, 1 warning (0.00 sec)
+
+mysql&gt; show profile all for query 1;
++----------------------+----------+----------+------------+-------------------+---------------------+--------------+---------------+---------------+-------------------+-------------------+-------------------+-------+-----------------------+----------------------+-------------+
+| Status               | Duration | CPU_user | CPU_system | Context_voluntary | Context_involuntary | Block_ops_in | Block_ops_out | Messages_sent | Messages_received | Page_faults_major | Page_faults_minor | Swaps | Source_function       | Source_file          | Source_line |
++----------------------+----------+----------+------------+-------------------+---------------------+--------------+---------------+---------------+-------------------+-------------------+-------------------+-------+-----------------------+----------------------+-------------+
+| starting             | 0.000081 | 0.000032 |   0.000045 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | NULL                  | NULL                 |        NULL |
+| checking permissions | 0.000011 | 0.000005 |   0.000006 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | check_access          | sql_authorization.cc |         809 |
+| Opening tables       | 0.000019 | 0.000007 |   0.000010 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | open_tables           | sql_base.cc          |        5753 |
+| init                 | 0.000018 | 0.000007 |   0.000011 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | handle_query          | sql_select.cc        |         128 |
+| System lock          | 0.000009 | 0.000005 |   0.000006 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | mysql_lock_tables     | lock.cc              |         330 |
+| optimizing           | 0.000006 | 0.000002 |   0.000004 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | optimize              | sql_optimizer.cc     |         158 |
+| statistics           | 0.000016 | 0.000007 |   0.000009 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | optimize              | sql_optimizer.cc     |         374 |
+| preparing            | 0.000013 | 0.000005 |   0.000008 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | optimize              | sql_optimizer.cc     |         482 |
+| executing            | 0.000005 | 0.000002 |   0.000002 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | exec                  | sql_executor.cc      |         126 |
+| Sending data         | 0.000056 | 0.000023 |   0.000033 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | exec                  | sql_executor.cc      |         202 |
+| end                  | 0.000006 | 0.000002 |   0.000003 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | handle_query          | sql_select.cc        |         206 |
+| query end            | 0.000009 | 0.000004 |   0.000006 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | mysql_execute_command | sql_parse.cc         |        4956 |
+| closing tables       | 0.000008 | 0.000003 |   0.000004 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | mysql_execute_command | sql_parse.cc         |        5009 |
+| freeing items        | 0.000013 | 0.000005 |   0.000008 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | mysql_parse           | sql_parse.cc         |        5622 |
+| cleaning up          | 0.000016 | 0.000007 |   0.000008 |                 0 |                   0 |            0 |             0 |             0 |                 0 |                 0 |                 0 |     0 | dispatch_command      | sql_parse.cc         |        1931 |
++----------------------+----------+----------+------------+-------------------+---------------------+--------------+---------------+---------------+-------------------+-------------------+-------------------+-------+-----------------------+----------------------+-------------+
+15 rows in set, 1 warning (0.00 sec)</code></pre><h2 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h2><p><a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema-quick-start.html" target="_blank" rel="noopener">performance-schema-quick-start</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/optimization.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/8.0/en/optimization.html</a></p>
+<h1 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h1><p><a href="https://www.jianshu.com/p/5b2bb76d26d6" target="_blank" rel="noopener">分库分表</a></p>
+<p><a href="https://www.bbsmax.com/A/xl56PpKYzr/" target="_blank" rel="noopener">mysql中间件分享（Mysql-prxoy,Atlas,DBProxy,Amoeba,cobar,TDDL）</a></p>
+<h1 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h1><p><a href="https://blog.csdn.net/A_man_only/article/details/84257702" target="_blank" rel="noopener">MTS： 并行复制技术</a></p>
+<h1 id="读写分离"><a href="#读写分离" class="headerlink" title="读写分离"></a>读写分离</h1>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-mysql/mysql索引" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/18/mysql/mysql索引/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/mysql/mysql索引/">
+        mysql索引
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MYISAM"><a href="#MYISAM" class="headerlink" title="MYISAM"></a>MYISAM</h1><p><a href="https://dev.mysql.com/doc/refman/5.7/en/myisam-storage-engine.html" target="_blank" rel="noopener">MyISAM简介</a></p>
+<p>每个MyISAM表都以三个文件存储在磁盘上。这些文件的名称以表名开头，并具有扩展名以指示文件类型。一个.frm 文件存储表格式。数据文件的 扩展名为.MYD（MYData）。索引文件的扩展名为.MYI （MYIndex）。</p>
+<p>要明确指定要使用MyISAM 表，使用ENGINE表选项进行指示：</p>
+<pre><code>CREATE TABLE t (i INT) ENGINE = MYISAM;</code></pre><p><code>MyISAM</code> 表具有以下特征：</p>
 <ul>
-<li><p>a :提交的镜像作者；</p>
+<li><p>所有数据值都先以低字节存储。这使数据机和操作系统独立。二进制可移植性的唯一要求是机器使用二进制补码带符号整数和IEEE浮点格式。这些要求已在主流机器中广泛使用。二进制兼容性可能不适用于有时具有特殊处理器的嵌入式系统。</p>
+<p>先存储低字节数据没有明显的速度损失；表行中的字节通常是未对齐的，按顺序读取未对齐的字节所需的处理要多于反向顺序。而且，与其他代码相比，服务器中获取列值的代码不是时间紧迫的。</p>
 </li>
-<li><p>c :使用Dockerfile指令来创建镜像；</p>
+<li><p>所有数字键值都先存储高字节，以实现更好的索引压缩。</p>
 </li>
-<li><p>m :提交时的说明文字；</p>
+<li><p>在支持大文件的文件系统和操作系统上，支持大文件（文件长度最大为63位）。</p>
 </li>
-<li><p>p :在commit时，将容器暂停。   </p>
+<li><p>表格中 最多只能 有（2^32）2（1.844E + 19）行<code>MyISAM</code>。</p>
+</li>
+<li><p>每个<code>MyISAM</code> 表的最大索引数为64。</p>
+<p>每个索引的最大列数为16。</p>
+</li>
+<li><p>最大密钥长度为1000个字节。也可以通过更改源代码并重新编译来更改。对于密钥超过250字节的情况，将使用比默认值1024字节更大的密钥块大小。</p>
+</li>
+<li><p>当按排序顺序插入行时（如使用 <code>AUTO_INCREMENT</code>列时），索引树将被拆分，以便高级节点仅包含一个键。这样可以提高索引树中的空间利用率。</p>
+</li>
+<li><p><code>AUTO_INCREMENT</code> 支持每个表 对一列的内部处理。<code>MyISAM</code> 自动更新此列的 <a href="https://dev.mysql.com/doc/refman/5.7/en/insert.html" target="_blank" rel="noopener"><code>INSERT</code></a>和 <a href="https://dev.mysql.com/doc/refman/5.7/en/update.html" target="_blank" rel="noopener"><code>UPDATE</code></a>操作。这样可使 <code>AUTO_INCREMENT</code>列更快（至少10％）。序列顶部的值在删除后不会重复使用。（当一<code>AUTO_INCREMENT</code>列定义为多列索引的最后一列时，确实会重复使用从序列顶部删除的值。）<code>AUTO_INCREMENT</code>可以使用<a href="https://dev.mysql.com/doc/refman/5.7/en/alter-table.html" target="_blank" rel="noopener"><code>ALTER TABLE</code></a>或 <a href="https://dev.mysql.com/doc/refman/5.7/en/myisamchk.html" target="_blank" rel="noopener"><strong>myisamchk</strong></a>重置该 值 。</p>
+</li>
+<li><p>将删除与更新和插入混合在一起时，动态大小的行的碎片化要少得多。通过自动组合相邻的已删除块并通过扩展块（如果删除下一个块）来完成此操作。</p>
+</li>
+<li><p><code>MyISAM</code>支持并发插入：如果表在数据文件的中间没有空闲块，则可以<a href="https://dev.mysql.com/doc/refman/5.7/en/insert.html" target="_blank" rel="noopener"><code>INSERT</code></a>在其他线程从表读取数据 的同时向其中添加新行。由于删除行或使用比当前内容更多的数据更新动态长度行，可能会出现空闲块。当所有可用块用完（填充）时，以后的插入将再次并发。请参见 <a href="https://dev.mysql.com/doc/refman/5.7/en/concurrent-inserts.html" target="_blank" rel="noopener">第8.11.3节“并发插入”</a>。</p>
+</li>
+<li><p>您可以将数据文件和索引文件放在不同物理设备上的不同目录中，以使用<code>DATA DIRECTORY</code>和的<code>INDEX DIRECTORY</code>表选项来提高速度<a href="https://dev.mysql.com/doc/refman/5.7/en/create-table.html" target="_blank" rel="noopener"><code>CREATE TABLE</code></a>。请参见<a href="https://dev.mysql.com/doc/refman/5.7/en/create-table.html" target="_blank" rel="noopener">第13.1.18节“ CREATE TABLE语句”</a>。</p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/refman/5.7/en/blob.html" target="_blank" rel="noopener"><code>BLOB</code></a>并且 <a href="https://dev.mysql.com/doc/refman/5.7/en/blob.html" target="_blank" rel="noopener"><code>TEXT</code></a>列可以建立索引。</p>
+</li>
+<li><p><code>NULL</code>索引列中允许使用值。每个密钥占用0到1个字节。</p>
+</li>
+<li><p>每个字符列可以具有不同的字符集。请参见 <a href="https://dev.mysql.com/doc/refman/5.7/en/charset.html" target="_blank" rel="noopener">第10章，<em>字符集，整理，Unicode</em></a>。</p>
+</li>
+<li><p><code>MyISAM</code>索引文件中 有一个标志，指示表是否已正确关闭。如果 使用系统变量集启动 <a href="https://dev.mysql.com/doc/refman/5.7/en/mysqld.html" target="_blank" rel="noopener"><strong>mysqld</strong></a><a href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_myisam_recover_options" target="_blank" rel="noopener"><code>myisam_recover_options</code></a>，<code>MyISAM</code>则在打开表时会自动对其进行检查，如果未正确关闭表，则会对其进行修复。</p>
+</li>
+<li><p>如果使用该<a href="https://dev.mysql.com/doc/refman/5.7/en/myisamchk-check-options.html#option_myisamchk_update-state" target="_blank" rel="noopener"><code>--update-state</code></a> 选项运行<a href="https://dev.mysql.com/doc/refman/5.7/en/myisamchk.html" target="_blank" rel="noopener"> <strong>myisamchk</strong></a>，则将表标记为已选中。<a href="https://dev.mysql.com/doc/refman/5.7/en/myisamchk.html" target="_blank" rel="noopener"><strong>myisamchk –fast</strong></a>仅检查那些没有此标记的表。</p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/refman/5.7/en/myisamchk.html" target="_blank" rel="noopener"><strong>myisamchk –analyze</strong></a>存储部分键以及整个键的统计信息。</p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/refman/5.7/en/myisampack.html" target="_blank" rel="noopener"><strong>myisampack</strong></a>可以包装<a href="https://dev.mysql.com/doc/refman/5.7/en/blob.html" target="_blank" rel="noopener"><code>BLOB</code></a>和 包装 <a href="https://dev.mysql.com/doc/refman/5.7/en/char.html" target="_blank" rel="noopener"><code>VARCHAR</code></a>。</p>
+<p><code>MyISAM</code> 还支持以下功能：</p>
+</li>
+<li><p>支持真实<a href="https://dev.mysql.com/doc/refman/5.7/en/char.html" target="_blank" rel="noopener"><code>VARCHAR</code></a>类型；一<a href="https://dev.mysql.com/doc/refman/5.7/en/char.html" target="_blank" rel="noopener"><code>VARCHAR</code></a>列开始与存储在一个或两个字节的长度。</p>
+</li>
+<li><p>带<a href="https://dev.mysql.com/doc/refman/5.7/en/char.html" target="_blank" rel="noopener"><code>VARCHAR</code></a>列的表可能具有固定或动态的行长。</p>
+</li>
+<li><p>表格中<a href="https://dev.mysql.com/doc/refman/5.7/en/char.html" target="_blank" rel="noopener"><code>VARCHAR</code></a>和 的长度之 和 <a href="https://dev.mysql.com/doc/refman/5.7/en/char.html" target="_blank" rel="noopener"><code>CHAR</code></a>可能不超过64KB。</p>
+</li>
+<li><p>任意长度限制<code>UNIQUE</code>。</p>
+<h1 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h1></li>
+</ul>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-introduction.html" target="_blank" rel="noopener">InnoDB简介</a><br><code>InnoDB</code>是一种兼顾了高可靠性和高性能的通用存储引擎。在MySQL 5.7中，<code>InnoDB</code>是默认的MySQL存储引擎。除非配置了其他默认存储引擎，否则发出<a href="https://dev.mysql.com/doc/refman/5.7/en/create-table.html" target="_blank" rel="noopener"><code>CREATE TABLE</code></a>不带<code>ENGINE=</code> 子句的语句将创建一个<code>InnoDB</code>表。</p>
+<h3 id="InnoDB的主要优势"><a href="#InnoDB的主要优势" class="headerlink" title="InnoDB的主要优势"></a>InnoDB的主要优势</h3><ul>
+<li>它的<a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_dml" target="_blank" rel="noopener">DML</a>操作遵循 <a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_acid" target="_blank" rel="noopener">ACID</a>模型，并 具有具有 <a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_commit" target="_blank" rel="noopener">提交</a>，<a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_rollback" target="_blank" rel="noopener">回滚</a>和 <a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_crash_recovery" target="_blank" rel="noopener">崩溃恢复</a> 功能的<a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_transaction" target="_blank" rel="noopener">事务</a>， 以保护用户数据。 <a href="https://dev.mysql.com/doc/refman/5.7/en/mysql-acid.html" target="_blank" rel="noopener">第14.2节“ InnoDB和ACID模型”</a>。</li>
+<li>行级<a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_locking" target="_blank" rel="noopener">锁定</a>和Oracle风格的<a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_consistent_read" target="_blank" rel="noopener">一致读取可</a>提高多用户并发性和性能。<a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-locking-transaction-model.html" target="_blank" rel="noopener">第14.7节“ InnoDB锁定和事务模型”</a>。</li>
+<li><code>InnoDB</code>表格将您的数据安排在磁盘上，以基于<a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_primary_key" target="_blank" rel="noopener">主键</a>优化查询 。每个 <code>InnoDB</code>表都有一个称为<a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_clustered_index" target="_blank" rel="noopener">聚集索引</a>的主键索引，该<a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_clustered_index" target="_blank" rel="noopener">索引</a> 组织数据以最小化主键查找的I / O。<a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-index-types.html" target="_blank" rel="noopener">第14.6.2.1节“聚集索引和二级索引”</a>。</li>
+<li>维护数据 <a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_referential_integrity" target="_blank" rel="noopener">完整性</a>， <code>InnoDB</code>支持 <a href="https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_foreign_key" target="_blank" rel="noopener"><code>FOREIGN KEY</code></a>约束。使用外键检查插入，更新和删除，以确保它们不会导致不同表之间的不一致。 <a href="https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html" target="_blank" rel="noopener">第13.1.18.6节“外键约束”</a>。</li>
+</ul>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><p><a href="https://dev.mysql.com/doc/refman/5.7/en/mysql-indexes.html" target="_blank" rel="noopener">How MySQL Uses Indexes</a></p>
+<pre><code>叶子节点放的数据不是实际数据，而是主键值。然后回表。
+查询时是两颗B+树，一颗索引树，一个原来的B+树</code></pre><h2 id="全文索引"><a href="#全文索引" class="headerlink" title="全文索引"></a><a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-search.html" target="_blank" rel="noopener">全文索引</a></h2><ul>
+<li><p>MySQL支持全文索引和搜索：</p>
+<ul>
+<li>MySQL中的全文索引是type的索引 <code>FULLTEXT</code>。</li>
+<li>全文索引只能使用InnoDB或MyISAM表格，并且只能用于创建CHAR，VARCHAR或 TEXT列。</li>
+<li>MySQL提供了一个内置的全文ngram解析器，该解析器支持中文，日文和韩文（CJK），以及一个用于日语的可安装的MeCab全文分析器插件。<a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-search-ngram.html" target="_blank" rel="noopener">第12.9.8节“ ngram全文解析器”</a>和 <a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-search-mecab.html" target="_blank" rel="noopener">第12.9.9节“ MeCab全文解析器插件”</a>中概述了解析差异。</li>
+<li>甲<code>FULLTEXT</code>索引定义可以在被给予CREATE TABLE的语句中创建表时，或者稍后使用添加ALTER TABLE或 CREATE INDEX。</li>
+<li>对于大型数据集，将数据加载到没有<code>FULLTEXT</code>索引的表中然后再创建索引比将数据加载到具有现有<code>FULLTEXT</code>索引的表中要快得多。</li>
+</ul>
+<p>全文搜索分为三种：</p>
+</li>
+<li><p>自然语言搜索将搜索字符串解释为自然人类语言中的短语（自由文本中的短语）。除双引号（“）字符外，没有特殊的运算符。适用停用词列表。有关停用词列表的更多信息，请参见<a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-stopwords.html" target="_blank" rel="noopener">第12.9.4节“全文停用词 “</a>。</p>
+<p>如果指定了<code>IN NATURAL LANGUAGE MODE</code>修饰符或未指定修饰符，则全文搜索是自然语言搜索 。有关更多信息，请参见 <a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-natural-language.html" target="_blank" rel="noopener">第12.9.1节“自然语言全文本搜索”</a>。</p>
+</li>
+<li><p>布尔搜索使用特殊查询语言的规则解释搜索字符串。该字符串包含要搜索的单词。它还可以包含指定要求的运算符，以使匹配行中的单词必须存在或不存在，或者其权重应高于或低于平常。某些常见单词（停用词）将从搜索索引中省略，并且如果出现在搜索字符串中则不匹配。该<code>IN BOOLEAN MODE</code>修饰符指定一个布尔搜索。有关更多信息，请参见 <a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-boolean.html" target="_blank" rel="noopener">第12.9.2节“布尔全文本搜索”</a>。</p>
+</li>
+<li><p>查询扩展搜索是对自然语言搜索的修改。搜索字符串用于执行自然语言搜索。然后，将搜索返回的最相关行中的单词添加到搜索字符串中，然后再次执行搜索。该查询返回第二个搜索中的行。该<code>IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION</code>或<code>WITH QUERY EXPANSION</code>修改指定的查询扩展搜索。有关更多信息，请参见 <a href="https://dev.mysql.com/doc/refman/5.7/en/fulltext-query-expansion.html" target="_blank" rel="noopener">第12.9.3节“具有查询扩展的全文本搜索”</a>。</p>
 </li>
 </ul>
-<p>示例：</p>
-<pre><code>[root@JD ~]# docker ps -a |grep mysql
-e718ed5b4e32        mysql:5.7                           &quot;docker-entrypoint.s…&quot;   3 weeks ago         Up 3 weeks                 0.0.0.0:3306-&gt;3306/tcp, 33060/tcp                                mysql
-[root@JD ~]# docker commit -a &quot;mujia_prince&quot; -m &quot;test docker commit mysql&quot; e718ed5b4e32 my-test-mysql:v1.0
-sha256:bb9c07f10ff04f0fa0f486afc07221110029e13ab3dd61bc495b7bd5ad93978f
+<h2 id="哈希索引"><a href="#哈希索引" class="headerlink" title="哈希索引"></a><a href="https://dev.mysql.com/doc/refman/5.7/en/index-btree-hash.html" target="_blank" rel="noopener">哈希索引</a></h2><p>只有memony引擎显示支持哈希索引</p>
+<ul>
+<li>仅用于使用<code>=</code>or <code>&lt;=&gt;</code> 运算符的相等比较 （但非常快），不用于比较运算符 </li>
+<li>优化器无法使用哈希索引来加快<code>ORDER BY</code>操作速度 </li>
+<li>仅整个键可用于搜索行 </li>
+</ul>
+<h2 id="组合索引"><a href="#组合索引" class="headerlink" title="组合索引"></a>组合索引</h2><p><a href="https://www.jianshu.com/p/35588ecf33c1" target="_blank" rel="noopener">mysql的联合索引的B+树</a></p>
+<h4 id="有number-name-age-adds四个列时，组合索引-number-age-adds"><a href="#有number-name-age-adds四个列时，组合索引-number-age-adds" class="headerlink" title="有number name age adds四个列时，组合索引 (number age adds)"></a>有number name age adds四个列时，组合索引 (number age adds)</h4><p><code>explain select * from bigtables where number = 101 and age &gt;18 and adds =18;</code>走联合索引number的索引,Using index condition</p>
+<pre><code>mysql&gt; explain select * from bigtables where number = 101 and age &gt;18 and adds =18;
++----+-------------+-----------+------------+-------+---------------+------+---------+------+------+----------+-----------------------+
+| id | select_type | table     | partitions | type  | possible_keys | key  | key_len | ref  | rows | filtered | Extra                 |
++----+-------------+-----------+------------+-------+---------------+------+---------+------+------+----------+-----------------------+
+|  1 | SIMPLE      | bigtables | NULL       | range | idx           | idx  | 10      | NULL |  104 |    10.00 | Using index condition |
++----+-------------+-----------+------------+-------+---------------+------+---------+------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)</code></pre><p><code>explain select * from bigtables where number = 101 and age like &#39;1%&#39; and adds =18;</code>走联合索引number的索引</p>
+<pre><code>mysql&gt; explain select * from bigtables where number = 101 and age like &apos;1%&apos; and adds =18;
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-----------------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref   | rows | filtered | Extra                 |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-----------------------+
+|  1 | SIMPLE      | bigtables | NULL       | ref  | idx           | idx  | 5       | const |  106 |     1.11 | Using index condition |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)</code></pre><p><code>explain select * from bigtables where number = 101 and age like &#39;%9&#39; and adds =18;</code>走联合索引number的索引</p>
+<pre><code>mysql&gt; explain select * from bigtables where number = 101 and age like &apos;%9&apos; and adds =18;
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-----------------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref   | rows | filtered | Extra                 |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-----------------------+
+|  1 | SIMPLE      | bigtables | NULL       | ref  | idx           | idx  | 5       | const |  106 |     1.11 | Using index condition |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)</code></pre><p><code>explain select * from bigtables where age like &#39;%9&#39; and adds =18;</code> 不走索引</p>
+<pre><code>mysql&gt; explain select * from bigtables where age like &apos;%9&apos; and adds =18;
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | bigtables | NULL       | ALL  | NULL          | NULL | NULL    | NULL | 1010 |     1.11 | Using where |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)</code></pre><p><code>explain select * from bigtables where adds =18;</code>不走索引</p>
+<pre><code>mysql&gt; explain select * from bigtables where adds =18;
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | bigtables | NULL       | ALL  | NULL          | NULL | NULL    | NULL | 1010 |    10.00 | Using where |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)</code></pre><h2 id="B-tree和B-tree"><a href="#B-tree和B-tree" class="headerlink" title="B tree和B+ tree"></a>B tree和B+ tree</h2><h2 id="单列索引"><a href="#单列索引" class="headerlink" title="单列索引"></a>单列索引</h2><ul>
+<li><p>聚集索引</p>
+</li>
+<li><p>非聚集索引</p>
+</li>
+</ul>
+<h2 id="外键"><a href="#外键" class="headerlink" title="外键"></a>外键</h2><p><a href="https://zhuanlan.zhihu.com/p/62020571" target="_blank" rel="noopener">为什么不推荐使用外键约束</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/foreign-key-optimization.html" target="_blank" rel="noopener">foreign-key-optimization</a></p>
+<h2 id="索引覆盖"><a href="#索引覆盖" class="headerlink" title="索引覆盖"></a><a href="https://dev.mysql.com/doc/refman/5.7/en/index-merge-optimization.html" target="_blank" rel="noopener">索引覆盖</a></h2><p>当sql语句的所求查询字段（select列）和查询条件字段（where子句）全都包含在一个索引中，可以直接使用索引查询而不需要回表。这就是<a href="https://dev.mysql.com/doc/refman/5.7/en/index-merge-optimization.html" target="_blank" rel="noopener">索引覆盖</a>，通过使用覆盖索引，可以减少搜索树的次数，是常用的性能优化手段。</p>
+<pre><code>mysql&gt; explain select number, age, adds from bigtables where  number = 101;
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref   | rows | filtered | Extra       |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------------+
+|  1 | SIMPLE      | bigtables | NULL       | ref  | idx           | idx  | 5       | const |  106 |   100.00 | Using index |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)</code></pre><p>两个单列索引，查询也能触发索引覆盖</p>
+<p>组合索引也可以触发索引覆盖</p>
+<h2 id="索引下推"><a href="#索引下推" class="headerlink" title="索引下推"></a>索引下推</h2><p>对于bigtables表，我们现在有（name,number）联合索引<br> 如果现在有一个需求，查出名称中以“w”开头且number小于等于101的信息，语句如下：</p>
+<pre><code>&quot;select * from bigtables where name like &apos;w%&apos; and number&gt; 10;&quot;.</code></pre><p> 语句有两种执行可能：</p>
+<ul>
+<li><p>1、根据（name,number）联合索引查询所有满足名称以“w”开头的索引，然后回表查询出相应的全行数据，然后再筛选出满足number小于等于101的用户数据。</p>
+</li>
+<li><p>2、根据（name,number）联合索引查询所有满足名称以“w”开头的索引，然后直接再筛选出number小于等于101的索引，之后再回表查询全行数据。 </p>
+</li>
+</ul>
+<p>明显的，第二种方式需要回表查询的全行数据比较少，这就是mysql的索引下推。<br>mysql默认启用索引下推，我们也可以通过修改系统变量optimizer_switch的index_condition_pushdown标志来控制 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET optimizer_switch = &apos;index_condition_pushdown=off&apos;;</span><br></pre></td></tr></table></figure>
 
-[root@JD ~]# docker images -a
-REPOSITORY                     TAG                 IMAGE ID            CREATED             SIZE
-my-test-mysql                  v1.0                bb9c07f10ff0        41 seconds ago      437MB
-mysql                          5.7                 db39680b63ac        3 months ago        437MB</code></pre><h1 id="搭建镜像仓库"><a href="#搭建镜像仓库" class="headerlink" title="搭建镜像仓库"></a>搭建镜像仓库</h1><p><a href="https://blog.csdn.net/prince_mujia/article/details/105273055" target="_blank" rel="noopener">搭建docker镜像仓库</a></p>
-<h1 id="docker-volumes"><a href="#docker-volumes" class="headerlink" title="docker volumes"></a>docker volumes</h1><p><a href="https://docs.docker.com/storage/volumes/" target="_blank" rel="noopener">docker volumes</a></p>
-<p>-v：把宿主机的/root/data/registry目录绑定到容器/var/lib/registry目录(这个目录是registry容器中存放镜像文件的目录)，来实现数据的持久化；</p>
-<p>示例：</p>
-<pre><code>docker run -itd -v /root/data/registry:/var/lib/registry -p 5000:5000 --restart=always --name docker-registry registry:latest </code></pre><p>在镜像仓库中推送镜像<code>registry-mysql</code>之后，在<code>/root/data/registry</code>下能找到：</p>
-<pre><code>[root@JD repositories]# pwd
-/root/data/registry/docker/registry/v2/repositories
-[root@JD repositories]# ll
-total 0
-drwxr-xr-x 5 root root 55 Apr  1 23:32 registry-mysql</code></pre><p>使用  -v  参数时如果本地目录不存在 Docker 会自动为创建一个文件夹，现在使用  –mount  参数时如果本地目录不存在，Docker 会报错</p>
-<p>挂载一个本地主机文件作为数据卷</p>
-<p>–mount  标记也可以从主机挂载单个文件到容器中</p>
-<pre><code>docker run --rm -it \
-# -v $HOME/.bash_history:/root/.bash_history \
---mount type=bind,source=$HOME/.bash_history,target=/root/.bash_history \
-ubuntu:17.10 \
-bash</code></pre><p><code>--rm</code> :在Docker容器退出时，默认容器内部的文件系统仍然被保留，以方便调试并保留用户数据。</p>
-<p>但是，对于foreground容器，由于其只是在开发调试过程中短期运行，其用户数据并无保留的必要，因而可以在容器启动时设置–rm选项，这样在容器退出时就能够自动清理容器内部的文件系统</p>
-<h2 id="docker-volume-container"><a href="#docker-volume-container" class="headerlink" title="docker volume container"></a>docker volume container</h2><h2 id="数据备份"><a href="#数据备份" class="headerlink" title="数据备份"></a>数据备份</h2><h1 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker compose"></a>docker compose</h1><p><a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">docker compose install</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line">$ sudo chmod +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line">$ docker-compose --version</span><br><span class="line">docker-compose version 1.24.1, build 1110ad01</span><br></pre></td></tr></table></figure>
+<p>注意点：<br> 1、innodb引擎的表，索引下推只能用于二级索引。</p>
+<p>就像之前提到的，innodb的主键索引树叶子结点上保存的是全行数据，所以这个时候索引下推并不会起到减少查询全行数据的效果。</p>
+<p>2、索引下推一般可用于所求查询字段（select列）不是/不全是联合索引的字段，查询条件为多条件查询且查询条件子句（where/order by）字段全是联合索引。</p>
+<p>假设表t有联合索引（a,b）,下面语句可以使用索引下推提高效率<br> select * from t where a &gt; 2 and b &gt; 10;</p>
+<p><a href="https://www.jianshu.com/p/bdc9e57ccf8b" target="_blank" rel="noopener">参考:  mysql索引篇之覆盖索引、联合索引、索引下推</a></p>
+<h2 id="最左匹配"><a href="#最左匹配" class="headerlink" title="最左匹配"></a>最左匹配</h2><h2 id="like会不会走索引"><a href="#like会不会走索引" class="headerlink" title="like会不会走索引"></a>like会不会走索引</h2><p>根据最左匹配原则：</p>
+<p><code>where like &#39;%ssss%&#39; ;</code>不走索引</p>
+<p><code>where like &#39;ssss%&#39;；</code> 走索引</p>
+<p><code>where like &#39;%ssss&#39;；</code> 不走索引</p>
+<h2 id="优化小细节"><a href="#优化小细节" class="headerlink" title="优化小细节"></a>优化小细节</h2><h3 id="数据库操作层面"><a href="#数据库操作层面" class="headerlink" title="数据库操作层面"></a>数据库操作层面</h3><h4 id="1-不要使用表达式"><a href="#1-不要使用表达式" class="headerlink" title="1 不要使用表达式"></a>1 不要使用表达式</h4><p>虽然执行计划中有可能会判断走索引，但是 rows依然是全表扫描了，1010条</p>
+<pre><code>mysql&gt; explain select * from bigtables where number+1  = 103;
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | bigtables | NULL       | ALL  | NULL          | NULL | NULL    | NULL | 1010 |   100.00 | Using where |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
 
-<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><h2 id="删除已经停止的容器"><a href="#删除已经停止的容器" class="headerlink" title="删除已经停止的容器"></a>删除已经停止的容器</h2><pre><code>$ docker rm [OPTIONS] CONTAINER [CONTAINER...]
-docker rm 2d85b99b03b2</code></pre><h2 id="查看镜像、容器、数据卷所占用的空间"><a href="#查看镜像、容器、数据卷所占用的空间" class="headerlink" title="查看镜像、容器、数据卷所占用的空间"></a>查看镜像、容器、数据卷所占用的空间</h2><pre><code>docker system df   </code></pre><h2 id="查看当前宿主机开放了哪些端口"><a href="#查看当前宿主机开放了哪些端口" class="headerlink" title="查看当前宿主机开放了哪些端口"></a>查看当前宿主机开放了哪些端口</h2><pre><code>netstat -tnulp</code></pre><h2 id="查看docker-信息"><a href="#查看docker-信息" class="headerlink" title="查看docker 信息"></a>查看docker 信息</h2><pre><code>docker inspect [image id]</code></pre>
+mysql&gt; explain select * from bigtables where number = 103;
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref   | rows | filtered | Extra |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | bigtables | NULL       | ref  | idx           | idx  | 5       | const |   98 |   100.00 | NULL  |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)</code></pre><h4 id="2-使用索引扫描进行排序时"><a href="#2-使用索引扫描进行排序时" class="headerlink" title="2 使用索引扫描进行排序时"></a>2 使用索引扫描进行排序时</h4><p> <a href="https://blog.csdn.net/csdn_kenneth/article/details/82942137" target="_blank" rel="noopener">为排序使用索引Order By优化</a> </p>
+<p>mysql默认的排序是asc。</p>
+<p>多个排序时，一个逆序，其他asc的时候也不会走索引排序，而同时都desc时候，不会走索引排序<br><img src="..%5Cmysql%E7%B4%A2%E5%BC%95%5C%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%E6%89%AB%E6%8F%8F%E8%BF%9B%E8%A1%8C%E6%8E%92%E5%BA%8F.png" alt="使用索引扫描进行排序"><br>或者一个是desc，也不会走索引排序。<code>Using filesort</code></p>
+<pre><code>mysql&gt; explain select * from abc2 where c &gt;1 order by c desc;
++----+-------------+-------+------------+-------+---------------+---------+---------+------+------+----------+------------------------------------------+
+| id | select_type | table | partitions | type  | possible_keys | key     | key_len | ref  | rows | filtered | Extra                                    |
++----+-------------+-------+------------+-------+---------------+---------+---------+------+------+----------+------------------------------------------+
+|  1 | SIMPLE      | abc2  | NULL       | index | NULL          | idx_abc | 72      | NULL |    3 |    33.33 | Using where; Using index; Using filesort |
++----+-------------+-------+------------+-------+---------------+---------+---------+------+------+----------+------------------------------------------+
+1 row in set, 1 warning (0.00 sec)
+
+ERROR: 
+No query specified</code></pre><h4 id="3-union-all（执行计划分多步执行）-in-or"><a href="#3-union-all（执行计划分多步执行）-in-or" class="headerlink" title="3 union all（执行计划分多步执行）, in, or"></a>3 union all（执行计划分多步执行）, in, or</h4><p>or</p>
+<pre><code>number,age为联合索引：
+mysql&gt; explain select * from bigtables where number = 103 or age = 19;
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | bigtables | NULL       | ALL  | idx           | NULL | NULL    | NULL | 1010 |    19.00 | Using where |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+
+a b c为单列索引：
+mysql&gt; explain select * from abc where b = 2 or c = 3;
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | abc   | NULL       | ALL  | idx_b,idx_c   | NULL | NULL    | NULL |   10 |    23.50 | Using where |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)</code></pre><p>union all执行计划分多步执行</p>
+<pre><code>mysql&gt; explain select * from abc  union all  select * from abc2\G;
+*************************** 1. row ***************************
+           id: 1
+  select_type: PRIMARY
+        table: abc
+   partitions: NULL
+         type: index
+possible_keys: NULL
+          key: idx_abc
+      key_len: 14
+          ref: NULL
+         rows: 3
+     filtered: 100.00
+        Extra: Using index
+*************************** 2. row ***************************
+           id: 2
+  select_type: UNION
+        table: abc2
+   partitions: NULL
+         type: index
+possible_keys: NULL
+          key: idx_abc
+      key_len: 72
+          ref: NULL
+         rows: 3
+     filtered: 100.00
+        Extra: Using index
+2 rows in set, 1 warning (0.00 sec)
+
+ERROR: 
+No query specified</code></pre><p>in </p>
+<pre><code>mysql&gt; explain select * from bigtables where number in (101);
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref   | rows | filtered | Extra |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | bigtables | NULL       | ref  | idx           | idx  | 5       | const |  106 |   100.00 | NULL  |
++----+-------------+-----------+------------+------+---------------+------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql&gt; explain select * from bigtables where number in (101,102);
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | bigtables | NULL       | ALL  | idx           | NULL | NULL    | NULL | 1010 |    21.68 | Using where |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)</code></pre><h4 id="4-类型转换可能会造成索引失效"><a href="#4-类型转换可能会造成索引失效" class="headerlink" title="4 类型转换可能会造成索引失效"></a>4 类型转换可能会造成索引失效</h4><p>ex: name 为varchar 时，where name = 123 会造成索引失效</p>
+<p><a href="https://blog.csdn.net/prince_mujia/article/details/104799176" target="_blank" rel="noopener">MySQL小结：锁-3.1.2 行锁变表锁</a></p>
+<h4 id="5-对于数据库中不常用数据可以进行备份或者压缩操作，减少数据库压力"><a href="#5-对于数据库中不常用数据可以进行备份或者压缩操作，减少数据库压力" class="headerlink" title="5 对于数据库中不常用数据可以进行备份或者压缩操作，减少数据库压力"></a>5 对于数据库中不常用数据可以进行备份或者压缩操作，减少数据库压力</h4><h4 id="6-使用explain进行检查"><a href="#6-使用explain进行检查" class="headerlink" title="6 使用explain进行检查"></a>6 使用explain进行检查</h4><p><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html" target="_blank" rel="noopener">EXPLAIN Output Format</a></p>
+<h5 id="rows"><a href="#rows" class="headerlink" title="rows:"></a>rows:</h5><p>官网中有一句话：</p>
+<pre><code>rows (JSON name: rows)
+
+The rows column indicates the number of rows MySQL believes it must examine to execute the query.
+
+For InnoDB tables, this number is an estimate, and may not always be exact.
+//对于InnoDB表，此数字是估计值，可能并不总是准确的。</code></pre><h5 id="type"><a href="#type" class="headerlink" title="type:"></a>type:</h5><table>
+<thead>
+<tr>
+<th>type</th>
+<th>JSON名称</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_id" target="_blank" rel="noopener"><code>id</code></a></td>
+<td><code>select_id</code></td>
+<td>该<code>SELECT</code>标识符</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_select_type" target="_blank" rel="noopener"><code>select_type</code></a></td>
+<td>None</td>
+<td>该<code>SELECT</code>类型</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_table" target="_blank" rel="noopener"><code>table</code></a></td>
+<td><code>table_name</code></td>
+<td>输出行表</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_partitions" target="_blank" rel="noopener"><code>partitions</code></a></td>
+<td><code>partitions</code></td>
+<td>匹配的分区</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_type" target="_blank" rel="noopener"><code>type</code></a></td>
+<td><code>access_type</code></td>
+<td>联接类型</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_possible_keys" target="_blank" rel="noopener"><code>possible_keys</code></a></td>
+<td><code>possible_keys</code></td>
+<td>可能的索引选择</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_key" target="_blank" rel="noopener"><code>key</code></a></td>
+<td><code>key</code></td>
+<td>实际选择的索引</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_key_len" target="_blank" rel="noopener"><code>key_len</code></a></td>
+<td><code>key_length</code></td>
+<td>所选键的长度</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_ref" target="_blank" rel="noopener"><code>ref</code></a></td>
+<td><code>ref</code></td>
+<td>与索引比较的列</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_rows" target="_blank" rel="noopener"><code>rows</code></a></td>
+<td><code>rows</code></td>
+<td>估计要检查的行</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_filtered" target="_blank" rel="noopener"><code>filtered</code></a></td>
+<td><code>filtered</code></td>
+<td>按表条件过滤的行百分比</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain_extra" target="_blank" rel="noopener"><code>Extra</code></a></td>
+<td>None</td>
+<td>附加信息</td>
+</tr>
+</tbody></table>
+<h5 id="Extra"><a href="#Extra" class="headerlink" title="Extra:"></a>Extra:</h5><p>Using index condition: 通过访问索引并首先对其进行测试以确定是否读取完整的表行来读取表。除非有必要，否则索引信息将用 <code>索引下推</code> 读取整个表行</p>
+<p>Using index：仅使用索引树中的信息从表中检索列信息，而不必进行其他查找以读取实际行。</p>
+<p>Using filesort：MySQL必须额外进行一遍，以找出如何按排序顺序检索行。排序是通过根据联接类型遍历所有行并存储与该WHERE子句匹配的所有行的排序键和指向该行的指针来完成的。然后对键进行排序，并按排序顺序检索行。</p>
+<p>Using join buffer (Block Nested Loop)， Using join buffer (Batched Key Access)：来自较早联接的表被部分读取到联接缓冲区中，然后从缓冲区中使用它们的行来执行与当前表的联接。 </p>
+<p>Using temporary：为了解决该查询，MySQL需要创建一个临时表来保存结果。如果查询包含GROUP BY和 ORDER BY子句以不同的方式列出列，通常会发生这种情况。</p>
+<p>Using where：WHERE子句用于限制来匹配下一个表或发送到客户端的行。</p>
+<h4 id="7-查看查询语句每一个步骤的时间"><a href="#7-查看查询语句每一个步骤的时间" class="headerlink" title="7 查看查询语句每一个步骤的时间"></a>7 查看查询语句每一个步骤的时间</h4><p><a href="https://dev.mysql.com/doc/refman/5.7/en/show-profile.html" target="_blank" rel="noopener">show-profile</a></p>
+<p>官网中有一句话：该SHOW PROFILE和 SHOW PROFILES语句被取消，并将在未来的MySQL版本中删除，改用性能模式；</p>
+<p> The <a href="https://dev.mysql.com/doc/refman/5.7/en/show-profile.html" target="_blank" rel="noopener"><code>SHOW PROFILE</code></a> and <a href="https://dev.mysql.com/doc/refman/5.7/en/show-profiles.html" target="_blank" rel="noopener"><code>SHOW PROFILES</code></a> statements are deprecated and will be removed in a future MySQL release. Use the <a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema.html" target="_blank" rel="noopener">Performance Schema</a> instead; see <a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema-query-profiling.html" target="_blank" rel="noopener">Section 25.19.1, “Query Profiling Using Performance Schema”</a>. </p>
+<pre><code>SET profiling = 1;
+
+select * from abc;
+
+SHOW PROFILE FOR QUERY 1; //  SHOW PROFILES;
++----------------------+----------+
+| Status               | Duration |
++----------------------+----------+
+| starting             | 0.000056 |
+| checking permissions | 0.000010 |
+| Opening tables       | 0.000029 |
+| init                 | 0.000019 |
+| System lock          | 0.000011 |
+| optimizing           | 0.000006 |
+| statistics           | 0.000012 |
+| preparing            | 0.000009 |
+| executing            | 0.000003 |
+| Sending data         | 0.000053 |
+| end                  | 0.000006 |
+| query end            | 0.000009 |
+| closing tables       | 0.000009 |
+| freeing items        | 0.000014 |
+| cleaning up          | 0.000013 |
++----------------------+----------+
+15 rows in set, 1 warning (0.00 sec)</code></pre><h4 id="8-数据库性能监控-Performance-Schema"><a href="#8-数据库性能监控-Performance-Schema" class="headerlink" title="8 数据库性能监控 Performance Schema"></a>8 数据库性能监控 Performance Schema</h4><p><a href="https://dev.mysql.com/doc/refman/5.7/en/performance-schema-query-profiling.html" target="_blank" rel="noopener">使用性能模式进行查询分析</a></p>
+<h4 id="9-数据库参数设置：线程池等。。。"><a href="#9-数据库参数设置：线程池等。。。" class="headerlink" title="9 数据库参数设置：线程池等。。。"></a>9 数据库参数设置：线程池等。。。</h4><h3 id="数据库设计层面"><a href="#数据库设计层面" class="headerlink" title="数据库设计层面"></a>数据库设计层面</h3><h4 id="1-索引一定要加适量"><a href="#1-索引一定要加适量" class="headerlink" title="1 索引一定要加适量"></a>1 索引一定要加适量</h4><p>创建索引会使查询操作变得更加快速,但是会降低增加、删除、更新操作的速度,因为执行这些操作的同时会对索引文件进行重新排序或更新; </p>
+<h4 id="2-考虑前缀索引"><a href="#2-考虑前缀索引" class="headerlink" title="2 考虑前缀索引"></a>2 考虑前缀索引</h4><p>前缀索引是一种能使索引更小，更快的有效办法</p>
+<p>注意：MySQL中无法使用前缀索引进行ORDER BY和GROUP BY，也无法用来进行覆盖扫描</p>
+<p><a href="https://www.cnblogs.com/balfish/p/9003794.html" target="_blank" rel="noopener">MySQL前缀索引和索引选择性</a></p>
+<h4 id="3-更新十分频繁，数据区分度不高的字段不推荐建立索引"><a href="#3-更新十分频繁，数据区分度不高的字段不推荐建立索引" class="headerlink" title="3 更新十分频繁，数据区分度不高的字段不推荐建立索引"></a>3 更新十分频繁，数据区分度不高的字段不推荐建立索引</h4><ul>
+<li>sex: 男，女  </li>
+<li>更新会变动B+树，更新频繁的字段建立索引会大大降低数据库性能</li>
+</ul>
+<h4 id="4-创建索引的列，不允许为null"><a href="#4-创建索引的列，不允许为null" class="headerlink" title="4 创建索引的列，不允许为null"></a>4 创建索引的列，不允许为null</h4><h4 id="5-当需要表连接的时候，最好不要超过三张表，因为需要join的字段，数据类型必须一致"><a href="#5-当需要表连接的时候，最好不要超过三张表，因为需要join的字段，数据类型必须一致" class="headerlink" title="5 当需要表连接的时候，最好不要超过三张表，因为需要join的字段，数据类型必须一致"></a>5 当需要表连接的时候，最好不要超过三张表，因为需要join的字段，数据类型必须一致</h4><h4 id="6-表设计时字段优化"><a href="#6-表设计时字段优化" class="headerlink" title="6 表设计时字段优化"></a>6 表设计时字段优化</h4><ul>
+<li>尽可能选择小的数据类型  ex: <code>tinyint</code></li>
+<li>字段不要过多，取名见名思义，加注释，预留字段供扩展</li>
+</ul>
+<p><a href="https://www.jianshu.com/p/f2a43a425223" target="_blank" rel="noopener">MySQL数据库表结构设计优化技巧</a></p>
+<h3 id="全表扫描"><a href="#全表扫描" class="headerlink" title="全表扫描"></a>全表扫描</h3><p><a href="https://dev.mysql.com/doc/refman/5.7/en/table-scan-avoidance.html" target="_blank" rel="noopener">table-scan-avoidance</a></p>
+<p> 使用EXPLAIN分析SQL时，当列出执行计划表中type字段值为ALL时，代表需要全表扫描 ，mysql会在一下情况使用全表扫描：</p>
+<ul>
+<li>所扫描的数据表非常小，因此全表扫描的速度要远快于使用索引， 对于少于10行且行长较短的表 </li>
+<li>在ON或WHERE子句中没有可以使用的索引列  </li>
+<li>在使用索引列与常量值比较，并且MySQL服务已经通过索引树计算出常量值覆盖了大部分表数据，此时使用全表扫描是比较快的。 </li>
+<li>当前正在使用一个对于其他列来说基数较低的索引(每个索引值在另一列都有多行行对应)，在这种情况下，使用索引可能会引起较多的索引查询，MySQL认为全表扫描比较快。 </li>
+</ul>
+<h5 id="避免全表扫描"><a href="#避免全表扫描" class="headerlink" title="避免全表扫描"></a><strong>避免全表扫描</strong></h5><p> 对于小型表，表扫描通常是合适的，并且对性能的影响可以忽略不计。对于大型表，使用以下操作可以帮助优化器对于是否进行全表扫描做出正确的判断：  </p>
+<ul>
+<li><p>使用ANALYZE TABLE tbl_name语句来更新被扫描表中索引的分布。 </p>
+</li>
+<li><p>使用<code>FORCE INDEX</code>  语句来强制优化器对该表放弃全表扫描而使用索引，如下： </p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t1, t2 FORCE INDEX (index_for_column)</span><br><span class="line">WHERE t1.col_name=t2.col_name;</span><br></pre></td></tr></table></figure>
+
+<p>force index()指令可以指定本次查询使用哪个索引。</p>
+<p>mysql优化器会计算出一个合适的索引，但是这个索引不一定是最好的。force index()指令可以避免MySql优化器用到了一个低效的索引。</p>
+<ul>
+<li>设置启动参数–max-seeks-for-key=1000或使用参数SET max_seeks_for_key=1000来通知优化器如果没有索引扫描会导致过千的索引查找。 </li>
+</ul>
+<h3 id="join"><a href="#join" class="headerlink" title="join"></a>join</h3><p> 执行联接时从其他表中检索行。如果声明相同的类型和大小，MySQL可以更有效地在列上使用索引。在这种情况下， <a href="https://dev.mysql.com/doc/refman/5.7/en/char.html" target="_blank" rel="noopener"><code>VARCHAR</code></a>与 <a href="https://dev.mysql.com/doc/refman/5.7/en/char.html" target="_blank" rel="noopener"><code>CHAR</code></a>被认为是相同的，如果它们被声明为相同的大小。例如， <code>VARCHAR(10)</code>和 <code>CHAR(10)</code>是相同的大小，但是 <code>VARCHAR(10)</code>和 <code>CHAR(15)</code>不是。 </p>
+<ul>
+<li>如果<code>ORDER BY</code>and <code>GROUP BY</code>子句中的所有列 都来自同一表，则在连接时优先使用该表。</li>
+<li>如果存在一个<code>ORDER BY</code>子句和另一个<code>GROUP BY</code>子句，或者如果 <code>ORDER BY</code>或<code>GROUP BY</code> 包含连接队列中第一个表以外的表中的列，则会创建一个临时表。</li>
+</ul>
+<h3 id="压缩如何用于InnoDB表"><a href="#压缩如何用于InnoDB表" class="headerlink" title="压缩如何用于InnoDB表"></a><a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-compression-internals.html" target="_blank" rel="noopener">压缩如何用于InnoDB表</a></h3><p>MySQL在著名的zlib库的帮助下实现了压缩，该 库实现了LZ77压缩算法。这种压缩算法在CPU利用率和数据大小减小方面都是成熟，可靠且有效的。该算法是 “ 无损的 ”，因此始终可以从压缩形式中重建原始的未压缩数据。LZ77压缩通过查找在要压缩的数据内重复的数据序列来工作。数据中的值模式决定了压缩的程度，但是典型的用户数据通常压缩50％或更多。</p>
+<p>由于B树页面经常更新，因此需要特殊对待。重要的是，最小化B树节点的分割次数，以及最小化解压缩和重新压缩其内容的需求。</p>
+<p>MySQL使用的一种技术是以未压缩的形式维护B树节点中的一些系统信息，从而促进某些就地更新。例如，这允许对行进行删除标记和删除，而无需任何压缩操作。</p>
+<p>另外，MySQL试图避免在更改索引页时不必要的解压缩和重新压缩。在每个B树页面中，系统保留一个未压缩的 ‘ modification log ‘以记录对该页面所做的更改。小记录的更新和插入可以写入此修改日志，而无需完全重建整个页面。</p>
+<p>当修改日志的空间用完时，InnoDB解压缩页面，应用更改并重新压缩页面。如果再压缩失败（称为一个的情况 压缩破坏），B-树节点被分割，并重复该过程，直到更新或插入成功。</p>
+<h1 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h1><p><a href="http://blog.codinglabs.org/articles/theory-of-mysql-index.html" target="_blank" rel="noopener">MySQL索引背后的数据结构及算法原理</a></p>
+<h2 id="涉及到的数据库表结构为："><a href="#涉及到的数据库表结构为：" class="headerlink" title="涉及到的数据库表结构为："></a>涉及到的数据库表结构为：</h2><pre><code>mysql&gt; show index from bigtables;
++-----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table     | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++-----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| bigtables |          0 | PRIMARY  |            1 | id          | A         |        1010 |     NULL | NULL   |      | BTREE      |         |               |
+| bigtables |          1 | idx      |            1 | number      | A         |          10 |     NULL | NULL   | YES  | BTREE      |         |               |
+| bigtables |          1 | idx      |            2 | age         | A         |          17 |     NULL | NULL   | YES  | BTREE      |         |               |
+| bigtables |          1 | idx      |            3 | adds        | A         |          17 |     NULL | NULL   | YES  | BTREE      |         |               |
++-----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+4 rows in set (0.00 sec)
+
+mysql&gt; show index from abc;
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| abc   |          0 | PRIMARY  |            1 | a           | A         |           3 |     NULL | NULL   |      | BTREE      |         |               |
+| abc   |          1 | idx_a    |            1 | a           | A         |           3 |     NULL | NULL   |      | BTREE      |         |               |
+| abc   |          1 | idx_b    |            1 | b           | A         |           3 |     NULL | NULL   | YES  | BTREE      |         |               |
+| abc   |          1 | idx_c    |            1 | c           | A         |           2 |     NULL | NULL   | YES  | BTREE      |         |               |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+4 rows in set (0.00 sec)</code></pre>
       
     </div>
     

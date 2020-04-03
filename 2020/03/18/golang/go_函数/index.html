@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>go 函数小结 | zhangyong</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="函数defergo语言中函数的return不是原子操作，在底层分为两层操作 第一步：返回值赋值 defer 第二步：真正的ret返回 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950func f1() int &amp;#123;    x := 5    defer fu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go 函数小结">
+<meta property="og:url" content="http://yoursite.com/2020/03/18/golang/go_函数/index.html">
+<meta property="og:site_name" content="zhangyong">
+<meta property="og:description" content="函数defergo语言中函数的return不是原子操作，在底层分为两层操作 第一步：返回值赋值 defer 第二步：真正的ret返回 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950func f1() int &amp;#123;    x := 5    defer fu">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-04-03T16:13:21.513Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="go 函数小结">
+<meta name="twitter:description" content="函数defergo语言中函数的return不是原子操作，在底层分为两层操作 第一步：返回值赋值 defer 第二步：真正的ret返回 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950func f1() int &amp;#123;    x := 5    defer fu">
+  
+    <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head></html>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhangyong</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">zhangyong</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">zhangyong</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-golang/go_函数" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/18/golang/go_函数/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      go 函数小结
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h2><p><code>go语言中函数的return不是原子操作，在底层分为两层操作</code></p>
+<p><code>第一步：返回值赋值</code></p>
+<p><code>defer</code></p>
+<p><code>第二步：真正的ret返回</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">func f1() int &#123;</span><br><span class="line">    x := 5</span><br><span class="line">    defer func() &#123;</span><br><span class="line">        x++</span><br><span class="line">    &#125;()</span><br><span class="line">    return x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func f2() (x int) &#123;</span><br><span class="line">    defer func() &#123;</span><br><span class="line">        x++</span><br><span class="line">    &#125;()</span><br><span class="line">    return 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func f3() (y int) &#123;</span><br><span class="line">    x := 5</span><br><span class="line">    defer func() &#123;</span><br><span class="line">        x++</span><br><span class="line">    &#125;()</span><br><span class="line">    return x</span><br><span class="line">&#125;</span><br><span class="line">func f4() (x int) &#123;</span><br><span class="line">    defer func(x int) &#123;</span><br><span class="line">        x++</span><br><span class="line">    &#125;(x)</span><br><span class="line">    return 5</span><br><span class="line">&#125;</span><br><span class="line">func f5()(x int)&#123;</span><br><span class="line">    defer func(x int) int&#123;</span><br><span class="line">        x++</span><br><span class="line">        return x</span><br><span class="line">    &#125;(x)</span><br><span class="line">    return 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func f6(x int)&#123;</span><br><span class="line">    defer func(x *int)&#123;</span><br><span class="line">        (*x)++</span><br><span class="line">    &#125;(*x)</span><br><span class="line">    return 5</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line">    fmt.Println(f1())   //5</span><br><span class="line">    fmt.Println(f2())   //6</span><br><span class="line">    fmt.Println(f3())   //5 </span><br><span class="line">    fmt.Println(f4())   //5</span><br><span class="line">    fmt.Println(f5())   //5 </span><br><span class="line">    fmt.Println(f6())   //6</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>defer 会将值先赋值到函数中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">func main()&#123;</span><br><span class="line">    a := 1</span><br><span class="line">	b := 2</span><br><span class="line">	defer calc(&quot;1&quot;, a, calc(&quot;10&quot;, a, b))</span><br><span class="line">	a = 0</span><br><span class="line">	defer calc(&quot;2&quot;, a, calc(&quot;20&quot;, a, b))</span><br><span class="line">	b = 1</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">	</span><br><span class="line">func calc(index string, a, b int) int&#123;</span><br><span class="line">	ret := a +b</span><br><span class="line">	fmt.Println(index, a, b, ret)</span><br><span class="line">	// 20 0 1</span><br><span class="line">	// 2 0 1</span><br><span class="line">	// 10 0 1</span><br><span class="line">	// 1 0 1</span><br><span class="line">	return ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">----------------</span><br><span class="line">10 1 2 3</span><br><span class="line">20 0 2 2</span><br><span class="line">2 0 2 2</span><br><span class="line">1 1 3 4</span><br></pre></td></tr></table></figure>
+
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">func f11(f func())&#123;</span><br><span class="line">	fmt.Println(&quot;this is f1&quot;)</span><br><span class="line">	f()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func f22(x, y int) &#123;</span><br><span class="line">	fmt.Println(&quot;this is f2&quot;)</span><br><span class="line">	fmt.Println(x + y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func f33(f func(int, int), x, y int) func()&#123;</span><br><span class="line">	tmp := func()&#123;</span><br><span class="line">		f(x, y)</span><br><span class="line">	&#125;</span><br><span class="line">	return tmp</span><br><span class="line">&#125;</span><br><span class="line">//实现f1(f2)</span><br><span class="line">func main()&#123;</span><br><span class="line">    ret := f33(f22, 100, 200)</span><br><span class="line">    	f11(ret)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">func adder() func(int) int &#123;</span><br><span class="line">	var x int</span><br><span class="line">	return func(y int) int &#123;</span><br><span class="line">		x += y</span><br><span class="line">		return x</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line">	var f = adder()</span><br><span class="line">	fmt.Println(f(10)) //10</span><br><span class="line">	fmt.Println(f(20)) //30</span><br><span class="line">	fmt.Println(f(30)) //60</span><br><span class="line"></span><br><span class="line">	f1 := adder()</span><br><span class="line">	fmt.Println(f1(40)) //40</span><br><span class="line">	fmt.Println(f1(50)) //90</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">func calc(base int) (func(int) int, func(int) int) &#123;</span><br><span class="line">	add := func(i int) int &#123;</span><br><span class="line">		base += i</span><br><span class="line">		return base</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	sub := func(i int) int &#123;</span><br><span class="line">		base -= i</span><br><span class="line">		return base</span><br><span class="line">	&#125;</span><br><span class="line">	return add, sub</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	f1, f2 := calc(10)</span><br><span class="line">	fmt.Println(f1(1), f2(2)) //11 9</span><br><span class="line">	fmt.Println(f1(3), f2(4)) //12 8</span><br><span class="line">	fmt.Println(f1(5), f2(6)) //13 7</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>1、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">func calc(index string, a, b int) int &#123;</span><br><span class="line">	ret := a + b</span><br><span class="line">	fmt.Println(index, a, b, ret)</span><br><span class="line">	return ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	x := 1</span><br><span class="line">	y := 2</span><br><span class="line">	defer calc(&quot;AA&quot;, x, calc(&quot;A&quot;, x, y))</span><br><span class="line">	x = 10</span><br><span class="line">	defer calc(&quot;BB&quot;, x, calc(&quot;B&quot;, x, y))</span><br><span class="line">	y = 20</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">上面代码的输出结果是?</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/18/golang/go_map/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          go map小结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/18/golang/go_上台阶/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">go上台阶</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="golang/go_函数" data-title="go 函数小结" data-url="http://yoursite.com/2020/03/18/golang/go_函数/"  data-images="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" data-content="go 函数小结">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2020 zhangyong
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

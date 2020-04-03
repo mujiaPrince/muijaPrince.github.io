@@ -447,62 +447,6 @@ no basic auth credentials</code></pre><p>发现会提示没有登录，不能将
 
 
   
-    <article id="post-mysql/mysql使用存储过程脚本批量插入数据" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/03/27/mysql/mysql使用存储过程脚本批量插入数据/" class="article-date">
-  	<time datetime="2020-03-27T15:47:51.392Z" itemprop="datePublished">2020-03-27</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="使用存储过程脚本批量插入数据"><a href="#使用存储过程脚本批量插入数据" class="headerlink" title="使用存储过程脚本批量插入数据"></a>使用存储过程脚本批量插入数据</h1><h3 id="创建数据库表："><a href="#创建数据库表：" class="headerlink" title="创建数据库表："></a>创建数据库表：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE bigtables (</span><br><span class="line">  `id` bigint(20) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `number` int(20) DEFAULT NULL,</span><br><span class="line">  `name` varchar(100) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建函数："><a href="#创建函数：" class="headerlink" title="创建函数："></a>创建函数：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">delimiter $$</span><br><span class="line">create function rand_string(n int) returns varchar(255)</span><br><span class="line">begin</span><br><span class="line">   declare chars_str varchar(100) default &apos;qwertyuiopasdfghjklzxcvbnm&apos;;</span><br><span class="line">   declare return_str varchar(255) default &apos;&apos;;</span><br><span class="line">   declare i int default 0;   </span><br><span class="line">   while i&lt;n do</span><br><span class="line">   set return_str=concat(return_str,substring(chars_str,floor(1+rand()*52),1));</span><br><span class="line">   set i=i+1;   </span><br><span class="line">   end while;   </span><br><span class="line">   return return_str; </span><br><span class="line">   end $$</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建产生随机的数字的函数"><a href="#创建产生随机的数字的函数" class="headerlink" title="创建产生随机的数字的函数"></a>创建产生随机的数字的函数</h3><p> 删除函数： <code>DROP  FUNCTION rand_num;</code></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">delimiter $$</span><br><span class="line">create <span class="function"><span class="keyword">function</span> <span class="title">rand_num</span><span class="params">()</span> <span class="title">returns</span> <span class="title">int</span><span class="params">(<span class="number">5</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">begin</span></span></span><br><span class="line"><span class="function"><span class="title">declare</span> <span class="title">i</span> <span class="title">int</span> <span class="title">default</span> 0</span>;</span><br><span class="line">set i=floor(<span class="number">100</span>+rand()*<span class="number">10</span>); </span><br><span class="line"><span class="keyword">return</span> i; end $$</span><br></pre></td></tr></table></figure>
-
-<h2 id="创建存储过程"><a href="#创建存储过程" class="headerlink" title="创建存储过程"></a>创建存储过程</h2><p>删除存储过程： <code>drop procedure  insert_bigtables;</code></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">delimiter $$ </span><br><span class="line"><span class="function">create procedure <span class="title">insert_bigtables</span><span class="params">(in start <span class="keyword">int</span>(<span class="number">10</span>),in max_num <span class="keyword">int</span>(<span class="number">10</span>))</span></span></span><br><span class="line"><span class="function">begin </span></span><br><span class="line"><span class="function">declare i <span class="keyword">int</span>  <span class="keyword">default</span> 0</span>;</span><br><span class="line"><span class="built_in">set</span> autocommit = <span class="number">0</span>;</span><br><span class="line">repeat </span><br><span class="line"><span class="built_in">set</span> i = i +<span class="number">1</span>;</span><br><span class="line"><span class="function">insert into <span class="title">bigtables</span><span class="params">(id,number,name)</span> <span class="title">values</span><span class="params">((start+i),rand_num(),rand_string(<span class="number">6</span>))</span></span>;</span><br><span class="line">until i=max_num</span><br><span class="line">end repeat;</span><br><span class="line">commit;</span><br><span class="line">end $$</span><br></pre></td></tr></table></figure>
-
-<h2 id="调用存储过程"><a href="#调用存储过程" class="headerlink" title="调用存储过程"></a><strong>调用存储过程</strong></h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">call <span class="title">insert_bigtables</span><span class="params">(<span class="number">100</span>,<span class="number">10</span>)</span></span>; </span><br><span class="line"><span class="comment">/*number大于100，插入10条数据*/</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="查看存储过程"><a href="#查看存储过程" class="headerlink" title="查看存储过程"></a>查看存储过程</h3><p><code>select name from mysql.proc where db = &#39;insert_bigtables&#39; and type = &#39;PROCEDURE&#39;;</code></p>
-<p><code>SELECT * FROM information_schema.Routines WHERE  ROUTINE_NAME = &#39;insert_bigtables&#39; ;</code></p>
-<p><code>SHOW CREATE PROCEDURE insert_bigtables;</code></p>
-<p><code>SHOW CREATE FUNCTION rand_num;</code></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
     <article id="post-rocketmq小结" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -519,50 +463,6 @@ no basic auth credentials</code></pre><p>发现会提示没有登录，不能将
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="mq怎么解决重复消费"><a href="#mq怎么解决重复消费" class="headerlink" title="mq怎么解决重复消费"></a>mq怎么解决重复消费</h1>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-mysql/mysql面试题" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/03/21/mysql/mysql面试题/" class="article-date">
-  	<time datetime="2020-03-21T02:39:09.415Z" itemprop="datePublished">2020-03-21</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>mysql为什么强制⾃增主键<br>mysql是怎么保证事务的<br>limit 20000 加载很慢怎么解决<br>字段B、C联合索引，如果where C=1 and B=2;<br>字符串索引变⻓；</p>
-<p>事务是怎么做的？@Transactional注解，事务失效场景？⽐如：A⽅法包含查<br>询、更新操作，B⽅法调⽤了A⽅法？事务嵌套问题？事务的传播机制。<br>required、support、require_new、manodory、not_support、<br>sql查询经历了什么？<br>聚集索引和⾮聚集索引有何区别？<br>表：name、age、sex，索引index（name,age,sex)<br>mysql默认的事务隔离级别？是否有幻读？如何解决幻读？Mysql有哪些锁？<br>MVCC是什么？</p>
-<p>mysql的数据库隔离级别？默认是什么隔离级别？</p>
-<p>mysql 聚集索引叶⼦节点存储的是什么？<br>线程池中的核⼼线程数是怎么设置的？⼜怎么根据运⾏情况调整的？<br>Java中有哪些线程安全的机制？<br>mysql查询优化举例？</p>
-
       
     </div>
     
@@ -767,11 +667,11 @@ Redis的位数组是自动扩展的，如果设置了阈值且当前超出了阈
 
 
   
-    <article id="post-redis" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-docker小结" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2020/03/17/redis/" class="article-date">
-  	<time datetime="2020-03-17T13:43:58.657Z" itemprop="datePublished">2020-03-17</time>
+      <a href="/2020/03/18/docker小结/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
 </a>
     </div>
   
@@ -780,169 +680,176 @@ Redis的位数组是自动扩展的，如果设置了阈值且当前超出了阈
       <input type="hidden" class="isFancy" />
     
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#1、持久化</p>
-<p>RDB 快照</p>
-<p>恢复快，数据存储量大，数据丢失多</p>
-<p>AOF 日志</p>
-<p>恢复慢，数据存储量小，数据丢失少，</p>
-<p>文件存储在 <code>/var/lib/redis/6379</code> </p>
-<p>日志文件越来越大的时候，而key值不断被修改，可以通过手动 <code>BGREWRITEAOF</code>重置日志文件。<br>可以抵消重复的数据。</p>
-<p>R&amp;A</p>
-<p>配置文件开启<br>    <code>vi/etc/redis/6379.conf</code></p>
-<pre><code>`aof-use-rdb-preamble yes`</code></pre><h1 id="2、主从复制集群"><a href="#2、主从复制集群" class="headerlink" title="2、主从复制集群"></a>2、主从复制集群</h1><p>AFK微服务划分原则</p>
-<p>CAP定理</p>
-<h1 id="3、redis、zookeeper分布式锁对比"><a href="#3、redis、zookeeper分布式锁对比" class="headerlink" title="3、redis、zookeeper分布式锁对比"></a>3、redis、zookeeper分布式锁对比</h1><p><a href="https://zhuanlan.zhihu.com/p/93947224" target="_blank" rel="noopener">如何正确使用redis分布式锁</a></p>
-<p><a href="https://www.w3cschool.cn/redis/redis-yj3f2p0c.html" target="_blank" rel="noopener">Redis分布式锁正确的实现方法</a></p>
-<p>假如Redis节点宕机了，那么所有客户端就都无法获得锁了，服务变得不可用。<br>为了提高可用性，我们可以给这个Redis节点挂一个Slave，当Master节点不可用的时候，<br>系统自动切到Slave上（failover）。但由于Redis的主从复制（replication）是异步的，<br>这可能导致在failover过程中丧失锁的安全性。<br>针对这个问题，可以参考一下<a href="https://redis.io/topics/distlock" target="_blank" rel="noopener">Redlock</a>的算法。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
+      <header class="article-header">
+        
   
-</article>
-
-
-
-
-
-
-
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/docker小结/">
+        docker小结
+        
+      </a>
+    </h1>
   
-    <article id="post-偏向锁-自旋锁-重量级锁" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/03/17/偏向锁-自旋锁-重量级锁/" class="article-date">
-  	<time datetime="2020-03-17T13:08:32.728Z" itemprop="datePublished">2020-03-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
+
+      </header>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#1、偏向锁</p>
-<h1 id="2、自旋锁"><a href="#2、自旋锁" class="headerlink" title="2、自旋锁"></a>2、自旋锁</h1><h1 id="3、重量级锁"><a href="#3、重量级锁" class="headerlink" title="3、重量级锁"></a>3、重量级锁</h1><p>自旋锁是要占用CPU的，线程数量过多的时候，用自旋锁不合适</p>
-<p>当自旋超过10，或者当前线程超过CPU的二分之一，升级为重量级锁。</p>
-<p>Adaptive CAS: 自适应自旋。自动判断是否升级为重量级锁</p>
+        <h1 id="容器和虚拟机"><a href="#容器和虚拟机" class="headerlink" title="容器和虚拟机"></a>容器和虚拟机</h1><p>容器在Linux上本地运行，并与其他容器共享主机的内核。它运行一个离散进程，不占用任何其他可执行文件更多的内存，从而使其轻巧。</p>
+<p>相比之下，虚拟机（VM）运行具有“ 虚拟机管理程序”对主机资源的虚拟访问权的成熟<code>guest</code>操作系统。通常，VM会产生大量开销，超出了应用程序逻辑所消耗的开销。</p>
+<p><img src="docker%E5%B0%8F%E7%BB%93/docker%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA.png" alt="docker和虚拟机"></p>
+<h1 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h1><h2 id="windows下安装docker"><a href="#windows下安装docker" class="headerlink" title="windows下安装docker"></a>windows下安装docker</h2><p><a href="https://docs.docker.com/docker-for-windows/install/" target="_blank" rel="noopener">在Windows上安装Docker Desktop</a></p>
+<p><a href="https://hub.docker.com/editions/community/docker-ce-desktop-windows/" target="_blank" rel="noopener">下载Docker Desktop</a></p>
+<h4 id="需要注意的是："><a href="#需要注意的是：" class="headerlink" title="需要注意的是："></a>需要注意的是：</h4><p>运行Docker Desktop需要Microsoft Hyper-V。必要时，Docker桌面Windows安装程序会启用Hyper-V，然后重新启动计算机。启用Hyper-V后，VirtualBox不再起作用。但是，将保留所有现有的VirtualBox VM映像。</p>
+<p>用docker-machine（包括default通常在Toolbox安装过程中创建的虚拟机）创建的VirtualBox VM 不再启动。这些VM不能与Docker Desktop并排使用。但是，您仍然可以 docker-machine用来管理远程VM。</p>
+<p><a href="https://blog.csdn.net/huryer/article/details/91126391" target="_blank" rel="noopener">安装Docker后VMware和VirtualBox无法启动 VT-x is not available</a></p>
+<h2 id="linux下安装docker"><a href="#linux下安装docker" class="headerlink" title="linux下安装docker"></a>linux下安装docker</h2><p>用yum源安装</p>
+<p>查看是否已安装docker列表</p>
+<pre><code>yum list installed | grep docker</code></pre><p>安装docker</p>
+<pre><code>yum -y install docker</code></pre><p>启动docker</p>
+<pre><code>systemctl start docker</code></pre><p>查看docker服务状态</p>
+<pre><code>systemctl status docker</code></pre><h2 id="配置-加速器"><a href="#配置-加速器" class="headerlink" title="配置 加速器"></a>配置 加速器</h2><p>对于使用 upstart 的系统而言，编辑  /etc/default/docker  文件，在其中的  DOCKER_OPTS  中<br>添加获得的加速器配置：</p>
+<pre><code>DOCKER_OPTS=&quot;--registry-mirror=https://registry.docker-cn.com&quot;</code></pre><p>重新启动服务。</p>
+<pre><code>$ sudo service docker restart</code></pre><p>对于使用 systemd 的系统，请在  /etc/docker/daemon.json  中写入如下内容（如果文件不存<br>在请新建该文件）</p>
+<pre><code>{
+    &quot;registry-mirrors&quot;: [
+        &quot;https://registry.docker-cn.com&quot;
+    ]
+}</code></pre><p>注意，一定要保证该文件符合 json 规范，否则 Docker 将不能启动。<br>之后重新启动服务。</p>
+<pre><code>$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker    </code></pre><p>​    </p>
+<h1 id="创建镜像"><a href="#创建镜像" class="headerlink" title="创建镜像"></a>创建镜像</h1><h2 id="基于dockerfile创建镜像"><a href="#基于dockerfile创建镜像" class="headerlink" title="基于dockerfile创建镜像"></a>基于dockerfile创建镜像</h2><h3 id="编写docker-file"><a href="#编写docker-file" class="headerlink" title="编写docker file"></a>编写docker file</h3><p><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener">dockerfile命令参考</a></p>
+<pre><code># Use the official image as a parent image
+FROM node:current-slim
 
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
+# Set the working directory
+WORKDIR /usr/src/app
 
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
+# Copy the file from your host to your current location
+COPY package.json .
 
+# Run the command inside your image filesystem
+RUN npm install
 
+# Inform Docker that the container is listening on the specified port at runtime.
+EXPOSE 8080
 
+# Run the specified command within the container.
+CMD [ &quot;npm&quot;, &quot;start&quot; ]
 
-
-
-
-  
-    <article id="post-mysql/mysql事务" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/03/15/mysql/mysql事务/" class="article-date">
-  	<time datetime="2020-03-15T13:44:03.166Z" itemprop="datePublished">2020-03-15</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1、原子性实现原理：Undo-log"><a href="#1、原子性实现原理：Undo-log" class="headerlink" title="1、原子性实现原理：Undo log"></a>1、原子性实现原理：Undo log</h1><pre><code>- Undo log是为了实现事务的原子性，在mysql数据库InnoDB存储引擎中，
-还用Undo log来实现多版本并发控制（MVCC）
-- 在操作任何数据之前，首先将数据备份到一个地方（这个存储数据备份的地方称为Undo log）.
-然后进行数据修改。如果出现了错误或者用户执行了ROLLBACK语句，
-系统可以利用undo log中的备份将数据恢复到事务之前的状态
-- 注意：undo log是逻辑日志，可以理解为：
-    - 当delete一条记录时，undo log中会记录一条对应的insert记录
-    - 当insert一条记录时，undo log中会记录一条对应的delete记录
-    - 当update一条记录时，undo log中会记录一条相反的update记录
-
-
-（逻辑日志的意思是记录某一行数据的修改，物理日志是记录某一页的数据修改）</code></pre><h1 id="2、持久性原理：-Redo-log"><a href="#2、持久性原理：-Redo-log" class="headerlink" title="2、持久性原理： Redo log"></a>2、持久性原理： Redo log</h1><pre><code>- 和undo log相反，redo log记录的是新数据的备份。(异步写)
-在事务提交前，只要将redo log持久化即可，不需要将数据持久化。
-当系统崩溃时，虽然数据没有持久化，但是redo log已经持久化。
-系统可以根据 redo log 的内容，将所有数据恢复到最新的状态
-（innodb_flush_log_at_trx_commit）
-WAL(write ahead log):预写日志</code></pre><p>当我们每次执行update,insert,delete等语句后，commit操作后，redo log执行持久化操作</p>
-<p>innodb_flush_log_at_trx_commit = 0/1/2</p>
-<pre><code>set global innodb_flush_log_at_trx_commit=2;
-show variables like &apos;innodb_flush_log_at_trx_commit&apos;;</code></pre><p>默认值为：1</p>
-<p>由于实时将数据刷到磁盘中，在并发条件下，性能较低，<br><img src="../mysql%E4%BA%8B%E5%8A%A1/1.png" alt></p>
-<h1 id="3、mysql的隔离级别"><a href="#3、mysql的隔离级别" class="headerlink" title="3、mysql的隔离级别"></a>3、mysql的隔离级别</h1><ul>
-<li>读未提交(read_uncommitted):对事务处理的读取没有任何限制；</li>
-<li>读已提交(read_committed)：</li>
-<li>可重复读(repeatable_read):默认级别</li>
-<li>串行化(seriauzable)</li>
+# Copy the rest of your app&apos;s source code from your host to your image filesystem.
+COPY . .    </code></pre><h3 id="dockerfile-命令"><a href="#dockerfile-命令" class="headerlink" title="dockerfile 命令"></a>dockerfile 命令</h3><h4 id="MAINTAINER"><a href="#MAINTAINER" class="headerlink" title="MAINTAINER"></a>MAINTAINER</h4><pre><code>格式
+MAINTAINER &lt;name&gt;
+指定该dockerfilr文件的维护者信息。</code></pre><h4 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h4><pre><code>格式：
+RUN &lt;command&gt;                             (shell模式)
+RUN[&quot;executable&quot;, &quot;param1&quot;,&quot;param2&quot;]      (exec模式)</code></pre><p>表示当前镜像构建时候运行的命令，如果有确认输入的话，一定要在命令中添加 -v</p>
+<p>如果命令较长，那么可以在命令结尾使用 \ 换行</p>
+<p>shell模式：类似于 <code>/bin/bash -c command</code></p>
+<p>实例：<code>RUN echo hello</code></p>
+<p>exec模式：类似于 RUN<code>[&quot;/bin/bash&quot;, &quot;-c&quot;, &quot;command&quot;]</code></p>
+<p>实例： <code>RUN[&quot;echo&quot;, &quot;hello&quot;]</code><br>​</p>
+<h4 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h4><pre><code>格式：EXPOSE &lt;port&gt; [&lt;port&gt;...]</code></pre><p>设置docker容器对外暴露的端口号，docker 为了安全，不会自动对外打开端口，如果需要外部提供访问，还需要启动容器时增加<code>-p</code>或者<code>-P</code>参数对容器的端口进行分配。</p>
+<h2 id="基于容器创建镜像"><a href="#基于容器创建镜像" class="headerlink" title="基于容器创建镜像"></a>基于容器创建镜像</h2><p> <code>不要使用  docker commit  定制镜像，定制镜像应该使用  Dockerfile  来完成</code></p>
+<p> docker commit :从容器创建一个新的镜像。</p>
+<p> 语法</p>
+<pre><code>docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</code></pre><p> OPTIONS说明：</p>
+<ul>
+<li><p>a :提交的镜像作者；</p>
+</li>
+<li><p>c :使用Dockerfile指令来创建镜像；</p>
+</li>
+<li><p>m :提交时的说明文字；</p>
+</li>
+<li><p>p :在commit时，将容器暂停。   </p>
+</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th align="center">事务的隔离级别</th>
-<th align="center">脏读</th>
-<th align="center">不可重复读</th>
-<th align="center">幻读</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">读未提交(read_uncommitted)</td>
-<td align="center">√</td>
-<td align="center">√</td>
-<td align="center">√</td>
-</tr>
-<tr>
-<td align="center">读已提交(read_committed)</td>
-<td align="center"></td>
-<td align="center">√</td>
-<td align="center">√</td>
-</tr>
-<tr>
-<td align="center">可重复读(repeatable_read)</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">√</td>
-</tr>
-<tr>
-<td align="center">串行化(seriauzable)</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<h1 id="一致性"><a href="#一致性" class="headerlink" title="一致性"></a>一致性</h1><p>事务的并发执行，事务故障或系统故障  会对事务的一致性造成破坏</p>
-<p>数据库系统通过并发控制技术和日志恢复技术来避免这种情况的发生：<br>    - 并发控制技术保证了事务的隔离性（加锁），使数据库的一致性状态不会<br>    因为并发执行的操作被破坏。<br>    - 日志恢复技术保证了事务的原子性，是一致性状态下不会因事务或系统故障被破坏。<br>    同时使已提交的对数据库的修改不会因为系统崩溃而丢失，保证了事务的持久性。</p>
+<p>示例：</p>
+<pre><code>[root@JD ~]# docker ps -a |grep mysql
+e718ed5b4e32        mysql:5.7                           &quot;docker-entrypoint.s…&quot;   3 weeks ago         Up 3 weeks                 0.0.0.0:3306-&gt;3306/tcp, 33060/tcp                                mysql
+[root@JD ~]# docker commit -a &quot;mujia_prince&quot; -m &quot;test docker commit mysql&quot; e718ed5b4e32 my-test-mysql:v1.0
+sha256:bb9c07f10ff04f0fa0f486afc07221110029e13ab3dd61bc495b7bd5ad93978f
+
+[root@JD ~]# docker images -a
+REPOSITORY                     TAG                 IMAGE ID            CREATED             SIZE
+my-test-mysql                  v1.0                bb9c07f10ff0        41 seconds ago      437MB
+mysql                          5.7                 db39680b63ac        3 months ago        437MB</code></pre><h1 id="搭建镜像仓库"><a href="#搭建镜像仓库" class="headerlink" title="搭建镜像仓库"></a>搭建镜像仓库</h1><p><a href="https://blog.csdn.net/prince_mujia/article/details/105273055" target="_blank" rel="noopener">搭建docker镜像仓库</a></p>
+<h1 id="docker-volumes"><a href="#docker-volumes" class="headerlink" title="docker volumes"></a>docker volumes</h1><p><a href="https://docs.docker.com/storage/volumes/" target="_blank" rel="noopener">docker volumes</a></p>
+<p>-v：把宿主机的/root/data/registry目录绑定到容器/var/lib/registry目录(这个目录是registry容器中存放镜像文件的目录)，来实现数据的持久化；</p>
+<p>示例：</p>
+<pre><code>docker run -itd -v /root/data/registry:/var/lib/registry -p 5000:5000 --restart=always --name docker-registry registry:latest </code></pre><p>在镜像仓库中推送镜像<code>registry-mysql</code>之后，在<code>/root/data/registry</code>下能找到：</p>
+<pre><code>[root@JD repositories]# pwd
+/root/data/registry/docker/registry/v2/repositories
+[root@JD repositories]# ll
+total 0
+drwxr-xr-x 5 root root 55 Apr  1 23:32 registry-mysql</code></pre><p>使用  -v  参数时如果本地目录不存在 Docker 会自动为创建一个文件夹，现在使用  –mount  参数时如果本地目录不存在，Docker 会报错</p>
+<p>挂载一个本地主机文件作为数据卷</p>
+<p>–mount  标记也可以从主机挂载单个文件到容器中</p>
+<pre><code>docker run --rm -it \
+# -v $HOME/.bash_history:/root/.bash_history \
+--mount type=bind,source=$HOME/.bash_history,target=/root/.bash_history \
+ubuntu:17.10 \
+bash</code></pre><p><code>--rm</code> :在Docker容器退出时，默认容器内部的文件系统仍然被保留，以方便调试并保留用户数据。</p>
+<p>但是，对于foreground容器，由于其只是在开发调试过程中短期运行，其用户数据并无保留的必要，因而可以在容器启动时设置–rm选项，这样在容器退出时就能够自动清理容器内部的文件系统</p>
+<h2 id="docker-volume-container"><a href="#docker-volume-container" class="headerlink" title="docker volume container"></a>docker volume container</h2><h2 id="数据备份"><a href="#数据备份" class="headerlink" title="数据备份"></a>数据备份</h2><h1 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker compose"></a>docker compose</h1><p><a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">docker compose install</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line">$ sudo chmod +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line">$ docker-compose --version</span><br><span class="line">docker-compose version 1.24.1, build 1110ad01</span><br></pre></td></tr></table></figure>
+
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><h2 id="删除已经停止的容器"><a href="#删除已经停止的容器" class="headerlink" title="删除已经停止的容器"></a>删除已经停止的容器</h2><pre><code>$ docker rm [OPTIONS] CONTAINER [CONTAINER...]
+docker rm 2d85b99b03b2</code></pre><h2 id="查看镜像、容器、数据卷所占用的空间"><a href="#查看镜像、容器、数据卷所占用的空间" class="headerlink" title="查看镜像、容器、数据卷所占用的空间"></a>查看镜像、容器、数据卷所占用的空间</h2><pre><code>docker system df   </code></pre><h2 id="查看当前宿主机开放了哪些端口"><a href="#查看当前宿主机开放了哪些端口" class="headerlink" title="查看当前宿主机开放了哪些端口"></a>查看当前宿主机开放了哪些端口</h2><pre><code>netstat -tnulp</code></pre><h2 id="查看docker-信息"><a href="#查看docker-信息" class="headerlink" title="查看docker 信息"></a>查看docker 信息</h2><pre><code>docker inspect [image id]</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-golang/go_channel" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/18/golang/go_channel/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/golang/go_channel/">
+        go channel小结
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://mp.weixin.qq.com/s/MF3o5Jr7h-EiSN8amKW0QA" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/MF3o5Jr7h-EiSN8amKW0QA</a></p>
 
       
     </div>
@@ -968,11 +875,11 @@ show variables like &apos;innodb_flush_log_at_trx_commit&apos;;</code></pre><p>�
 
 
   
-    <article id="post-mysql/mysql连接器-分析器-优化器-执行器" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-golang/go_map" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2020/03/15/mysql/mysql连接器-分析器-优化器-执行器/" class="article-date">
-  	<time datetime="2020-03-15T12:17:16.472Z" itemprop="datePublished">2020-03-15</time>
+      <a href="/2020/03/18/golang/go_map/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
 </a>
     </div>
   
@@ -981,12 +888,245 @@ show variables like &apos;innodb_flush_log_at_trx_commit&apos;;</code></pre><p>�
       <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/golang/go_map/">
+        go map小结
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>mysqlServer分为：连接器，分析器，优化器，执行器。</p>
-<h1 id="1、连接器"><a href="#1、连接器" class="headerlink" title="1、连接器"></a>1、连接器</h1><pre><code>管理用户的连接
-show processlist;</code></pre><h1 id="2、分析器"><a href="#2、分析器" class="headerlink" title="2、分析器"></a>2、分析器</h1><pre><code>词法分析，语法分析</code></pre><p>calcite 开源数据库分析组件。</p>
-<h1 id="3、优化器"><a href="#3、优化器" class="headerlink" title="3、优化器"></a>3、优化器</h1><pre><code>优化sql语句，规定执行流程</code></pre><h1 id="4、执行器"><a href="#4、执行器" class="headerlink" title="4、执行器"></a>4、执行器</h1><pre><code>sql语句实际执行组件</code></pre>
+        <p><a href="https://mp.weixin.qq.com/s/BGjJt86MhpbSNPgh2CLRKw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/BGjJt86MhpbSNPgh2CLRKw</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-golang/go_函数" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/18/golang/go_函数/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/golang/go_函数/">
+        go 函数小结
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h2><p><code>go语言中函数的return不是原子操作，在底层分为两层操作</code></p>
+<p><code>第一步：返回值赋值</code></p>
+<p><code>defer</code></p>
+<p><code>第二步：真正的ret返回</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">func f1() int &#123;</span><br><span class="line">    x := 5</span><br><span class="line">    defer func() &#123;</span><br><span class="line">        x++</span><br><span class="line">    &#125;()</span><br><span class="line">    return x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func f2() (x int) &#123;</span><br><span class="line">    defer func() &#123;</span><br><span class="line">        x++</span><br><span class="line">    &#125;()</span><br><span class="line">    return 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func f3() (y int) &#123;</span><br><span class="line">    x := 5</span><br><span class="line">    defer func() &#123;</span><br><span class="line">        x++</span><br><span class="line">    &#125;()</span><br><span class="line">    return x</span><br><span class="line">&#125;</span><br><span class="line">func f4() (x int) &#123;</span><br><span class="line">    defer func(x int) &#123;</span><br><span class="line">        x++</span><br><span class="line">    &#125;(x)</span><br><span class="line">    return 5</span><br><span class="line">&#125;</span><br><span class="line">func f5()(x int)&#123;</span><br><span class="line">    defer func(x int) int&#123;</span><br><span class="line">        x++</span><br><span class="line">        return x</span><br><span class="line">    &#125;(x)</span><br><span class="line">    return 5</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func f6(x int)&#123;</span><br><span class="line">    defer func(x *int)&#123;</span><br><span class="line">        (*x)++</span><br><span class="line">    &#125;(*x)</span><br><span class="line">    return 5</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line">    fmt.Println(f1())   //5</span><br><span class="line">    fmt.Println(f2())   //6</span><br><span class="line">    fmt.Println(f3())   //5 </span><br><span class="line">    fmt.Println(f4())   //5</span><br><span class="line">    fmt.Println(f5())   //5 </span><br><span class="line">    fmt.Println(f6())   //6</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>defer 会将值先赋值到函数中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">func main()&#123;</span><br><span class="line">    a := 1</span><br><span class="line">	b := 2</span><br><span class="line">	defer calc(&quot;1&quot;, a, calc(&quot;10&quot;, a, b))</span><br><span class="line">	a = 0</span><br><span class="line">	defer calc(&quot;2&quot;, a, calc(&quot;20&quot;, a, b))</span><br><span class="line">	b = 1</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">	</span><br><span class="line">func calc(index string, a, b int) int&#123;</span><br><span class="line">	ret := a +b</span><br><span class="line">	fmt.Println(index, a, b, ret)</span><br><span class="line">	// 20 0 1</span><br><span class="line">	// 2 0 1</span><br><span class="line">	// 10 0 1</span><br><span class="line">	// 1 0 1</span><br><span class="line">	return ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">----------------</span><br><span class="line">10 1 2 3</span><br><span class="line">20 0 2 2</span><br><span class="line">2 0 2 2</span><br><span class="line">1 1 3 4</span><br></pre></td></tr></table></figure>
+
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">func f11(f func())&#123;</span><br><span class="line">	fmt.Println(&quot;this is f1&quot;)</span><br><span class="line">	f()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func f22(x, y int) &#123;</span><br><span class="line">	fmt.Println(&quot;this is f2&quot;)</span><br><span class="line">	fmt.Println(x + y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func f33(f func(int, int), x, y int) func()&#123;</span><br><span class="line">	tmp := func()&#123;</span><br><span class="line">		f(x, y)</span><br><span class="line">	&#125;</span><br><span class="line">	return tmp</span><br><span class="line">&#125;</span><br><span class="line">//实现f1(f2)</span><br><span class="line">func main()&#123;</span><br><span class="line">    ret := f33(f22, 100, 200)</span><br><span class="line">    	f11(ret)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">func adder() func(int) int &#123;</span><br><span class="line">	var x int</span><br><span class="line">	return func(y int) int &#123;</span><br><span class="line">		x += y</span><br><span class="line">		return x</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line">	var f = adder()</span><br><span class="line">	fmt.Println(f(10)) //10</span><br><span class="line">	fmt.Println(f(20)) //30</span><br><span class="line">	fmt.Println(f(30)) //60</span><br><span class="line"></span><br><span class="line">	f1 := adder()</span><br><span class="line">	fmt.Println(f1(40)) //40</span><br><span class="line">	fmt.Println(f1(50)) //90</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">func calc(base int) (func(int) int, func(int) int) &#123;</span><br><span class="line">	add := func(i int) int &#123;</span><br><span class="line">		base += i</span><br><span class="line">		return base</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	sub := func(i int) int &#123;</span><br><span class="line">		base -= i</span><br><span class="line">		return base</span><br><span class="line">	&#125;</span><br><span class="line">	return add, sub</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	f1, f2 := calc(10)</span><br><span class="line">	fmt.Println(f1(1), f2(2)) //11 9</span><br><span class="line">	fmt.Println(f1(3), f2(4)) //12 8</span><br><span class="line">	fmt.Println(f1(5), f2(6)) //13 7</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>1、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">func calc(index string, a, b int) int &#123;</span><br><span class="line">	ret := a + b</span><br><span class="line">	fmt.Println(index, a, b, ret)</span><br><span class="line">	return ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	x := 1</span><br><span class="line">	y := 2</span><br><span class="line">	defer calc(&quot;AA&quot;, x, calc(&quot;A&quot;, x, y))</span><br><span class="line">	x = 10</span><br><span class="line">	defer calc(&quot;BB&quot;, x, calc(&quot;B&quot;, x, y))</span><br><span class="line">	y = 20</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">上面代码的输出结果是?</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-golang/go_上台阶" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/18/golang/go_上台阶/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/golang/go_上台阶/">
+        go上台阶
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#1、上台阶</p>
+<p>递归问题</p>
+<p><code>https://blog.csdn.net/qq_27068845/article/details/90181340</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-golang/go_指针" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/18/golang/go_指针/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/golang/go_指针/">
+        go指针小结
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">func main() &#123;</span><br><span class="line">   var a int= 20   /* 声明实际变量 */</span><br><span class="line">   var ip *int        /* 声明指针变量 */</span><br><span class="line"></span><br><span class="line">   ip = &amp;a  /* 指针变量的存储地址 */</span><br><span class="line"></span><br><span class="line">   fmt.Printf(&quot;a 变量的地址是: %x\n&quot;, &amp;a  )</span><br><span class="line"></span><br><span class="line">   /* 指针变量的存储地址 */</span><br><span class="line">   fmt.Printf(&quot;ip 变量储存的指针地址: %x\n&quot;, ip )</span><br><span class="line"></span><br><span class="line">   /* 使用指针访问值 */</span><br><span class="line">   fmt.Printf(&quot;*ip 变量的值: %d\n&quot;, *ip )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="空指针"><a href="#空指针" class="headerlink" title="空指针"></a>空指针</h2><p>当一个指针被定义后没有分配到任何变量时，它的值为 nil。</p>
+<p>nil 指针也称为空指针。</p>
+<p>nil在概念上和其它语言的null、None、nil、NULL一样，都指代零值或空值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    var a *int</span><br><span class="line">*a = 100</span><br><span class="line">fmt.Println(*a)</span><br><span class="line"></span><br><span class="line">运行时异常：</span><br><span class="line">panic: runtime error: invalid memory address or nil pointer dereference</span><br><span class="line"></span><br><span class="line">var a = new(int)</span><br><span class="line">fmt.Println(a)     //&lt;nil&gt;</span><br><span class="line">fmt.Println(*a)    // 0</span><br><span class="line">*a = 100  </span><br><span class="line">fmt.Println(*a)    //100</span><br></pre></td></tr></table></figure>
+
+<h2 id="make"><a href="#make" class="headerlink" title="make"></a>make</h2><p>###make和new区别</p>
+<p>1、都是用来申请内存的。</p>
+<p>2、 make只适用于 slice，map和 channle的内存创建，而且他返回的类型就是他们三个类型本身，而不是他们的指针类型，因为他们是引用类型，所以就没有必要返回他们的指针了。</p>
+<p>3、 new很少用，一般用来给基本数据类型申请内存， <code>string</code>，<code>int</code>；返回的都是对应的类型的指针(*string, *int)</p>
+<h1 id="map"><a href="#map" class="headerlink" title="map"></a>map</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var m1  map[string]int</span><br><span class="line">	m1 = make(map[string]int, 10)</span><br><span class="line">	m1[&quot;m1&quot;] = 1</span><br><span class="line">	m1[&quot;m2&quot;] = 2</span><br><span class="line"></span><br><span class="line">	fmt.Println(m1)</span><br><span class="line">//若key不存在，则返回0</span><br><span class="line">	fmt.Println(m1[&quot;m3&quot;])  // 0</span><br><span class="line">	</span><br><span class="line">	for k := range m1&#123;</span><br><span class="line">    		fmt.Println(k)</span><br><span class="line">    	&#125;</span><br><span class="line">    	for k, v := range m1&#123;</span><br><span class="line">    		fmt.Println(k, v)</span><br><span class="line">    	&#125;</span><br><span class="line">    	for _, v := range m1&#123;</span><br><span class="line">    		fmt.Println(v)</span><br><span class="line">    	&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="map-排序"><a href="#map-排序" class="headerlink" title="map 排序"></a>map 排序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">rand.Seed(time.Now().UnixNano())</span><br><span class="line"></span><br><span class="line">var sortMap = make(map[string]int, 100)</span><br><span class="line">var keys = make([]string, 0, 200)</span><br><span class="line">for i := 1; i&lt;100; i++  &#123;</span><br><span class="line">	key := fmt.Sprintf(&quot;student_%02d&quot;, i)</span><br><span class="line">	value := rand.Intn(100)</span><br><span class="line">	sortMap[key] = value</span><br><span class="line">	keys = append(keys, key)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sort.Strings(keys)</span><br><span class="line"></span><br><span class="line">for _, k := range keys &#123;</span><br><span class="line">	fmt.Println(k, sortMap[k])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>###值为map的切片</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">var s1 = make([]map[string]int, 10, 10)</span><br><span class="line">s1[0] = make(map[string]int, 10)</span><br><span class="line">s1[0][&quot;北京&quot;] = 100</span><br><span class="line">fmt.Println(s1)</span><br><span class="line"></span><br><span class="line">//[map[北京:100] map[] map[] map[] map[] map[] map[] map[] map[] map[]]</span><br></pre></td></tr></table></figure>
+
+<h3 id="值为切片的map"><a href="#值为切片的map" class="headerlink" title="值为切片的map"></a>值为切片的map</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">var m1 = make(map[string][]int, 10)</span><br><span class="line">m1[&quot;北京&quot;] = make([]int, 10, 10)</span><br><span class="line">m1[&quot;北京&quot;][0] = 1</span><br><span class="line">fmt.Println(m1)</span><br><span class="line"></span><br><span class="line">//map[北京:[1 0 0 0 0 0 0 0 0 0]]</span><br></pre></td></tr></table></figure>
+
+<h2 id="统计一个字符串中每个单词出现的次数，比如”how-do-you-do-“-中-how-1次，do-2次，you-1次"><a href="#统计一个字符串中每个单词出现的次数，比如”how-do-you-do-“-中-how-1次，do-2次，you-1次" class="headerlink" title="统计一个字符串中每个单词出现的次数，比如”how do you do “ 中  how 1次，do 2次，you 1次"></a>统计一个字符串中每个单词出现的次数，比如”how do you do “ 中  how 1次，do 2次，you 1次</h2><pre><code>var map1 = make(map[string]int, 10)
+var str1 = &quot;how do you do how do you do how do you do&quot;
+var s1 = make([]string, 10, 10)
+s1 = strings.Split(str1, &quot; &quot;)
+fmt.Println(s1)
+for _, item := range s1 {
+    value, ok := map1[item]
+    fmt.Println(item)
+    if ok{
+        value ++
+        map1[item] = value
+    }else {
+        map1[item] = 1
+    }
+}
+fmt.Println(map1)</code></pre>
       
     </div>
     

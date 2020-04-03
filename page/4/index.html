@@ -163,6 +163,48 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-红黑树" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/02/10/红黑树/" class="article-date">
+  	<time datetime="2020-02-10T02:40:34.937Z" itemprop="datePublished">2020-02-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://zhuanlan.zhihu.com/p/97523789" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/97523789</a></p>
+<p><a href="https://www.cnblogs.com/yangecnu/p/Introduce-Red-Black-Tree.html" target="_blank" rel="noopener">https://www.cnblogs.com/yangecnu/p/Introduce-Red-Black-Tree.html</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-搭建gitlab和jenkins" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -925,87 +967,6 @@
 
 <p>添加 @RequestParam(value = “orderList”) 注解</p>
 <p><img src="swagger%E4%BC%A0%E5%8F%82%E4%B8%BAlist%E7%9A%84%E6%96%B9%E6%B3%95/swagger%E4%BC%A0%E5%8F%82%E4%B8%BAlist%E7%9A%84%E6%96%B9%E6%B3%95.png" alt></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-pinpoint" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/02/10/pinpoint/" class="article-date">
-  	<time datetime="2020-02-10T02:40:34.884Z" itemprop="datePublished">2020-02-10</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/10/pinpoint/">
-        pinpoint笔记
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1、关于pinpooint"><a href="#1、关于pinpooint" class="headerlink" title="1、关于pinpooint"></a>1、关于pinpooint</h1><p><a href="https://github.com/naver/pinpoint" target="_blank" rel="noopener">GitHub：naver/pinpoint</a></p>
-<p>Pinpoint是用于用Java / PHP编写的大规模分布式系统的APM（应用程序性能管理）工具。受Dapper的启发，Pinpoint提供了一种解决方案，可通过跟踪跨分布式应用程序的事务来帮助分析系统的整体结构以及其中的组件如何互连。</p>
-<ul>
-<li>一目了然地了解您的应用程序拓扑</li>
-<li>监控应用程序的实时</li>
-<li>获得每笔交易的代码级可见性</li>
-<li>安装APM代理而无需更改任何代码</li>
-<li>对性能的影响最小（资源使用量增加约3％）</li>
-</ul>
-<h1 id="2、安装"><a href="#2、安装" class="headerlink" title="2、安装"></a>2、安装</h1><h2 id="2-1、-脚本安装"><a href="#2-1、-脚本安装" class="headerlink" title="2.1、 脚本安装"></a>2.1、 脚本安装</h2><p>使用git clone <a href="https://github.com/naver/pinpoint.git或用zip文件下载Pinpoint" target="_blank" rel="noopener">https://github.com/naver/pinpoint.git或用zip文件下载Pinpoint</a> 或<a href="https://github.com/naver/pinpoint/archive/master.zip" target="_blank" rel="noopener">下载</a>该项目并解压缩。</p>
-<p>通过运行安装Pinpoint ./mvnw install -Dmaven.test.skip=true</p>
-<h3 id="异常："><a href="#异常：" class="headerlink" title="异常："></a>异常：</h3><h4 id="2-1-1"><a href="#2-1-1" class="headerlink" title="2.1.1"></a>2.1.1</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ERROR] Failed to execute goal org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M2:enforce (enforce-pinpoint-build-requirements) on project pinpoint: Some Enforcer rules have failed. Look above for specific messages explaining why the rule failed. -&gt; [Help 1]</span><br></pre></td></tr></table></figure>
-
-<p>解决：<br><a href="https://my.oschina.net/chengxiaoyuan/blog/822994" target="_blank" rel="noopener">https://my.oschina.net/chengxiaoyuan/blog/822994</a></p>
-<p><a href="https://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException</a></p>
-<h2 id="2-2、使用Docker安装"><a href="#2-2、使用Docker安装" class="headerlink" title="2.2、使用Docker安装"></a>2.2、使用Docker安装</h2><h4 id="安装Docker-Compose"><a href="#安装Docker-Compose" class="headerlink" title="安装Docker Compose"></a>安装Docker Compose</h4><p><a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">https://docs.docker.com/compose/install/</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line">$ sudo chmod +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line">$ docker-compose --version</span><br><span class="line">docker-compose version 1.24.1, build 1110ad01</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用Docker安装"><a href="#使用Docker安装" class="headerlink" title="使用Docker安装"></a>使用Docker安装</h3><p><a href="https://github.com/naver/pinpoint-docker" target="_blank" rel="noopener">https://github.com/naver/pinpoint-docker</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/naver/pinpoint-docker.git</span><br><span class="line">cd pinpoint-docker</span><br><span class="line">docker-compose pull &amp;&amp; docker-compose up -d</span><br></pre></td></tr></table></figure>
-
-<h1 id="3、Mysql（可选，1-8-1-）"><a href="#3、Mysql（可选，1-8-1-）" class="headerlink" title="3、Mysql（可选，1.8.1+）"></a>3、Mysql（可选，1.8.1+）</h1><p>Pinpoint-Mysql是使用“警报”功能所必需的。它的服务器在端口13306上运行，并包含用于注册用户，组和要发送的警报的数据结构。</p>
-<p>要发送电子邮件警报，必须使BATCH_ENABLE = true并将其他与邮件相关的环境变量（MAIL_HOST，MAIL_PORT，MAIL_USERNAME，MAIL_PASSWORD，MAIL_PROPERTIES_MAIL_SMTP_FROM等）更改为.env文件中的Pinpoint-Web服务器。</p>
-<p>有关更多信息，请参见Pinpoint文档中的“ <a href="http://naver.github.io/pinpoint/alarm.html" target="_blank" rel="noopener">设置警报</a>”。</p>
-<h1 id="4、Flink配置（可选）"><a href="#4、Flink配置（可选）" class="headerlink" title="4、Flink配置（可选）"></a>4、Flink配置（可选）</h1><p>Pinpoint-Flink是使用“应用程序检查器”功能所必需的。</p>
-<p>启动所有容器并准备就绪后。在Pinpoint中使用此功能还有另一件事。此功能不是强制性的，但是由于启用它是一项简单的任务，因此请注意它。</p>
-<p>在jobon上定位到flink服务器。<br>可以job从Pinpoint的开放源代码构建，<a href="https://github.com/naver/pinpoint/blob/master/doc/application-inspector.md#application-inspector" target="_blank" rel="noopener">更多指南</a>。</p>
 
       
     </div>

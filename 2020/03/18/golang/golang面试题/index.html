@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>go 面试题小结 | zhangyong</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="使用Go编程有什么好处？1 golang虽然不像jvm那样，一次构建，到处运行。但是golang支持跨平台编译，完全能够适应多平台。 2 内嵌C支持。Go里面也可以直接包含c代码，利用现有的丰富的C库。 3 gofmt，它根据 Go 的建议风格对代码进行格式化。 4 goroutine的轻量级线程，并通过channel进行通信。 5 golang 的调度机制 Go支持类型继承吗？Go语言中没有类继">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go 面试题小结">
+<meta property="og:url" content="http://yoursite.com/2020/03/18/golang/golang面试题/index.html">
+<meta property="og:site_name" content="zhangyong">
+<meta property="og:description" content="使用Go编程有什么好处？1 golang虽然不像jvm那样，一次构建，到处运行。但是golang支持跨平台编译，完全能够适应多平台。 2 内嵌C支持。Go里面也可以直接包含c代码，利用现有的丰富的C库。 3 gofmt，它根据 Go 的建议风格对代码进行格式化。 4 goroutine的轻量级线程，并通过channel进行通信。 5 golang 的调度机制 Go支持类型继承吗？Go语言中没有类继">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-04-03T16:13:21.489Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="go 面试题小结">
+<meta name="twitter:description" content="使用Go编程有什么好处？1 golang虽然不像jvm那样，一次构建，到处运行。但是golang支持跨平台编译，完全能够适应多平台。 2 内嵌C支持。Go里面也可以直接包含c代码，利用现有的丰富的C库。 3 gofmt，它根据 Go 的建议风格对代码进行格式化。 4 goroutine的轻量级线程，并通过channel进行通信。 5 golang 的调度机制 Go支持类型继承吗？Go语言中没有类继">
+  
+    <link rel="alternative" href="/atom.xml" title="zhangyong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head></html>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhangyong</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">zhangyong</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">zhangyong</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-golang/golang面试题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/03/18/golang/golang面试题/" class="article-date">
+  	<time datetime="2020-03-18T10:43:55.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      go 面试题小结
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="使用Go编程有什么好处？"><a href="#使用Go编程有什么好处？" class="headerlink" title="使用Go编程有什么好处？"></a>使用Go编程有什么好处？</h2><p>1 golang虽然不像jvm那样，一次构建，到处运行。但是golang支持跨平台编译，完全能够适应多平台。</p>
+<p>2 内嵌C支持。Go里面也可以直接包含c代码，利用现有的丰富的C库。</p>
+<p>3 gofmt，它根据 Go 的建议风格对代码进行格式化。</p>
+<p>4 <code>goroutine</code>的轻量级线程，并通过<code>channel</code>进行通信。</p>
+<p>5 golang 的调度机制</p>
+<h2 id="Go支持类型继承吗？"><a href="#Go支持类型继承吗？" class="headerlink" title="Go支持类型继承吗？"></a>Go支持类型继承吗？</h2><p><a href="https://cloud.tencent.com/developer/news/411806" target="_blank" rel="noopener">Go语言中没有类继承，要用多态怎么办？</a></p>
+<pre><code>type shape interface{
+
+    hasArea（name string）bool
+
+}
+
+type square struct {
+
+    length int
+
+}
+
+func （sq square）hasArea(type string) bool {
+
+    if type == &quot;line&quot;
+
+        return false
+
+    else
+
+        return true
+
+}
+
+使用的时候可以这样:
+
+sq := square
+
+fmt.Pringln（&quot;Has area?&quot;, sq.hasArea（））
+
+或者这样
+
+var sq shape
+
+sq = square
+
+fmt.Pringln（&quot;Has area?&quot;, sq.hasArea（））
+
+从上面的例子可以看出，任何能够匹配以上接口中函数定义的结构对象， 
+都可以使用这个接口类型。
+
+这样做，就在go语言实现多态了。</code></pre><p>Go支持运营商超载吗？</p>
+<h2 id="Go支持方法重载吗？"><a href="#Go支持方法重载吗？" class="headerlink" title="Go支持方法重载吗？"></a>Go支持方法重载吗？</h2><p>不支持</p>
+<h2 id="Go支持指针算术吗？"><a href="#Go支持指针算术吗？" class="headerlink" title="Go支持指针算术吗？"></a>Go支持指针算术吗？</h2><p>golang虽说指针变量不能直接参与指针运算, 但是却提供了unsafe包, 能够实现同样的功能。</p>
+<p><a href="https://www.jianshu.com/p/c5dd12522cc6" target="_blank" rel="noopener">Golang是否真的没有指针运算</a></p>
+<h2 id="Go支持通用编程吗？"><a href="#Go支持通用编程吗？" class="headerlink" title="Go支持通用编程吗？"></a>Go支持通用编程吗？</h2><p>Go编程语言不支持通用/泛型编程</p>
+<h2 id="Go是一个区分大小写的语言吗？"><a href="#Go是一个区分大小写的语言吗？" class="headerlink" title="Go是一个区分大小写的语言吗？"></a>Go是一个区分大小写的语言吗？</h2><p>区分：例如在方法名上，首字母大写表示方法为public,小写为私有方法</p>
+<h2 id="Go中变量的静态类型声明是什么？Go中变量的动态类型声明是什么？"><a href="#Go中变量的静态类型声明是什么？Go中变量的动态类型声明是什么？" class="headerlink" title="Go中变量的静态类型声明是什么？Go中变量的动态类型声明是什么？"></a>Go中变量的静态类型声明是什么？Go中变量的动态类型声明是什么？</h2><p>静态类型(static type)是变量声明的时候的声明类型，<br>在变量声明、new方法创建对象时或者结构体(struct)的元素的类型定义，参数类型等。</p>
+<p>接口(interface)类型的变量还有一个动态类型，它是运行时赋值给这个变量的具体的值的类型(当然值为nil的时候没有动态类型)。一个变量的动态类型在运行时可能改变，<br>这主要依赖它的赋值。</p>
+<pre><code>var x interface{}  // x 为零值 nil,静态类型为 interface{}
+var v *T           // v 为零值 nil, 静态类型为 *T
+x = 42             // x 的值为 42,动态类型为int, 静态类型为interface{}
+x = v              // x 的值为 (*T)(nil)， 动态类型为 *T, 静态类型为 *T</code></pre><h2 id="你能在Go中的单个声明中声明多种类型的变量吗？"><a href="#你能在Go中的单个声明中声明多种类型的变量吗？" class="headerlink" title="你能在Go中的单个声明中声明多种类型的变量吗？"></a>你能在Go中的单个声明中声明多种类型的变量吗？</h2><p>能</p>
+<pre><code>var m, n int
+a, b := &quot;a&quot;, &quot;b&quot;;
+
+var(
+   no  int
+   name string
+)</code></pre><h2 id="如何在Go中打印变量的类型？"><a href="#如何在Go中打印变量的类型？" class="headerlink" title="如何在Go中打印变量的类型？"></a>如何在Go中打印变量的类型？</h2><pre><code>第一种方式，反射：
+fmt.Println(reflect.TypeOf(var)) 
+
+第二种方式， %T
+var a, b, c = 3, 4, &quot;foo&quot;    
+fmt.Printf(&quot;a is of type %T\n&quot;, a)</code></pre><p>什么是指针？</p>
+<h2 id="break语句的目的是什么？"><a href="#break语句的目的是什么？" class="headerlink" title="break语句的目的是什么？"></a>break语句的目的是什么？</h2><pre><code>break：跳出for循环;break在switch（开关语句）中在执行一条case后跳出语句的作用
+continue:跳过当前循环执行下一次循环语句</code></pre><p><a href="https://blog.csdn.net/mofiu/article/details/77318376" target="_blank" rel="noopener">golang跳转语句goto,break,continue的使用及区别</a></p>
+<p>继续声明的目的是什么？</p>
+<h2 id="goto语句的目的是什么？"><a href="#goto语句的目的是什么？" class="headerlink" title="goto语句的目的是什么？"></a>goto语句的目的是什么？</h2><pre><code>goto可以跳出多层嵌套循环，
+for，while，dowhile本质是用goto语句实现的，goto语句比较底层</code></pre><p>除非跳出多个循环嵌套和远程注入技术，否则尽量少用goto</p>
+<p>goto会降低程序的可读性，让代码难以调试</p>
+<p> 利用递归也可以实现循环结构和do while类似</p>
+<p><a href="https://www.cnblogs.com/luoxuw/p/11257788.html" target="_blank" rel="noopener">goto语句的本质</a></p>
+<h2 id="解释’for’循环的语法。"><a href="#解释’for’循环的语法。" class="headerlink" title="解释’for’循环的语法。"></a>解释’for’循环的语法。</h2><p><a href="https://blog.csdn.net/guofeng93/article/details/90804430" target="_blank" rel="noopener">https://blog.csdn.net/guofeng93/article/details/90804430</a></p>
+<h2 id="解释在Go中创建函数的语法。"><a href="#解释在Go中创建函数的语法。" class="headerlink" title="解释在Go中创建函数的语法。"></a>解释在Go中创建函数的语法。</h2><pre><code>func function_name( [parameter list] ) [return_types] {
+   函数体
+}</code></pre><h2 id="你能从函数中返回多个值吗？"><a href="#你能从函数中返回多个值吗？" class="headerlink" title="你能从函数中返回多个值吗？"></a>你能从函数中返回多个值吗？</h2><p>能</p>
+<pre><code>func (file *File) Read(b []byte) (n int, err Error) </code></pre><p>您可以将参数传递给方法的方式有多少？</p>
+<p>将参数传递给函数的默认方式是什么？</p>
+<h2 id="Go中的函数作为值是什么意思？"><a href="#Go中的函数作为值是什么意思？" class="headerlink" title="Go中的函数作为值是什么意思？"></a>Go中的函数作为值是什么意思？</h2><p>在Go中函数也是一种变量，我们可以通过type来定义它，<br>它的类型就是所有拥有相同的参数，相同的返回值的一种类型</p>
+<pre><code>type typeName func(input1 inputType1 , input2 inputType2 [, ...]) (result1 resultType1 [, ...])</code></pre><h2 id="什么是功能关闭？"><a href="#什么是功能关闭？" class="headerlink" title="什么是功能关闭？"></a>什么是功能关闭？</h2><p>定义的或内置的可调用函数</p>
+<p>Go中的方法是什么？</p>
+<p>Go中局部变量的默认值是多少？</p>
+<p>Go中全局变量的默认值是多少？</p>
+<h2 id="Go中指针变量的默认值是多少？"><a href="#Go中指针变量的默认值是多少？" class="headerlink" title="Go中指针变量的默认值是多少？"></a>Go中指针变量的默认值是多少？</h2><p>在go语言中，任何类型在声明后没有赋值的情况下，都对应一个零值。</p>
+<pre><code>整形如int8、byte、int16、uint、uintprt等，默认值为0。
+浮点类型如float32、float64，默认值为0。
+布尔类型bool的默认值为false。
+复数类型如complex64、complex128，默认值为0+0i。
+字符串string的默认值为”“。
+错误类型error的默认值为nil。
+对于一些复合类型，如指针、切片、字典、通道、接口，默认值为nil。
+而数组的默认值要根据其数据类型来确定。
+例如：var a [4]int，其默认值为[0 0 0 0]。</code></pre><h2 id="解释Printf（）函数的用途。"><a href="#解释Printf（）函数的用途。" class="headerlink" title="解释Printf（）函数的用途。"></a>解释Printf（）函数的用途。</h2><p>格式化输出。</p>
+<p>什么是左值和左值？</p>
+<p>实际和形式参数之间有什么区别？</p>
+<p>变量声明和变量定义有什么区别？</p>
+<p>解释模块化编程。</p>
+<p>什么是令牌？</p>
+<p>哪个关键字用于执行无条件分支？</p>
+<p>什么是阵列？</p>
+<p>Go中的零指针是什么？</p>
+<p>指针上的指针是什么？</p>
+<p>Go的结构是什么？</p>
+<p>如何在Go中定义一个结构？</p>
+<p>Go中的切片是什么？</p>
+<p>如何在Go中定义切片？</p>
+<p>如何获取切片中存在的元素数？</p>
+<p>Go中slice的len（）和cap（）函数有什么区别？</p>
+<p>长度 、容量</p>
+<p>如何获得切片的子切片？</p>
+<p>Go的范围是什么？</p>
+<p>Go中的map是什么？</p>
+<p>如何在Go中创建map？</p>
+<p>如何从Go中删除map中的条目？</p>
+<p>什么是Go中的类型转换？</p>
+<p>Go中的接口是什么？</p>
+<p>垃圾回收</p>
+<p>逃逸分析</p>
+<p>除了 mutex 以外还有那些方式安全读写共享变量？</p>
+<h2 id="channel"><a href="#channel" class="headerlink" title="channel"></a>channel</h2><h3 id="1-无缓冲-chan-的发送和接收是否同步？"><a href="#1-无缓冲-chan-的发送和接收是否同步？" class="headerlink" title="1 无缓冲 chan 的发送和接收是否同步？"></a>1 无缓冲 chan 的发送和接收是否同步？</h3><p>ch := make(chan int) 无缓冲的channel由于没有缓冲发送和接收需要同步.</p>
+<p>ch := make(chan int, 2) 有缓冲channel不要求发送和接收操作同步</p>
+<p>仅当信道的缓冲区填满后，向其发送数据时才会阻塞（阻塞写）。<br>当缓冲区为空时，接受方会阻塞（阻塞读）</p>
+<h3 id="2-channel-是通过注册-goroutine-id-实现？"><a href="#2-channel-是通过注册-goroutine-id-实现？" class="headerlink" title="2 channel 是通过注册 goroutine id 实现？"></a>2 channel 是通过注册 goroutine id 实现？</h3><p>是</p>
+<h3 id="3-如何用channel实现一个令牌桶"><a href="#3-如何用channel实现一个令牌桶" class="headerlink" title="3 如何用channel实现一个令牌桶"></a>3 如何用channel实现一个令牌桶</h3><p><a href="https://www.jianshu.com/p/a6129c70f7d4" target="_blank" rel="noopener">go 令牌桶简易实现</a></p>
+<p>令牌桶算法的基本过程如下：</p>
+<ul>
+<li>假如用户配置的平均发送速率为r，则每隔1/r秒一个令牌被加入到桶中；</li>
+<li>假设桶最多可以存发b个令牌。如果令牌到达时令牌桶已经满了，那么这个令牌会被丢弃；</li>
+<li>当一个n个字节的数据包到达时，就从令牌桶中删除n个令牌，并且数据包被发送到网络；</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">    &quot;sync&quot;</span><br><span class="line">    &quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type Bucket struct &#123;</span><br><span class="line">    cap   int //容量</span><br><span class="line">    ch    chan bool   </span><br><span class="line">    timer *time.Ticker //定时填充token</span><br><span class="line">    mu    sync.Mutex</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func NewBucket(cap int, interval time.Duration) *Bucket &#123;</span><br><span class="line">    bucket := &amp;Bucket&#123;</span><br><span class="line">        cap:   cap,</span><br><span class="line">        ch:    make(chan bool, cap),</span><br><span class="line">        timer: time.NewTicker(interval),</span><br><span class="line">    &#125;</span><br><span class="line">    go bucket.startTicker()</span><br><span class="line">    return bucket</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (bucket *Bucket) startTicker() &#123;</span><br><span class="line">    for i := 0; i &lt; bucket.cap; i++ &#123;</span><br><span class="line">        bucket.ch &lt;- true</span><br><span class="line">    &#125;</span><br><span class="line">    for &#123;</span><br><span class="line">        select &#123;</span><br><span class="line">        case &lt;-bucket.timer.C:</span><br><span class="line">            for i := len(bucket.ch); i &lt; bucket.cap; i++ &#123;</span><br><span class="line">                bucket.Add()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (bucket *Bucket) Add() &#123;</span><br><span class="line">    bucket.mu.Lock()</span><br><span class="line">    defer bucket.mu.Unlock()</span><br><span class="line">    if len(bucket.ch) &lt; bucket.cap &#123;</span><br><span class="line">        bucket.ch &lt;- true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (bucket *Bucket) Get() bool &#123;</span><br><span class="line">    select &#123;</span><br><span class="line">    case &lt;-bucket.ch:</span><br><span class="line">        return true</span><br><span class="line">    default:</span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">    bucket := NewBucket(5, time.Second)</span><br><span class="line">    for i := 0; i &lt; 1000; i++ &#123;</span><br><span class="line">        time.Sleep(time.Millisecond * 100)</span><br><span class="line">        go DoFunc(bucket, i)</span><br><span class="line">    &#125;</span><br><span class="line">    for &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func DoFunc(bucket *Bucket, index int) &#123;</span><br><span class="line">    if bucket.Get() &#123;</span><br><span class="line">        fmt.Printf(&quot;######### success : %d \n&quot;, index)</span><br><span class="line">        bucket.Add() // 每次请求成功后执行Add是否合理？？？每一时刻最多可有cap个token可用</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        fmt.Printf(&quot;######### failed : %d \n&quot;, index)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="golang-采用什么并发模型？体现在哪里？"><a href="#golang-采用什么并发模型？体现在哪里？" class="headerlink" title="golang 采用什么并发模型？体现在哪里？"></a>golang 采用什么并发模型？体现在哪里？</h2><p><a href="https://www.jianshu.com/p/6032f2db6be5" target="_blank" rel="noopener">Golang并发模型</a></p>
+<p>说说 golang 中常用的并发模式？</p>
+<p>JSON 标准库对 nil slice 和 空 slice 的处理是一致的吗？</p>
+<p>Go程序能链接C/C++程序吗</p>
+<p>为什么Go没有泛型</p>
+<h2 id="为什么Go没有异常"><a href="#为什么Go没有异常" class="headerlink" title="为什么Go没有异常"></a>为什么Go没有异常</h2><p>因为go开发者认为，所有异常皆可打印。</p>
+<p>为什么用CSP思想构建并发如何知道变量分配到堆还是栈</p>
+<p>为什么没有goroutine ID</p>
+<p>restful熟悉吗？都有哪些请求方法，分别代表什么意思？</p>
+<p>手写循环队列进程虚拟空间分布，全局变量放哪里？</p>
+<p>c++ 和 go对比</p>
+<p>怎么理解云计算</p>
+<p>go使用踩过什么坑</p>
+<p>go内存模型，什么是小对象，go get，go tool，go test，go vetgo什么情况下会发生内存泄漏？</p>
+<h2 id="go为什么高并发好？"><a href="#go为什么高并发好？" class="headerlink" title="go为什么高并发好？"></a>go为什么高并发好？</h2><p>Golang 从语言级别支持并发，通过轻量级协程 Goroutine 来实现程序并发运行。</p>
+<p>** Goroutine 非常轻量 **，主要体现在以下两个方面：</p>
+<ul>
+<li><p>上下文切换代价小： Goroutine 上下文切换只涉及到三个寄存器（PC / SP / DX）的值修改；<br>而对比线程的上下文切换则需要涉及模式切换（从用户态切换到内核态）、<br>以及 16 个寄存器、PC、SP…等寄存器的刷新；</p>
+</li>
+<li><p>内存占用少 ：线程栈空间通常是 2M，Goroutine 栈空间最小 2K；</p>
+</li>
+</ul>
+<p>Golang 程序中可以轻松支持10w 级别的 Goroutine 运行，<br>而线程数量达到 1k 时，内存占用就已经达到 2G。</p>
+<h2 id="Go语言-CPU-性能、内存分析调试方法大汇总"><a href="#Go语言-CPU-性能、内存分析调试方法大汇总" class="headerlink" title="Go语言 CPU 性能、内存分析调试方法大汇总"></a><a href="https://mp.weixin.qq.com/s/-HojlxCZZIcWWwprQaVkzw" target="_blank" rel="noopener">Go语言 CPU 性能、内存分析调试方法大汇总</a></h2><p>pprof</p>
+<p>go的分布式</p>
+<p>谈谈go的未来</p>
+<p>gogc</p>
+<h2 id="go的调度"><a href="#go的调度" class="headerlink" title="go的调度"></a>go的调度</h2><p> <a href="https://www.zhihu.com/question/21409296/answer/1040884859" target="_blank" rel="noopener">go调度器</a></p>
+<h2 id="go-struct能不能比较-空struct-用处"><a href="#go-struct能不能比较-空struct-用处" class="headerlink" title="go struct能不能比较  空struct{}用处"></a>go struct能不能比较  空struct{}用处</h2><pre><code>因为是强类型语言，所以不同类型的结构不能作比较，
+但是同一类型的实例值是可以比较的，实例不可以比较，因为是指针类型
+
+map[inter]struct{}</code></pre><p>go defer（for defer）     </p>
+<p>select可以用于什么 </p>
+<pre><code>常用于gorotine的完美退出
+golang 的 select 就是监听 IO 操作，当 IO 操作发生时，触发相应的动作
+每个case语句里必须是一个IO操作，确切的说，应该是一个面向channel的IO操作    </code></pre><p>context包的用途     </p>
+<p>client如何实现长连接     </p>
+<pre><code>server是设置超时时间，for循环遍历的</code></pre><p>主协程如何等其余协程完再操作     </p>
+<p>slice，len，cap，共享，扩容    </p>
+<p>map如何顺序读取    </p>
+<pre><code>map不能顺序读取，是因为他是无序的，想要有序读取，
+首先的解决的问题就是，把ｋｅｙ变为有序，
+所以可以把key放入切片，对切片进行排序，遍历切片，通过key取值。</code></pre><p>实现set     </p>
+<pre><code>type inter interface{}
+type Set struct {
+    m map[inter]bool
+    sync.RWMutex
+}
+
+func New() *Set {
+    return &amp;Set{
+    m: map[inter]bool{},
+    }
+}
+func (s *Set) Add(item inter) {
+    s.Lock()
+    defer s.Unlock()
+    s.m[item] = true
+}</code></pre><p>实现消息队列（多生产者，多消费者）     </p>
+<pre><code>使用切片加锁可以实现</code></pre><p>大文件排序     </p>
+<pre><code>归并排序，分而治之,拆分为小文件，在排序</code></pre><p>基本排序，哪些是稳定的     </p>
+<p>读写锁</p>
+<h1 id="http"><a href="#http" class="headerlink" title="http"></a>http</h1><h2 id="1-http-get跟head"><a href="#1-http-get跟head" class="headerlink" title="1 http get跟head"></a>1 http get跟head</h2><pre><code>HEAD和GET本质是一样的，区别在于HEAD不含有呈现数据，
+而仅仅是HTTP头信息。有的人可能觉得这个方法没什么用，
+其实不是这样的。想象一个业务情景：欲判断某个资源是否存在，
+我们通常使用GET，但这里用HEAD则意义更加明确。</code></pre><h2 id="2-http-401-403"><a href="#2-http-401-403" class="headerlink" title="2 http 401,403"></a>2 http 401,403</h2><pre><code>400 bad request，请求报文存在语法错误
+401 unauthorized，表示发送的请求需要有通过 HTTP 认证的认证信息
+403 forbidden，表示对请求资源的访问被服务器拒绝
+404 not found，表示在服务器上没有找到请求的资源  </code></pre><h2 id="3-http-keep-alive"><a href="#3-http-keep-alive" class="headerlink" title="3 http keep-alive"></a>3 http keep-alive</h2><pre><code>client发出的HTTP请求头需要增加Connection:keep-alive字段
+Web-Server端要能识别Connection:keep-alive字段，
+并且在http的response里指定Connection:keep-alive字段，
+告诉client，我能提供keep-alive服务，
+并且&quot;应允&quot;client我暂时不会关闭socket连接</code></pre><h2 id="4-http能不能一次连接多次请求，不等后端返回"><a href="#4-http能不能一次连接多次请求，不等后端返回" class="headerlink" title="4 http能不能一次连接多次请求，不等后端返回"></a>4 http能不能一次连接多次请求，不等后端返回</h2><pre><code>http本质上市使用socket连接，因此发送请求，接写入tcp缓冲，
+是可以多次进行的，这也是http是无状态的原因   </code></pre><h2 id="5-tcp与udp区别，udp优点，适用场景"><a href="#5-tcp与udp区别，udp优点，适用场景" class="headerlink" title="5 tcp与udp区别，udp优点，适用场景"></a>5 tcp与udp区别，udp优点，适用场景</h2><pre><code>tcp传输的是数据流，而udp是数据包，tcp会进过三次握手，udp不需要</code></pre><h2 id="6-time-wait的作用-服务产生大量的time-wait如何解决"><a href="#6-time-wait的作用-服务产生大量的time-wait如何解决" class="headerlink" title="6 time-wait的作用     服务产生大量的time_wait如何解决"></a>6 time-wait的作用     服务产生大量的time_wait如何解决</h2><p><a href="https://www.jianshu.com/p/41f7e468f312" target="_blank" rel="noopener">https://www.jianshu.com/p/41f7e468f312</a></p>
+<pre><code>如果服务器最后发送的ACK因为某种原因丢失了，那么客户一定会重新发送FIN，
+这样因为有TIME_WAIT的存在，服务器会重新发送ACK给客户，
+如果没有TIME_WAIT，那么无论客户有没有收到ACK，服务器都已经关掉连接了，
+此时客户重新发送FIN，服务器将不会发送ACK，而是RST，从而使客户端报错
+
+如果没有TIME_WAIT，我们可以在最后一个ACK还未到达客户的时候，
+就建立一个新的连接。那么此时，如果客户收到了这个ACK的话，就乱套了，
+必须保证这个ACK完全死掉之后，才能建立新的连接。
+
+
+在应用中通过设置合理的连接池参数可以避免TIME_WAIT状态过多的问题
+比如 http  redis  grpc  mysql...</code></pre><h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h2 id="1-索引"><a href="#1-索引" class="headerlink" title="1 索引"></a>1 索引</h2><h2 id="2-锁"><a href="#2-锁" class="headerlink" title="2 锁"></a>2 锁</h2><h2 id="3-事务"><a href="#3-事务" class="headerlink" title="3 事务"></a>3 事务</h2><p>幻读，一致性，CAP</p>
+<h2 id="4-持久化"><a href="#4-持久化" class="headerlink" title="4 持久化"></a>4 持久化</h2><h1 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h1><h2 id="1-持久化"><a href="#1-持久化" class="headerlink" title="1 持久化"></a>1 持久化</h2><h2 id="2-分布式锁"><a href="#2-分布式锁" class="headerlink" title="2 分布式锁"></a>2 分布式锁</h2><h2 id="3-sorted-set"><a href="#3-sorted-set" class="headerlink" title="3 sorted set"></a>3 sorted set</h2><h1 id="mq"><a href="#mq" class="headerlink" title="mq"></a>mq</h1><h2 id="1-重复消费"><a href="#1-重复消费" class="headerlink" title="1 重复消费"></a>1 重复消费</h2><h2 id="2-保证不丢失消息"><a href="#2-保证不丢失消息" class="headerlink" title="2 保证不丢失消息"></a>2 保证不丢失消息</h2><p>孤儿进程，僵尸进程     </p>
+<p>死锁条件，如何避免     </p>
+<p>linux命令，查看端口占用，cpu负载，内存占用，如何发送信号给一个进程     </p>
+<p>git文件版本，使用顺序，merge跟rebase</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/18/golang/golang包管理工具/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          go包管理工具小结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/18/golang/go跨平台编译/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">go跨平台编译小结</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="golang/golang面试题" data-title="go 面试题小结" data-url="http://yoursite.com/2020/03/18/golang/golang面试题/"  data-images="https://avatars0.githubusercontent.com/u/39975746?s=400&amp;u=5c82d9ef34c547270f3fbe1d343a296e3ebdce25&amp;v=4" data-content="go 面试题小结">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2020 zhangyong
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>
